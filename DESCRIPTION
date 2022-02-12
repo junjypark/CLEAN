@@ -9,4 +9,4 @@ License: GPL (>= 2)
 Imports: Rcpp (>= 0.12.9)
 LinkingTo: Rcpp, RcppArmadillo, Matrix, foreach, doParallel
 Depends:
-  Matrix, foreach, doParallel, arrayhelpers
+  Matrix, foreach, doParallel
