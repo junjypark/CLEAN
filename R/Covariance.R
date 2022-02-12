@@ -18,11 +18,11 @@ CovReg=function(epsilon,  distMat, kernel="exponential", sparse=T, qtl=0.5, maxd
     
     if (sparse){
       corMat.base=Matrix(corMat.base,sparse=T)
-      rho.hat=optimize(CovRegOptim,interval=c(10^-5, 10),epsilon=epsilon, corMat_base=corMat.base)$`minimum`
-      varcomps=ObtainVarComps(rho.hat, epsilon, corMat.base)
+      phi.hat=optimize(CovRegOptim,interval=c(10^-5, 10),epsilon=epsilon, corMat_base=corMat.base)$`minimum`
+      varcomps=ObtainVarComps(phi.hat, epsilon, corMat.base)
     } else{
-      rho.hat=optimize(CovRegOptimC,interval=c(10^-5, 10),epsilon=epsilon, corMat_base=corMat.base)$`minimum`
-      varcomps=ObtainVarCompsC(rho.hat, epsilon, corMat.base)
+      phi.hat=optimize(CovRegOptimC,interval=c(10^-5, 10),epsilon=epsilon, corMat_base=corMat.base)$`minimum`
+      varcomps=ObtainVarCompsC(phi.hat, epsilon, corMat.base)
     }
   } else if (kernel=="mixture"){
     corMat.base1=exp(-distMat)
@@ -35,22 +35,22 @@ CovReg=function(epsilon,  distMat, kernel="exponential", sparse=T, qtl=0.5, maxd
     
     corMat.base1=Matrix(corMat.base1,sparse=T)
     corMat.base2=Matrix(corMat.base2,sparse=T)
-    rho.hat=optim(c(0.01, 0.01), CovRegOptim2,
+    phi.hat=optim(c(0.01, 0.01), CovRegOptim2,
                   epsilon=epsilon, 
                   corMat_base1=corMat.base1,
                   corMat_base2=corMat.base2)$par
-    varcomps=ObtainVarComps2(rho.hat, epsilon, corMat.base1, corMat.base2)
+    varcomps=ObtainVarComps2(phi.hat, epsilon, corMat.base1, corMat.base2)
   }
   return(list(sigma2=varcomps$sigma2, 
               tau2=varcomps$tau2, 
-              rho=rho.hat,
+              phi=phi.hat,
               kernel=kernel))
 }
 
-CovRegOptim=function(rho, epsilon, corMat_base){
+CovRegOptim=function(phi, epsilon, corMat_base){
   p=nrow(epsilon)
   n=ncol(epsilon)
-  corMat=corMat_base^rho
+  corMat=corMat_base^phi
   corMat_norm=sum(corMat^2)
   if (corMat_norm>p+1e-10){
     y1=sum(epsilon*(corMat%*%epsilon))/n
@@ -66,13 +66,13 @@ CovRegOptim=function(rho, epsilon, corMat_base){
   return(ss)
 }
 
-CovRegOptim2=function(rho, epsilon, corMat_base1, corMat_base2){
-  rho1=rho[1]
-  rho2=rho[2]
+CovRegOptim2=function(phi, epsilon, corMat_base1, corMat_base2){
+  phi1=phi[1]
+  phi2=phi[2]
   p=nrow(epsilon)
   n=ncol(epsilon)
-  corMat1=corMat_base1^rho1
-  corMat2=corMat_base2^rho2
+  corMat1=corMat_base1^phi1
+  corMat2=corMat_base2^phi2
   corMat1_norm=sum(corMat1^2)
   corMat2_norm=sum(corMat2^2)
   corMat12_norm=sum(corMat1*corMat2)
@@ -100,34 +100,34 @@ CovRegOptim2=function(rho, epsilon, corMat_base1, corMat_base2){
   return(ss)
 }
 
-ObtainVarComps=function(rho, epsilon, corMat_base){
+ObtainVarComps=function(phi, epsilon, corMat_base){
   p=nrow(epsilon)
   n=ncol(epsilon)
-  corMat=corMat_base^rho
+  corMat=corMat_base^phi
   corMat_norm=sum(corMat^2)
-
+  
   y1=sum(epsilon*(corMat%*%epsilon))/n
   y2=sum(epsilon^2)/n
   sigma2= (y1-y2)/(corMat_norm-p)
   tau2= (-p*y1+corMat_norm*y2)/(corMat_norm*p-p^2)
-
+  
   return(list(sigma2=sigma2, tau2=tau2))
 }
 
-ObtainVarComps2=function(rho, epsilon, corMat_base1, corMat_base2){
-  rho1=rho[1]
-  rho2=rho[2]
+ObtainVarComps2=function(phi, epsilon, corMat_base1, corMat_base2){
+  phi1=phi[1]
+  phi2=phi[2]
   p=nrow(epsilon)
   n=ncol(epsilon)
-  corMat1=corMat_base1^rho1
-  corMat2=corMat_base2^rho2
+  corMat1=corMat_base1^phi1
+  corMat2=corMat_base2^phi2
   corMat1_norm=sum(corMat1^2)
   corMat2_norm=sum(corMat2^2)
   corMat12_norm=sum(corMat1*corMat2)
   Mat=matrix(c(corMat1_norm, corMat12_norm, p, 
                corMat12_norm, corMat2_norm, p,
                p,p,p),3,3)
-
+  
   y1=sum(epsilon*(corMat1%*%epsilon))/n
   y2=sum(epsilon*(corMat2%*%epsilon))/n
   y3=sum(epsilon^2)/n
@@ -135,7 +135,7 @@ ObtainVarComps2=function(rho, epsilon, corMat_base1, corMat_base2){
   params=solve(Mat, y)
   sigma2=params[1:2]
   tau2=params[3]
-
+  
   return(list(sigma2=sigma2, tau2=tau2))
 }
 
@@ -173,29 +173,29 @@ buildNNGPmat=function(distMat, NNGPinfo, params, kernel = "exponential"){
   m=nrow(distMat)
   A=matrix(0,m,m)
   D=matrix(0,m,m)
-  rho=params$rho
+  phi=params$phi
   sigma2=params$sigma2
   tau2=params$tau2
   k=params$K
   
-  f.exp=function(rho, d){ exp(-rho*d) }
-  f.gau=function(rho, d){ exp(-rho*d^2/2)}
-
+  f.exp=function(phi, d){ exp(-phi*d) }
+  f.gau=function(phi, d){ exp(-phi*d^2/2)}
+  
   for (i in 1:(nrow(NNGPinfo$NN)-1)){
     nn=na.omit(NNGPinfo$NN[i+1,])
     lnn=length(nn)
     coordip1=nn[lnn]
     
     if (kernel=="exponential"){
-      K=sigma2*f.exp(rho,distMat[nn,nn,drop=F])+tau2*diag(lnn)
+      K=sigma2*f.exp(phi,distMat[nn,nn,drop=F])+tau2*diag(lnn)
     } else if (kernel=="gaussian"){
-      K=sigma2*f.gau(rho,distMat[nn,nn,drop=F])+tau2*diag(lnn)
+      K=sigma2*f.gau(phi,distMat[nn,nn,drop=F])+tau2*diag(lnn)
     } else if (kernel=="mixture"){
-      K=sigma2[1]*f.exp(rho[1],distMat[nn,nn,drop=F])+
-        sigma2[2]*f.gau(rho[2],distMat[nn,nn,drop=F])+
+      K=sigma2[1]*f.exp(phi[1],distMat[nn,nn,drop=F])+
+        sigma2[2]*f.gau(phi[2],distMat[nn,nn,drop=F])+
         tau2*diag(lnn)
     }
-
+    
     A[coordip1,nn[-lnn]]=solve(K[-lnn,-lnn], K[lnn,-lnn])
     D[coordip1,coordip1]=K[lnn,lnn]-sum(K[lnn,-lnn]*solve(K[-lnn,-lnn], K[lnn,-lnn]))
   }
