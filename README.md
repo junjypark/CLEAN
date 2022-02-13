@@ -48,4 +48,4 @@ Please refer the [SpLoc package](https://github.com/junjypark/SpLoc), which cond
 
 
 ## Questions?
-Please forward your inquiries to **junjy.park(at)utoronto(dot)ca**.
+Please forward your inquiries to **junjy.park [[at]] utoronto [[dot]]ca**.
