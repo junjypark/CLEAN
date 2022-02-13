@@ -41,7 +41,7 @@ library(CLEAN)
 
 ### General linear model (GLM)
 
-<div id='id-section4/>
+<div id='id-section4'/>
 
 ### Miscellaneous
 Please refer the [SpLoc package](https://github.com/junjypark/SpLoc), which conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
