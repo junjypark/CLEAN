@@ -1,7 +1,7 @@
 Clean=function(ymat, NNmatrix=NULL, group=NULL, nperm=10000, alpha=0.05, alternative=c("two.sided","less", "greater"), seed=NULL, 
                partition=T, npartition=NULL, parallel=F, ncores=1){
   if (is.null(NNmatrix)){
-    print("As NNmatrix is not specified, Clean conducts massive univariate analysis.")
+    cat("As NNmatrix is not specified, Clean conducts massive univariate analysis.\n")
     if (is.null(group)){
       fit=MassiveMean(ymat=ymat,
                       nperm=nperm, 
@@ -75,7 +75,7 @@ CleanMean=function(ymat, NNmatrix, nperm=10000, alpha=0.05, alternative=c("two.s
   }
   if (length(alternative)>1){ 
     alternative="two.sided"
-    print("Conducting the two-sided test as alternative has not been specified...")
+    cat("Conducting the two-sided test as alternative has not been specified...\n")
   }
   if (is.null(seed)){ seed=sample(1e6,1) }
   if (isTRUE(partition)){
@@ -156,7 +156,7 @@ CleanDiff=function(ymat, NNmatrix, group, nperm=10000, alpha=0.05, alternative=c
   }
   if (length(alternative)>1){ 
     alternative="two.sided"
-    print("Conducting the two-sided test as alternative has not been specified...")
+    cat("Conducting the two-sided test as alternative has not been specified...\n")
   }
   if (is.null(seed)){ seed=sample(1e6,1) }
   if (isTRUE(partition)){
@@ -228,7 +228,7 @@ MassiveMean=function(ymat, nperm=10000, alpha=0.05, alternative=c("two.sided", "
   }
   if (length(alternative)>1){ 
     alternative="two.sided"
-    print("Conducting the two-sided test as alternative has not been specified...")
+    cat("Conducting the two-sided test as alternative has not been specified...\n")
   }
   if (is.null(seed)){ seed=sample(1e6,1) }
   
@@ -299,7 +299,7 @@ MassiveDiff=function(ymat, group, nperm=10000, alpha=0.05, alternative=c("two.si
   }
   if (length(alternative)>1){ 
     alternative="two.sided"
-    print("Conducting the two-sided test as alternative has not been specified...")
+    cat("Conducting the two-sided test as alternative has not been specified...\n")
   }
   if (is.null(seed)){ seed=sample(1e6,1) }
   
