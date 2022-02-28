@@ -160,7 +160,12 @@ constructNNGPinfo=function(distMat, NN=50, start.vertex=NULL){
     if (j<=NN){
       out[j,1:j]=c(na.omit(out[j-1,]),vertex) 
     } else{
-      out[j,1:min(j,NN)]=c(out[j-1, 2:min(j-1,NN)], vertex)
+      distvec=distMat[orders, vertex]
+      elements=sort(distvec)[1:(NN-1)]
+      ind.elements=(orders[which(distvec%in%elements)])[1:(NN-1)]
+      out[j,]=c(ind.elements, vertex)
+      # 
+      # out[j,]=c(out[j-1, 2:min(j-1,NN)], vertex)
     }
     orders=c(orders, vertex)
     prev.vertex=vertex
