@@ -8,10 +8,31 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
 
 **Note: This page is currently under construction**
 
-## Background
-CLEAN currently supports group-level inference for neuroimaging data registered in the cortical surface. Please refer [R: ciftiTools](https://github.com/mandymejia/ciftiTools), [Python: ciftify](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. More helpful information is provided in the [FAQ](#id-tips) section.
 
-## Installation
+## Contents
+
+1. [Background](#id-background)
+2. [Installation](#id-installation)
+3. [CLEAN for GLM](#id-cleanglm)
+    * Visualization
+    * Cautionary notes    
+4. [FAQ](#id-tips)
+    * [How do I extract surface data from HCP?](#id-q1)    
+    * [Which surface should we use for registration?](#id-q2)
+    * [How do I obtain a pairwise distance matrix?](#id-q3)
+    * [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
+    * [What is the recommended value for max.radius?](#id-q5)
+5. [Miscellaneous](#id-misc)
+6. [Questions?](#id-question)
+
+<div id='id-background'/>
+
+### Background
+CLEAN currently supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Please refer [R: ciftiTools](https://github.com/mandymejia/ciftiTools), [Python: ciftify](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. More helpful information is provided in the [FAQ](#id-tips) section.
+
+<div id='id-installation'/>
+
+### Installation
 To install the latest development builds directly from GitHub, please run the followings:
 
 ```R
@@ -25,18 +46,6 @@ Then the package can be loaded directly in R:
 library(CLEAN)
 ```
 
-## Contents
-
-1. [CLEAN for GLM](#id-cleanglm)
-    * Visualization
-    * Cautionary notes    
-2. [FAQ](#id-tips)
-    * [How do I extract surface data from HCP?](#id-q1)    
-    * [Which surface should we use for registration?](#id-q2)
-    * [How do I obtain a pairwise distance matrix?](#id-q3)
-    * [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
-    * [What is the recommended value for max.radius?](#id-q5)
-3. [Miscellaneous](#id-misc)
 
 <div id='id-cleanglm'/>
 
@@ -105,10 +114,12 @@ Clean.fit.combine=combine(Clean.fit.brain, alpha=0.05)
 
 The max.radius determines the degree of spatial domain you're borrowing from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. 
   
-<div id='id-misc'>
+ <div id='id-misc'>
 
 ### Miscellaneous
 Please refer the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
+
+<div id='id-question'>
 
 ## Questions?
 Please forward your inquiries to **junjy.park [[at]] utoronto [[dot]] ca**.
