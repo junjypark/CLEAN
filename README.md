@@ -28,6 +28,8 @@ library(CLEAN)
 ## Contents
 
 1. [CLEAN for GLM](#id-cleanglm)
+    * Visualization
+    * Cautionary notes    
 2. [FAQ](#id-tips)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
