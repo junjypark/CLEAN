@@ -30,14 +30,10 @@ library(CLEAN)
 1. [CLEAN for GLM](#id-cleanglm)
 2. [FAQ](#id-tips)
 
-    2.1 [How do I extract surface data from HCP?](#id-q1)
-    
+    2.1 [How do I extract surface data from HCP?](#id-q1)    
     2.2 [Which surface should we use for registration?](#id-q2)
-    
     2.3 [How do I obtain a pairwise distance matrix?](#id-q3)
-    
     2.4  [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
-    
     2.5 [What is the recommended value for max.radius?](#id-q5)
 3. [Miscellaneous](#id-misc)
 
