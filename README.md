@@ -76,7 +76,7 @@ xii$surf$cortex_right
 
 **Which surface should we use for registration?**
 
-We use spherical surface as a default and use inflated or midthickness surface for visualization [reference](https://doi.org/10.1016/j.neuroimage.2016.05.038). However, please note that there is no definitive answer for this, and there are recent [articles](https://doi.org/10.1016/j.neuroimage.2022.118908) that supported the midthickness surface for registration. Whenever possible, we recommend to conduct an exploratory analysis to make sure the parametric kernel agrees with empirical data. 
+We use spherical surface as a default and use inflated or midthickness surface for visualization ([reference](https://doi.org/10.1016/j.neuroimage.2016.05.038)). However, please note that there is no definitive answer for this, and there are recent [articles](https://doi.org/10.1016/j.neuroimage.2022.118908) that supported the midthickness surface for registration. Whenever possible, we recommend to conduct an exploratory analysis to make sure the parametric kernel agrees with empirical data. 
 
 <div id='id-q3'/>
 
