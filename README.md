@@ -29,11 +29,12 @@ library(CLEAN)
 
 1. [CLEAN for GLM](#id-cleanglm)
 2. [FAQ](#id-tips)
-- [How do I extract surface data from HCP?](#id-q1)
-- [Which surface should we use for registration?](#id-q2)
-- [How do I obtain a pairwise distance matrix?](#id-q3)
-- [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
-- [What is the recommended value for max.radius?](#id-q5)
+    2.1 [How do I extract surface data from HCP?](#id-q1)
+    2.2 [Which surface should we use for registration?](#id-q2)
+    2.3 [How do I obtain a pairwise distance matrix?](#id-q3)
+    2.4  [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
+    2.5 [What is the recommended value for max.radius?](#id-q5)
+3. [Miscellaneous](#id-misc)
 
 <div id='id-cleanglm'/>
 
@@ -102,6 +103,7 @@ Clean.fit.combine=combine(Clean.fit.brain, alpha=0.05)
 
 The max.radius determines the degree of spatial domain you're borrowing from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. 
   
+<div id='id-misc'>
 
 ### Miscellaneous
 Please refer the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
