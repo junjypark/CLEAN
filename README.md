@@ -132,6 +132,6 @@ Please refer the [SpLoc](https://github.com/junjypark/SpLoc) package, a close fa
 
 ---
 
-## Questions?
+### Questions?
 Please forward your inquiries to **junjy.park [[at]] utoronto [[dot]] ca**.
 
