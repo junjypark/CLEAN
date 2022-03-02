@@ -25,9 +25,14 @@ Then the package can be loaded directly in R:
 library(CLEAN)
 ```
 
-## Usage
-- [CLEAN for GLM](#id-cleanglm)
-- [Tips](#id-tips)
+# #Contents
+1. [CLEAN for GLM](#id-cleanglm)
+2. [FAQ](#id-tips)
+- [How do I extract surface data from HCP?](#id-q1)
+- [Which surface should we use for registration?](#id-q2)
+- [How do I obtain a pairwise distance matrix?](#id-q3)
+- [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
+- [What is the recommended value for max.radius?](#id-q5)
 
 <div id='id-cleanglm'/>
 
@@ -42,6 +47,7 @@ fit=Clean(data.leverage$out, NNmatrix, seed=NULL)		#See "Tips" below.
 <div id='id-tips'/>
 
 ### Frequently asked questions:
+<div id='id-q1'/>
 **How do I extract surface data from HCP?**
 Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you installed [Connectome Workbench](https://www.humanconnectome.org/software/connectome-workbench) in your computer and obtained data files in nii format and surface information in surf.gii format, then 
 
@@ -63,14 +69,17 @@ xii$surf$cortex_left
 xii$surf$cortex_right
 ```
 
+<div id='id-q2'/>
 **Which surface should we use for registration?**
 
 We use spherical surface as a default and use inflated or midthickness surface for visualization [reference](https://doi.org/10.1016/j.neuroimage.2016.05.038). However, please note that there is no definitive answer for this, and there are recent [articles](https://doi.org/10.1016/j.neuroimage.2022.118908) that supported the midthickness surface for registration. Whenever possible, we recommend to conduct an exploratory analysis to make sure the parametric kernel agrees with empirical data. 
 
+<div id='id-q3'/>
 **How do I obtain a pairwise distance matrix?**
 
 We recommend using geodesic distance for mesh surfaces. To our knowledge, you may use Python or C++ to obtain a pairwise geodesic distance matrix.
 
+<div id='id-q4'/>
 **Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?**: 
 
 Yes, it is necessary to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples for the CLEAN() function. Then you may use combine() function to get a new threshold.
@@ -82,6 +91,7 @@ Clean.fit.brain=list(Clean.fit.lh, Clean.fit.rh)
 Clean.fit.combine=combine(Clean.fit.brain, alpha=0.05)
 ```
 
+<div id='id-q5'/>
 **What is the recommended value for max.radius?**
 
 The max.radius determines the degree of spatial domain you're borrowing from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. 
