@@ -64,23 +64,28 @@ xii$surf$cortex_right
 ```
 
 **Which surface should we use for registration?**
+
 We use spherical surface as a default and use inflated or midthickness surface for visualization [reference](https://doi.org/10.1016/j.neuroimage.2016.05.038). However, please note that there is no definitive answer for this, and there are recent [articles](https://doi.org/10.1016/j.neuroimage.2022.118908) that supported the midthickness surface for registration. Whenever possible, we recommend to conduct an exploratory analysis to make sure the parametric kernel agrees with empirical data. 
 
 **How do I obtain a pairwise distance matrix?**
+
 We recommend using geodesic distance for mesh surfaces. To our knowledge, you may use Python or C++ to obtain a pairwise geodesic distance matrix.
 
-**Is it possible to combine results from two hemispheres?**: 
+**Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?**: 
+
 Yes, it is necessary to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples for the CLEAN() function. Then you may use combine() function to get a new threshold.
 
-**What is the recommended value for max.radius?**
-The max.radius determines the degree of spatial domain you're borrowing from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. 
-  
 ```R
 Clean.fit.lh=Clean(dataLH, NNmatrixLH, nperm=10000, seed=1)
 Clean.fit.rh=Clean(dataRH, NNmatrixRH, nperm=10000, seed=1)
 Clean.fit.brain=list(Clean.fit.lh, Clean.fit.rh)
 Clean.fit.combine=combine(Clean.fit.brain, alpha=0.05)
 ```
+
+**What is the recommended value for max.radius?**
+
+The max.radius determines the degree of spatial domain you're borrowing from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. 
+  
 
 ### Miscellaneous
 Please refer the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
