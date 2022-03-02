@@ -29,6 +29,7 @@ library(CLEAN)
 
 1. [CLEAN for GLM](#id-cleanglm)
 2. [FAQ](#id-tips)
+
     2.1 [How do I extract surface data from HCP?](#id-q1)
     
     2.2 [Which surface should we use for registration?](#id-q2)
