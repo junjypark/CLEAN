@@ -34,6 +34,8 @@ CLEAN currently supports group-level clusterwise inference for neuroimaging data
 
 <div id='id-installation'/>
 
+---
+
 ### Installation
 To install the latest development builds directly from GitHub, please run the followings:
 
@@ -48,6 +50,7 @@ Then the package can be loaded directly in R:
 library(CLEAN)
 ```
 
+---
 
 <div id='id-cleanglm'/>
 
@@ -60,6 +63,8 @@ fit=Clean(data.leverage$out, NNmatrix, seed=NULL)		#See "Tips" below.
 ```
 
 <div id='id-tips'/>
+
+---
 
 ### Frequently asked questions:
 <div id='id-q1'/>
@@ -118,10 +123,16 @@ The max.radius determines the degree of spatial domain you're borrowing informat
   
  <div id='id-misc'>
 
+---
+
 ### Miscellaneous
 Please refer the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
 
 <div id='id-question'>
 
+---
+
 ## Questions?
 Please forward your inquiries to **junjy.park [[at]] utoronto [[dot]] ca**.
+
+---
