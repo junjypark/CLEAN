@@ -4,10 +4,12 @@
 
 R code to apply CLEAN to neuroimaging data. The current version supports parallel computing using the *doParallel* package.
 
-* Park, J.Y., Fiecas, M. CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference.
+* Park, J.Y., Fiecas, M. CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. [Preprint](https://www.biorxiv.org/content/10.1101/2022.03.02.482664v1)
+
+**Note: This page is currently under construction**
 
 ## Background
-CLEAN currently supports group-level inference for neuroimaging data registered in the cortical surface. Please refer [R: ciftiTools](https://github.com/mandymejia/ciftiTools), [Python: ciftify](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data.
+CLEAN currently supports group-level inference for neuroimaging data registered in the cortical surface. Please refer [R: ciftiTools](https://github.com/mandymejia/ciftiTools), [Python: ciftify](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. More helpful information is provided in the [FAQ](#id-tips) section.
 
 ## Installation
 To install the latest development builds directly from GitHub, please run the followings:
@@ -24,28 +26,64 @@ library(CLEAN)
 ```
 
 ## Usage
-- [One-sample test](#id-section1)
-- [Two-sample test](#id-section2)
-- [General linear model (GLM)](#id-section3)
-- [Miscellaneous](#id-section4)
+- [CLEAN for GLM](#id-cleanglm)
+- [Tips](#id-tips)
 
-<div id='id-section1'/>
+<div id='id-cleanglm'/>
 
-### One-sample test (test for the grand mean)
+### CLEAN for GLM (test for the grand mean, test for a difference, general linear model)
 
-<div id='id-section2'/>
+```R
+data.leverage=spLeverage(data, distMat)
+NNmatrix=buildNNmatrixDist_radius(distMat, max.radius=20)
+fit=Clean(data.leverage$out, NNmatrix, seed=NULL)		#See "Tips" below.
+```
 
-### Two-sample test (test for the group difference in means)
+<div id='id-tips'/>
 
-<div id='id-section3'/>
+### Frequently asked questions:
+**How do I extract surface data from HCP?**
+Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you installed Connectome Workbench in your computer and obtained data files in nii format and surface information in surf.gii format, then 
 
-### General linear model (GLM)
+```R
+library(ciftiTools)
+library(rgl)
+ciftiTools.setOption("wb_path", "/Applications/workbench")
+xii = read_cifti(fname, surfL, surfR, resamp_res = 10242)  #resamp_res: how many vertices to resample
+```
 
-<div id='id-section4'/>
+Then you can access the cortical data by
+```R
+xii$data$cortex_left
+xii$data$cortex_right
+```
+and you may collect the data in a matrix format for analysis.The corresponding mesh information can be assessed by
+```R
+xii$surf$cortex_left
+xii$surf$cortex_right
+```
+
+**Which surface should we use for registration?**
+We use spherical surface as a default and use inflated or midthickness surface for visualization [reference](https://doi.org/10.1016/j.neuroimage.2016.05.038). However, please note that there is no definitive answer for this, and there are recent [articles](https://doi.org/10.1016/j.neuroimage.2022.118908) that supported the midthickness surface for registration. Whenever possible, we recommend to conduct an exploratory analysis to make sure the parametric kernel agrees with empirical data. 
+
+**How do I obtain a pairwise distance matrix?**
+We recommend using geodesic distance for mesh surfaces. To our knowledge, you may use Python or C++ to obtain a pairwise geodesic distance matrix.
+
+**Is it possible to combine results from two hemispheres?**: 
+Yes, it is necessary to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples for the CLEAN() function. Then you may use combine() function to get a new threshold.
+
+**What is the recommended value for max.radius?**
+The max.radius determines the degree of spatial domain you're borrowing from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. 
+  
+```R
+Clean.fit.lh=Clean(dataLH, NNmatrixLH, nperm=10000, seed=1)
+Clean.fit.rh=Clean(dataRH, NNmatrixRH, nperm=10000, seed=1)
+Clean.fit.brain=list(Clean.fit.lh, Clean.fit.rh)
+Clean.fit.combine=combine(Clean.fit.brain, alpha=0.05)
+```
 
 ### Miscellaneous
-Please refer the [SpLoc package](https://github.com/junjypark/SpLoc), which conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
-
+Please refer the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
 
 ## Questions?
 Please forward your inquiries to **junjy.park [[at]] utoronto [[dot]] ca**.
