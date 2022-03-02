@@ -126,7 +126,7 @@ The max.radius determines the degree of spatial domain you're borrowing informat
 ---
 
 ### Miscellaneous
-Please refer the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
+If interested, please check out the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
 
 <div id='id-question'>
 
