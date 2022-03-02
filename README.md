@@ -43,7 +43,7 @@ fit=Clean(data.leverage$out, NNmatrix, seed=NULL)		#See "Tips" below.
 
 ### Frequently asked questions:
 **How do I extract surface data from HCP?**
-Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you installed Connectome Workbench in your computer and obtained data files in nii format and surface information in surf.gii format, then 
+Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you installed [Connectome Workbench](https://www.humanconnectome.org/software/connectome-workbench) in your computer and obtained data files in nii format and surface information in surf.gii format, then 
 
 ```R
 library(ciftiTools)
