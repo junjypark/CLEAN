@@ -25,7 +25,8 @@ Then the package can be loaded directly in R:
 library(CLEAN)
 ```
 
-##Contents
+## Contents
+
 1. [CLEAN for GLM](#id-cleanglm)
 2. [FAQ](#id-tips)
 - [How do I extract surface data from HCP?](#id-q1)
