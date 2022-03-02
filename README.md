@@ -25,6 +25,8 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
 5. [Miscellaneous](#id-misc)
 6. [Questions?](#id-question)
 
+---
+
 <div id='id-background'/>
 
 ### Background
