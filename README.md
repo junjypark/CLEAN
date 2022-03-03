@@ -146,7 +146,7 @@ Clean.fit.combine=combine(Clean.fit.brain, alpha=0.05)
 
 **What is the recommended value for max.radius?**
 
-The max.radius determines the degree of spatial domain you're borrowing information from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. 
+The max.radius determines the degree of spatial domain you're borrowing information from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. Please report these values in your article.
   
  <div id='id-misc'>
 
