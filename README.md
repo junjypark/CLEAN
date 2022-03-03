@@ -56,10 +56,37 @@ library(CLEAN)
 
 ### CLEAN for GLM (test for the grand mean, test for a difference, general linear model)
 
+Fitting CLEAN consists of three major steps
+
+**Step 1) Obtain new data after leveraging spatial autocorrelation**: This is done by using the spLeverage function with 3 major inputs: (i) a data matrix (ii) a pairwise distance matrix and (iii) covariate information (for two-sample tests or GLM).
+
+For one sample test, use
 ```R
 data.leverage=spLeverage(data, distMat)
+```
+
+For two sample test, use
+```R
+mod0=model.matrix(~1)
+data.leverage=spLeverage(data, distMat, mod0)
+```
+
+For GLM using potential confounders, use
+```R
+mod0=model.matrix(~covariates)
+data.leverage=spLeverage(data, distMat, mod0)
+```
+Note: "covariates" above should NOT contain the covariate of interest.
+
+
+**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command max.radius from the buildNNmatrixDist_radius() function to specify your neighbors. For example, if you use max.radius=3, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
+```R
 NNmatrix=buildNNmatrixDist_radius(distMat, max.radius=20)
-fit=Clean(data.leverage$out, NNmatrix, seed=NULL)		#See "Tips" below.
+```
+
+**Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use Clean() function to obtain the Clean fit.
+```R
+fit=Clean(data.leverage$out, NNmatrix, seed=NULL)	
 ```
 
 <div id='id-tips'/>
@@ -100,7 +127,7 @@ We use spherical surface as a default and use inflated or midthickness surface f
 
 **How do I obtain a pairwise distance matrix?**
 
-We recommend using geodesic distance for mesh surfaces. To our knowledge, you may use Python or C++ to obtain a pairwise geodesic distance matrix.
+We recommend using geodesic distance for mesh surfaces. To our knowledge, you may use [Python](https://pypi.org/project/pygeodesic/) or [C++](https://code.google.com/archive/p/geodesic/wikis/ExactGeodesic.wiki) to obtain a pairwise geodesic distance matrix.
 
 <div id='id-q4'/>
 
