@@ -45,8 +45,8 @@ CovReg=function(epsilon,  distMat, kernel="exponential", n.covariates=NULL, spar
                   corMat_base2=corMat.base2)$par
     varcomps=ObtainVarComps2(phi.hat, epsilon, corMat.base1, corMat.base2)
   }
-  return(list(sigma2=varcomps$sigma2*(n/(n-q)), 
-              tau2=varcomps$tau2*(n/(n-q)), 
+  return(list(sigma2=varcomps$sigma2*(n/(n-n.covariates)), 
+              tau2=varcomps$tau2*(n/(n-n.covariates)), 
               phi=phi.hat,
               kernel=kernel))
 }
