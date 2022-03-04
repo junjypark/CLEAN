@@ -57,7 +57,8 @@ library(CLEAN)
 
 ### CLEAN for GLM (test for the grand mean, test for a difference, general linear model)
 
-<div id='#id-cleanglmimplement'/>
+
+<div id='id-cleanglmimplement'/>
 
 #### Implementation
 
@@ -98,7 +99,7 @@ fit=Clean(data.leverage$out, NNmatrix, seed=NULL)
 
 ---
 
-<div id='#id-cleanglmvisualize'/>
+<div id='id-cleanglmvisualize'/>
 
 #### Visualisation
 
