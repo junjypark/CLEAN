@@ -99,6 +99,7 @@ fit=Clean(data.leverage$out, NNmatrix, seed=NULL)
 ---
 
 <div id='#id-cleanglmvisualize'/>
+
 #### Visualisation
 
 #### Cautionary notes
