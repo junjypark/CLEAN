@@ -14,7 +14,8 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
 1. [Background](#id-background)
 2. [Installation](#id-installation)
 3. [CLEAN for GLM](#id-cleanglm)
-    * Visualization
+    * [Implementation](#id-cleanglmimplement)
+    * [Visualization](#id-cleanglmvisualize)
     * Cautionary notes    
 4. [FAQ](#id-tips)
     * [How do I extract surface data from HCP?](#id-q1)    
@@ -56,6 +57,10 @@ library(CLEAN)
 
 ### CLEAN for GLM (test for the grand mean, test for a difference, general linear model)
 
+<div id='#id-cleanglmimplement'/>
+
+#### Implementation
+
 Fitting CLEAN consists of three major steps
 
 **Step 1) Obtain new data after leveraging spatial autocorrelation**: This is done by using the spLeverage function with 3 major inputs: (i) a data matrix (ii) a pairwise distance matrix and (iii) covariate information (for two-sample tests or GLM).
@@ -93,6 +98,11 @@ fit=Clean(data.leverage$out, NNmatrix, seed=NULL)
 
 ---
 
+<div id='#id-cleanglmvisualize'/>
+#### Visualisation
+
+#### Cautionary notes
+
 ### Frequently asked questions:
 <div id='id-q1'/>
 
@@ -111,7 +121,7 @@ Then you can access the cortical data by
 xii$data$cortex_left
 xii$data$cortex_right
 ```
-and you may collect the data in a matrix format for analysis.The corresponding mesh information can be assessed by
+and you may collect the data in a matrix format for analysis. The corresponding mesh information can be assessed by
 ```R
 xii$surf$cortex_left
 xii$surf$cortex_right
@@ -131,7 +141,7 @@ We recommend using geodesic distance for mesh surfaces. To our knowledge, you ma
 
 <div id='id-q4'/>
 
-**Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?**: 
+**Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?**
 
 Yes, it is necessary to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples for the CLEAN() function. Then you may use combine() function to get a new threshold.
 
