@@ -27,3 +27,4 @@ process=function(fit, threshold=NULL){
   
   return(list(indices.greater=cl1,indices.less=cl2))
 }
+

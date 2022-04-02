@@ -1,6 +1,5 @@
 usethis::use_package("Matrix")
 
-
 CovReg=function(epsilon,  distMat, kernel="exponential", n.covariates=NULL, sparse=T, qtl=0.5, maxdist=NULL){
   if (is.null(n.covariates)){    
     n.covariates=0
