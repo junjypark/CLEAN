@@ -16,7 +16,6 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
 3. [CLEAN for GLM](#id-cleanglm)
     * [Implementation](#id-cleanglmimplement)
     * [Visualization](#id-cleanglmvisualize)
-    * Cautionary notes    
 4. [FAQ](#id-tips)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
@@ -103,7 +102,6 @@ fit=Clean(data.leverage$out, NNmatrix, seed=NULL)
 
 #### Visualisation
 
-#### Cautionary notes
 
 ### Frequently asked questions:
 <div id='id-q1'/>
