@@ -6,7 +6,7 @@ Author: Jun Young Park
 Maintainer: Jun Young Park <junjy.park@utoronto.ca>
 Description: CLEAN is a group-level inference for cortical surface neuroimaging data that improves sensitivity by modelling spatial autocorrelation of the data followed by clusterwise inference.
 License: GPL-3
-Imports: R (>= 3.2.0)
+Imports: Rcpp (>= 1.0.8)
 LinkingTo: Rcpp, RcppArmadillo, Matrix, foreach, doParallel
 Encoding: UTF-8
 Depends: Rcpp, Matrix, foreach, doParallel
