@@ -22,7 +22,7 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
     * [Implementation](#id-cleanglmimplement)
 4. [CLEAN for intermodal correspondence](#id-cleanr) (forthcoming)
     * [Implementation](#id-cleanrimplement)
-5.  [Visualization](#id-cleanglmvisualize)
+5.  [Visualization](#id-cleanvisualize)
 6. [FAQ](#id-tips)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
@@ -109,11 +109,21 @@ result=process(fit)
 
 ### CLEAN for intermodal correspondence
 
+Coming soon.
+
+<div id='id-cleanrimplement'/>
+
+#### Implementation
+
+Coming soon.
+
 ---
 
-<div id='id-cleanglmvisualize'/>
+<div id='id-cleanvisualize'/>
 
-### Visualisation
+### Visualization 
+
+Coming soon.
 
 
 ### Frequently asked questions:
