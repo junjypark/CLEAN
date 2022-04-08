@@ -1,4 +1,4 @@
-spLeverage=function(ymat, distMat=NULL, mod0=NULL, J=50){
+spLeverage=function(data, distMat=NULL, mod0=NULL, J=50){
   if (!is.null(mod0)){
     data=t(lm(t(data)~mod0)$residuals)
   } else{
