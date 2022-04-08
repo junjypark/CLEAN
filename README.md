@@ -8,9 +8,9 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
 
 > Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. *working paper*.
 
-**Note: The current version of the package is the beta version and may contain unexpected errors. Please forward your inquiries to junjy.park [[at]] utoronto [[dot]] ca and we will respond in 48 hours.**
-
 ### Update logs
+
+Note: The current version of the package is the beta version and may contain unexpected errors. Please forward your inquiries to junjy.park [[at]] utoronto [[dot]] ca and we will respond in 48 hours.
 
 > No update as of April 8, 2022.
 
