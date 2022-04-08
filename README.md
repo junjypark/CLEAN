@@ -24,11 +24,11 @@ Note: The current version of the package is the beta version and may contain une
 4. [CLEAN for intermodal correspondence](#id-cleanr) (forthcoming)
 5.  [Visualization](#id-cleanvisualize)
 6. [FAQ](#id-tips)
-    * [How do I extract surface data from HCP?](#id-q1)    
-    * [Which surface should we use for registration?](#id-q2)
-    * [How do I obtain a pairwise distance matrix?](#id-q3)
-    * [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
-    * [What is the recommended value for max.radius?](#id-q5)
+  * [How do I extract surface data from HCP?](#id-q1)    
+  * [Which surface should we use for registration?](#id-q2)
+  * [How do I obtain a pairwise distance matrix?](#id-q3)
+  * [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
+  * [What is the recommended value for max.radius?](#id-q5)
 7. [Miscellaneous](#id-misc)
 
 ---
