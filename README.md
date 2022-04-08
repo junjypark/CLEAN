@@ -8,7 +8,8 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
 
 > Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. *working paper*.
 
-**Note: This page is currently under construction**
+**Note: The current version of the package is the beta version and may contain unexpected errors. Please forward your inquiries to **junjy.park [[at]] utoronto [[dot]] ca** and we will respond in 48 hours.
+**
 
 
 ## Contents
@@ -27,7 +28,6 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
     * [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
     * [What is the recommended value for max.radius?](#id-q5)
 7. [Miscellaneous](#id-misc)
-8. [Questions?](#id-question)
 
 ---
 
@@ -177,11 +177,4 @@ If interested, please check out the [SpLoc](https://github.com/junjypark/SpLoc) 
 
 > Park JY, Fiecas M (2021) Permutation-based inference for spatially localized signals in longitudinal MRI data. Neuroimage, 239, 118312. [link](https://doi.org/10.1016/j.neuroimage.2021.118312)
 
-
-<div id='id-question'>
-
----
-
-### Questions?
-Please forward your inquiries to **junjy.park [[at]] utoronto [[dot]] ca**.
 
