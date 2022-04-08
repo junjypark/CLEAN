@@ -21,9 +21,7 @@ Note: The current version of the package is the beta version and may contain une
 1. [Background](#id-background)
 2. [Installation](#id-installation)
 3. [CLEAN for GLM](#id-cleanglm)
-    * [Implementation](#id-cleanglmimplement)
 4. [CLEAN for intermodal correspondence](#id-cleanr) (forthcoming)
-    * [Implementation](#id-cleanrimplement)
 5.  [Visualization](#id-cleanvisualize)
 6. [FAQ](#id-tips)
     * [How do I extract surface data from HCP?](#id-q1)    
@@ -63,11 +61,6 @@ library(CLEAN)
 <div id='id-cleanglm'/>
 
 ### CLEAN for GLM (test for the grand mean, test for a difference, general linear model)
-
-
-<div id='id-cleanglmimplement'/>
-
-#### Implementation
 
 Fitting CLEAN consists of three major steps.
 
@@ -113,11 +106,6 @@ result=process(fit)
 
 Coming soon.
 
-<div id='id-cleanrimplement'/>
-
-#### Implementation
-
-Coming soon.
 
 ---
 
