@@ -5,13 +5,13 @@ combine=function(lst, alpha=0.05){
   nlocations=do.call("c",lapply(lst, function(x){x$nlocations}))
   alternative=do.call("c",lapply(lst, function(x){x$alternative}))
   
-  if (length(unique(seed))>1){stop("Use the same seed for every CLEAN output.")}
+  if (length(unique(seed))>1){stop("[CLEAN] Use the same seed for every CLEAN output.")}
   else{seed=seed[1]}
   
-  if (length(unique(alternative))>1){stop("Use the same alternative for every CLEAN output.")}
+  if (length(unique(alternative))>1){stop("[CLEAN] Use the same alternative for every CLEAN output.")}
   else{alternative=alternative[1]}
   
-  if (length(unique(nperm))>1){stop("Use the same number of permutations for every CLEAN output.")}
+  if (length(unique(nperm))>1){stop("[CLEAN] Use the same number of permutations for every CLEAN output.")}
   else{nperm=nperm[1]}
   
   Tstat=do.call("c",lapply(lst, function(x){x$Tstat}))

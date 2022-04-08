@@ -1,17 +1,17 @@
 CleanMean=function(ymat, NNmatrix, nperm=10000, alpha=0.05, alternative=c("two.sided", "less", "greater"), seed=NULL, 
                    partition=T, npartition=1, parallel=F, ncores=1){
   if (length(which(is(NNmatrix)=="sparseMatrix"))==0){
-    stop("NN is not a sparse matrix. Please refer the Matrix R package to convert it.")
+    stop("[CLEAN] NN is not a sparse matrix. Please refer the Matrix R package to convert it.")
   }
   if ( ncol(NNmatrix)!=nrow(ymat) ){
-    stop("The number of columns of NN and the number of rows of ymat needs to be the same (# voxels).")
+    stop("[CLEAN] The number of columns of NN and the number of rows of ymat needs to be the same (# voxels).")
   }
   if ( alpha<0 |alpha>1){
-    stop("alpha should range between 0 and 1.")
+    stop("[CLEAN] alpha should range between 0 and 1.")
   }
   if (length(alternative)>1){ 
     alternative="two.sided"
-    cat("Conducting the two-sided test as alternative has not been specified...\n")
+    cat("[CLEAN] Conducting the two-sided test as alternative has not been specified...\n")
   }
   if (is.null(seed)){ seed=sample(1e6,1) }
   if (isTRUE(partition)){

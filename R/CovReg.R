@@ -3,7 +3,7 @@ usethis::use_package("Matrix")
 CovReg=function(epsilon,  distMat, kernel="exponential", n.covariates=NULL, sparse=T, qtl=0.5, maxdist=NULL){
   if (is.null(n.covariates)){    
     n.covariates=0
-    cat("Fitting the model assuming no covariate.\n")
+    cat("[CLEAN] Fitting the model assuming no covariate.\n")
     }
   if (!is.null(qtl) & !is.null(maxdist)){ stop("Only one of qtl or maxdist should be specified.")}
   if (sparse & is.null(qtl) & is.null (maxdist)){ stop("One of qtl or maxdist should be specified to enable the sparse option.") }

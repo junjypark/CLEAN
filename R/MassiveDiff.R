@@ -1,14 +1,14 @@
 MassiveDiff=function(ymat, group, nperm=10000, alpha=0.05, alternative=c("two.sided", "less", "greater"), seed=NULL, 
                      partition=T, npartition=NULL, parallel=F, ncores=1){
   if (length(group)!=ncol(ymat)){
-    stop("The number of elements in group does not match with the number of columns in ymat.")
+    stop("[CLEAN] The number of elements in group does not match with the number of columns in ymat.")
   }
   if ( alpha<0 |alpha>1){
-    stop("alpha should range between 0 and 1.")
+    stop("[CLEAN] alpha should range between 0 and 1.")
   }
   if (length(alternative)>1){ 
     alternative="two.sided"
-    cat("Conducting the two-sided test as alternative has not been specified...\n")
+    cat("[CLEAN] Conducting the two-sided test as alternative has not been specified...\n")
   }
   if (is.null(seed)){ seed=sample(1e6,1) }
   
