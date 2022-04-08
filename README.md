@@ -2,7 +2,9 @@
 
 **Clusterwise inference leveraging spatial autocorrelation in neuroimaging**
 
-R code to apply CLEAN to neuroimaging data. The current version supports parallel computing using the *doParallel* package.
+R package to apply CLEAN to neuroimaging data. The current version supports parallel computing using the *doParallel* package.
+
+### References
 
 > Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. Neuroimage, *In press*. [link](https://www.biorxiv.org/content/10.1101/2022.03.02.482664v1)
 
@@ -10,7 +12,7 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
 
 ### Update logs
 
-Note: The current version of the package is the beta version and may contain unexpected errors. Please forward your inquiries to junjy.park [[at]] utoronto [[dot]] ca and we will respond in 48 hours.
+Note: The current version of the package is the beta version and may contain unexpected errors. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours.
 
 > No update as of April 8, 2022.
 
@@ -69,7 +71,7 @@ library(CLEAN)
 
 Fitting CLEAN consists of three major steps.
 
-**Step 1) Obtain new data after leveraging spatial autocorrelation**: This is done by using the spLeverage function with 3 major inputs: (i) a data matrix (ii) a pairwise distance matrix and (iii) covariate information (for two-sample tests or GLM).
+**Step 1) Obtain new data after leveraging spatial autocorrelation**: This is done by using the `spLeverage()` function with 3 major inputs: (i) a data matrix (ii) a pairwise distance matrix and (iii) covariate information (for two-sample tests or GLM).
 
 For one sample test, use
 ```R
@@ -90,12 +92,12 @@ data.leverage=spLeverage(data, distMat, mod0)
 Note: "covariates" above should NOT contain the covariate of interest.
 
 
-**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command max.radius from the buildNNmatrixDist_radius() function to specify your neighbors. For example, if you use max.radius=3, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
+**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist_radius()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
 ```R
 NNmatrix=buildNNmatrixDist_radius(distMat, max.radius=20)
 ```
 
-**Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use Clean() and process() functions to obtain the Clean fit and statistically significant vertices.
+**Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use `Clean()` and `process()` functions to obtain the Clean fit and statistically significant vertices.
 ```R
 fit=Clean(data.leverage$out, NNmatrix, seed=NULL)	
 result=process(fit)
@@ -166,7 +168,7 @@ We recommend using geodesic distance for mesh surfaces. To our knowledge, you ma
 
 **Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?**
 
-Yes, it is necessary to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples for the CLEAN() function. Then you may use combine() function to get a new threshold.
+Yes, it is necessary to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples for the CLEAN() function. Then you may use `combine()` function to get a new threshold.
 
 ```R
 Clean.fit.lh=Clean(dataLH, NNmatrixLH, nperm=10000, seed=1)
@@ -177,7 +179,7 @@ Clean.fit.combine=combine(Clean.fit.brain, alpha=0.05)
 
 <div id='id-q5'/>
 
-**What is the recommended value for max.radius?**
+**What is the recommended value for `max.radius`?**
 
 The max.radius determines the degree of spatial domain you're borrowing information from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. Please report these values in your article.
   
