@@ -5,6 +5,7 @@
 R code to apply CLEAN to neuroimaging data. The current version supports parallel computing using the *doParallel* package.
 
 > Park, J.Y., Fiecas, M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. [*Neuroimage*](https://www.biorxiv.org/content/10.1101/2022.03.02.482664v1), In press
+
 > Weinstein et al. (2022) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. *working paper*
 
 **Note: This page is currently under construction**
