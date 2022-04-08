@@ -4,7 +4,8 @@
 
 R code to apply CLEAN to neuroimaging data. The current version supports parallel computing using the *doParallel* package.
 
-> Park, J.Y., Fiecas, M. CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. [Preprint](https://www.biorxiv.org/content/10.1101/2022.03.02.482664v1)
+> Park, J.Y., Fiecas, M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. [*Neuroimage*](https://www.biorxiv.org/content/10.1101/2022.03.02.482664v1), In press
+> Weinstein et al. (2022) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. *working paper*
 
 **Note: This page is currently under construction**
 
@@ -15,15 +16,17 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
 2. [Installation](#id-installation)
 3. [CLEAN for GLM](#id-cleanglm)
     * [Implementation](#id-cleanglmimplement)
-    * [Visualization](#id-cleanglmvisualize)
-4. [FAQ](#id-tips)
+4. [CLEAN for intermodal correspondence](#id-cleanr) (forthcoming)
+    * [Implementation](#id-cleanrimplement)
+5.  [Visualization](#id-cleanglmvisualize)
+6. [FAQ](#id-tips)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
     * [How do I obtain a pairwise distance matrix?](#id-q3)
     * [Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?](#id-q4)
     * [What is the recommended value for max.radius?](#id-q5)
-5. [Miscellaneous](#id-misc)
-6. [Questions?](#id-question)
+7. [Miscellaneous](#id-misc)
+8. [Questions?](#id-question)
 
 ---
 
@@ -98,9 +101,15 @@ fit=Clean(data.leverage$out, NNmatrix, seed=NULL)
 
 ---
 
+<div id='id-cleanr'/>
+
+### CLEAN for intermodal correspondence
+
+---
+
 <div id='id-cleanglmvisualize'/>
 
-#### Visualisation
+### Visualisation
 
 
 ### Frequently asked questions:
