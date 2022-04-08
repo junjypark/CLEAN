@@ -8,9 +8,11 @@ R code to apply CLEAN to neuroimaging data. The current version supports paralle
 
 > Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. *working paper*.
 
-**Note: The current version of the package is the beta version and may contain unexpected errors. Please forward your inquiries to **junjy.park [[at]] utoronto [[dot]] ca** and we will respond in 48 hours.
-**
+**Note: The current version of the package is the beta version and may contain unexpected errors. Please forward your inquiries to junjy.park [[at]] utoronto [[dot]] ca and we will respond in 48 hours.**
 
+## Update logs
+
+> No update as of April 8, 2022.
 
 ## Contents
 
@@ -65,7 +67,7 @@ library(CLEAN)
 
 #### Implementation
 
-Fitting CLEAN consists of three major steps
+Fitting CLEAN consists of three major steps.
 
 **Step 1) Obtain new data after leveraging spatial autocorrelation**: This is done by using the spLeverage function with 3 major inputs: (i) a data matrix (ii) a pairwise distance matrix and (iii) covariate information (for two-sample tests or GLM).
 
@@ -93,9 +95,10 @@ Note: "covariates" above should NOT contain the covariate of interest.
 NNmatrix=buildNNmatrixDist_radius(distMat, max.radius=20)
 ```
 
-**Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use Clean() function to obtain the Clean fit.
+**Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use Clean() and process() functions to obtain the Clean fit and statistically significant vertices.
 ```R
 fit=Clean(data.leverage$out, NNmatrix, seed=NULL)	
+result=process(fit)
 ```
 
 <div id='id-tips'/>
