@@ -9,7 +9,7 @@ spLeverage=function(ymat, distMat=NULL, mod0=NULL, J=50){
     covreg.fit=CovReg(data, distMat)
     NNGPinfo=constructNNGPinfo(distMat, NN=50)
     NNGPprec=buildNNGPmat(distMat, NNGPinfo, covreg.fit)$NNGPprec
-    data.new=NNGPprec%*%data
+    data.new=as.matrix(NNGPprec%*%data)
   } else{
     cat("distMat has not been specified. Obtaining residuals wihtout leveraging...\n")
   }
