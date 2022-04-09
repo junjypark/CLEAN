@@ -36,7 +36,7 @@ Note: The current version of the package is a beta version and may contain bugs.
 <div id='id-background'/>
 
 ### Background
-CLEAN supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Key components of the CLEAN include
+CLEAN supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Key components of CLEAN include
 
 * an explicit brain-wise spatial covariance modeling of neuroimaging data,
 * resampling approaches (sign-flipping or permutation) to control family-wise error rate, and
@@ -44,7 +44,7 @@ CLEAN supports group-level clusterwise inference for neuroimaging data registere
 
 Compared to classical GLM (or massive-univariate analysis), CLEAN shows superior statistical power. A current implementation is computationally efficient and, using a laptop without parallel computing, takes only a few minutes to analyze 50 subjects' imaging data across 10,000 vertices. The current version also supports parallel computing using the `doParallel` R package.
 
-Please refer [R](https://github.com/mandymejia/ciftiTools), [Python](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. This package is written in R and works well with the [ciftiTools](https://github.com/mandymejia/ciftiTools). More helpful information is provided in the [FAQ](#id-tips) section.
+Please refer [R](https://github.com/mandymejia/ciftiTools), [Python](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. This package is written in R and works well with the [ciftiTools](https://github.com/mandymejia/ciftiTools) R package. More helpful information is provided in the [FAQ](#id-tips) section.
 
 <div id='id-installation'/>
 
@@ -59,7 +59,7 @@ if (!require("devtools"))
 devtools::install_github("junjypark/CLEAN")
 ```
 
-Then the package can be loaded directly in R:
+Then the package can be loaded directly in R.
 ```R
 library(CLEAN)
 ```
@@ -68,7 +68,7 @@ library(CLEAN)
 
 <div id='id-cleanglm'/>
 
-### CLEAN for GLM (test for the grand mean, test for a difference, general linear model)
+### CLEAN for GLM (test for the grand mean, test for group differences, general linear model)
 
 Fitting CLEAN consists of three major steps.
 
@@ -128,7 +128,7 @@ Coming soon.
 <div id='id-q1'/>
 
 **How do I extract surface data from HCP?**
-Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you installed [Connectome Workbench](https://www.humanconnectome.org/software/connectome-workbench) in your computer and obtained data files in nii format and surface information in `surf.gii` format, then 
+Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you installed [Connectome Workbench](https://www.humanconnectome.org/software/connectome-workbench) in your computer and obtained data files in nii format and surface information in the `surf.gii` format, then 
 
 ```R
 library(ciftiTools)
@@ -137,12 +137,12 @@ ciftiTools.setOption("wb_path", "/Applications/workbench")
 xii = read_cifti(fname, surfL, surfR, resamp_res = 10242)  #resamp_res: how many vertices to resample
 ```
 
-Then you can access the cortical data by
+Then you can access the cortical data by the followings.
 ```R
 xii$data$cortex_left
 xii$data$cortex_right
 ```
-and you may collect the data in a matrix format for analysis. The corresponding mesh information can be assessed by
+The corresponding mesh information can be assessed by the followings.
 ```R
 xii$surf$cortex_left
 xii$surf$cortex_right
@@ -158,13 +158,13 @@ We use spherical surface as a default and use inflated or midthickness surface f
 
 **How do I obtain a pairwise distance matrix?**
 
-We recommend using geodesic distance for mesh surfaces. To our knowledge, you may use [Python](https://pypi.org/project/pygeodesic/) or [C++](https://code.google.com/archive/p/geodesic/wikis/ExactGeodesic.wiki) to obtain a pairwise geodesic distance matrix.
+We recommend using geodesic distance for mesh surfaces. You may use [Python](https://pypi.org/project/pygeodesic/) or [C++](https://code.google.com/archive/p/geodesic/wikis/ExactGeodesic.wiki) to obtain a pairwise geodesic distance matrix.
 
 <div id='id-q4'/>
 
 **Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?**
 
-Yes, it is necessary to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples (`nperm`) for the `Clean()` function. Then you may use `combine()` function to get a new threshold.
+Yes, it is **necessary** to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples (`nperm`) for the `Clean()` function. Then you may use the `combine()` function to get a new threshold.
 
 ```R
 Clean.fit.lh=Clean(dataLH, NNmatrixLH, nperm=10000, seed=1)
