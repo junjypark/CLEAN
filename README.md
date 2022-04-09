@@ -12,7 +12,7 @@ R package to apply CLEAN to neuroimaging data. The current version supports para
 
 ### Update logs
 
-Note: The current version of the package is the beta version and may contain unexpected errors. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours.
+Note: The current version of the package is a beta version and may contain bugs. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours.
 
 > No update as of April 8, 2022.
 
