@@ -163,7 +163,7 @@ We recommend using geodesic distance for mesh surfaces. To our knowledge, you ma
 
 **Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?**
 
-Yes, it is necessary to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples for the CLEAN() function. Then you may use `combine()` function to get a new threshold.
+Yes, it is necessary to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed and the same number of resamples for the `Clean()` function. Then you may use `combine()` function to get a new threshold.
 
 ```R
 Clean.fit.lh=Clean(dataLH, NNmatrixLH, nperm=10000, seed=1)
