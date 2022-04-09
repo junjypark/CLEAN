@@ -37,6 +37,7 @@ Note: The current version of the package is a beta version and may contain bugs.
 
 ### Background
 CLEAN supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Key components of the CLEAN include
+
     * an explicit brain-wise spatial covariance modeling of neuroimaging data,
     * resampling approaches (sign-flipping or permutation) to control family-wise error rate, and
     * a general clusterwise inference for cortical surface.
