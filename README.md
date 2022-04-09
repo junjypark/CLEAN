@@ -2,13 +2,13 @@
 
 **Clusterwise inference leveraging spatial autocorrelation in neuroimaging**
 
-R package to apply CLEAN to neuroimaging data. The current version supports parallel computing using the *doParallel* package.
+R package to apply CLEAN to neuroimaging data. 
 
 ### References
 
 > Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. Neuroimage, *In press*. [link](https://www.biorxiv.org/content/10.1101/2022.03.02.482664v1)
 
-> Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. *working paper*.
+> Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. *Working paper*.
 
 ### Update logs
 
@@ -36,7 +36,14 @@ Note: The current version of the package is a beta version and may contain bugs.
 <div id='id-background'/>
 
 ### Background
-CLEAN currently supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Please refer [R: ciftiTools](https://github.com/mandymejia/ciftiTools), [Python: ciftify](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. More helpful information is provided in the [FAQ](#id-tips) section.
+CLEAN supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Key components of the CLEAN include
+    * an explicit brain-wise spatial covariance modeling of neuroimaging data,
+    * resampling approaches (sign-flipping or permutation) to control family-wise error rate, and
+    * a general clusterwise inference for cortical surface.
+
+Compared to classical GLM (or massive-univariate analysis), CLEAN shows superior statistical power. A current implementation is computationally efficient and, using a laptop without parallel computing, takes only a few minutes to analyze 50 subjects' imaging data across 10,000 vertices. The current version also supports parallel computing using the `doParallel` R package.
+
+Please refer [R](https://github.com/mandymejia/ciftiTools), [Python](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. This package is written in R and works well with the [ciftiTools](https://github.com/mandymejia/ciftiTools). More helpful information is provided in the [FAQ](#id-tips) section.
 
 <div id='id-installation'/>
 
@@ -120,7 +127,7 @@ Coming soon.
 <div id='id-q1'/>
 
 **How do I extract surface data from HCP?**
-Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you installed [Connectome Workbench](https://www.humanconnectome.org/software/connectome-workbench) in your computer and obtained data files in nii format and surface information in surf.gii format, then 
+Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you installed [Connectome Workbench](https://www.humanconnectome.org/software/connectome-workbench) in your computer and obtained data files in nii format and surface information in `surf.gii` format, then 
 
 ```R
 library(ciftiTools)
