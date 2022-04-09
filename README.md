@@ -38,9 +38,9 @@ Note: The current version of the package is a beta version and may contain bugs.
 ### Background
 CLEAN supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Key components of the CLEAN include
 
-    * an explicit brain-wise spatial covariance modeling of neuroimaging data,
-    * resampling approaches (sign-flipping or permutation) to control family-wise error rate, and
-    * a general clusterwise inference for cortical surface.
+* an explicit brain-wise spatial covariance modeling of neuroimaging data,
+* resampling approaches (sign-flipping or permutation) to control family-wise error rate, and
+* a general clusterwise inference for cortical surface.
 
 Compared to classical GLM (or massive-univariate analysis), CLEAN shows superior statistical power. A current implementation is computationally efficient and, using a laptop without parallel computing, takes only a few minutes to analyze 50 subjects' imaging data across 10,000 vertices. The current version also supports parallel computing using the `doParallel` R package.
 
