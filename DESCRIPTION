@@ -2,7 +2,7 @@ Package: CLEAN
 Type: Package
 Title: Clusterwise inference leveraging spatial autocorrelation in neuroimaging
 Version: 0.1.1
-Author: Jun Young Park
+Author: Jun Young Park, Sarah Weinstein
 Maintainer: Jun Young Park <junjy.park@utoronto.ca>
 Description: CLEAN is a group-level inference for cortical surface neuroimaging data that improves sensitivity by modelling spatial autocorrelation of the data followed by clusterwise inference.
 License: GPL-3
