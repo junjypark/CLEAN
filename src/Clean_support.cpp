@@ -101,7 +101,64 @@ Rcpp::List CleanDiffC(arma::mat& ymat, arma::sp_mat& NNmatrix, arma::vec group, 
                             Rcpp::Named("nperm")=nperm);
 }
 
+// [[Rcpp::depends(RcppArmadillo)]]
+// [[Rcpp::export]]
+Rcpp::List CleanerPermC(arma::mat& xmat, arma::mat& ymat, int nperm, int s){
+  int p=ymat.n_rows;
+  int n=ymat.n_cols;
+  arma::vec onevec(n); onevec.fill(1);
+  arma::vec U(p);
+  
+  arma::mat permU(p, nperm); permU.fill(0);
+  
+  U=atanh((xmat%ymat)*onevec);  
+  
+  set_seed(s);
+  for (int perm=0; perm<nperm; ++perm){
+    permU.col(perm)=(xmat%shuffle(ymat,1))*onevec;  
+  }
+  
+  permU=atanh(permU);
+  
+  
+  return Rcpp::List::create(Rcpp::Named("U")=U,
+                            Rcpp::Named("permU")=permU);
+}
 
+// [[Rcpp::depends(RcppArmadillo)]]
+// [[Rcpp::export]]
+Rcpp::List CleanerExpandPermC(arma::vec U, arma::mat& permU, arma::sp_mat& NNmatrix){
+  int q=NNmatrix.n_rows;
+  int nperm=permU.n_cols;
+  double sd;
+  double mn;
+  arma::mat permNNU(q, nperm);
+  
+  arma::vec NNU=NNmatrix*U;  
+  
+  permNNU=NNmatrix*permU;
+  
+  for (int k=0; k<q; ++k){
+    mn=mean(permNNU.row(k));
+    sd=stddev(permNNU.row(k));
+    permNNU.row(k)=pow((permNNU.row(k)-mn)/sd,2.0);
+    NNU(k)=pow((NNU(k)-mn)/sd,2.0);
+  }
+
+  arma::vec permMax(nperm);
+  arma::vec permMin(nperm);
+  
+  for (int i=0; i<nperm; ++i){
+    permMin(i)=permNNU.col(i).min();
+    permMax(i)=permNNU.col(i).max();
+  }
+  
+  return Rcpp::List::create(Rcpp::Named("Tstat")=NNU,
+                            Rcpp::Named("permMax")=permMax,
+                            Rcpp::Named("permMin")=permMin,
+                            Rcpp::Named("nperm")=nperm,
+                            Rcpp::Named("permNNU")=permNNU);
+}
 
 // [[Rcpp::depends(RcppArmadillo)]]
 // [[Rcpp::export]]
