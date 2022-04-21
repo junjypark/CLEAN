@@ -50,6 +50,33 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CleanerPermC
+Rcpp::List CleanerPermC(arma::mat& xmat, arma::mat& ymat, int nperm, int s);
+RcppExport SEXP _CLEAN_CleanerPermC(SEXP xmatSEXP, SEXP ymatSEXP, SEXP npermSEXP, SEXP sSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type xmat(xmatSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type ymat(ymatSEXP);
+    Rcpp::traits::input_parameter< int >::type nperm(npermSEXP);
+    Rcpp::traits::input_parameter< int >::type s(sSEXP);
+    rcpp_result_gen = Rcpp::wrap(CleanerPermC(xmat, ymat, nperm, s));
+    return rcpp_result_gen;
+END_RCPP
+}
+// CleanerExpandPermC
+Rcpp::List CleanerExpandPermC(arma::vec U, arma::mat& permU, arma::sp_mat& NNmatrix);
+RcppExport SEXP _CLEAN_CleanerExpandPermC(SEXP USEXP, SEXP permUSEXP, SEXP NNmatrixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type U(USEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type permU(permUSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
+    rcpp_result_gen = Rcpp::wrap(CleanerExpandPermC(U, permU, NNmatrix));
+    return rcpp_result_gen;
+END_RCPP
+}
 // MassiveMeanC
 Rcpp::List MassiveMeanC(arma::mat ymat, int nperm, int s);
 RcppExport SEXP _CLEAN_MassiveMeanC(SEXP ymatSEXP, SEXP npermSEXP, SEXP sSEXP) {
@@ -120,6 +147,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_CLEAN_set_seed", (DL_FUNC) &_CLEAN_set_seed, 1},
     {"_CLEAN_CleanMeanC", (DL_FUNC) &_CLEAN_CleanMeanC, 4},
     {"_CLEAN_CleanDiffC", (DL_FUNC) &_CLEAN_CleanDiffC, 5},
+    {"_CLEAN_CleanerPermC", (DL_FUNC) &_CLEAN_CleanerPermC, 4},
+    {"_CLEAN_CleanerExpandPermC", (DL_FUNC) &_CLEAN_CleanerExpandPermC, 3},
     {"_CLEAN_MassiveMeanC", (DL_FUNC) &_CLEAN_MassiveMeanC, 3},
     {"_CLEAN_MassiveDiffC", (DL_FUNC) &_CLEAN_MassiveDiffC, 4},
     {"_CLEAN_computetraceABA", (DL_FUNC) &_CLEAN_computetraceABA, 2},
