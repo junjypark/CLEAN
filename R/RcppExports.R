@@ -13,6 +13,14 @@ CleanDiffC <- function(ymat, NNmatrix, group, nperm, s) {
     .Call('_CLEAN_CleanDiffC', PACKAGE = 'CLEAN', ymat, NNmatrix, group, nperm, s)
 }
 
+CleanerPermC <- function(xmat, ymat, nperm, s) {
+    .Call('_CLEAN_CleanerPermC', PACKAGE = 'CLEAN', xmat, ymat, nperm, s)
+}
+
+CleanerExpandPermC <- function(U, permU, NNmatrix) {
+    .Call('_CLEAN_CleanerExpandPermC', PACKAGE = 'CLEAN', U, permU, NNmatrix)
+}
+
 MassiveMeanC <- function(ymat, nperm, s) {
     .Call('_CLEAN_MassiveMeanC', PACKAGE = 'CLEAN', ymat, nperm, s)
 }
