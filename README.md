@@ -7,7 +7,7 @@ R package to apply CLEAN and CLEAN-R to neuroimaging data.
 ### References
 
 **CLEAN**
-> Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. Neuroimage, *In press*. [link](https://doi.org/10.1016/j.neuroimage.2022.119192)
+> Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. Neuroimage, 255, 119192. [link](https://doi.org/10.1016/j.neuroimage.2022.119192)
 
 **CLEAN-R**
 > Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. *Working paper*.
@@ -16,7 +16,7 @@ R package to apply CLEAN and CLEAN-R to neuroimaging data.
 
 Note: The current version of the package is a beta version and may contain bugs. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours.
 
-> No major update as of April 8, 2022.
+> April 20: CLEAN-R methods implemented in the package.
 
 ## Contents
 
@@ -114,7 +114,24 @@ result=process(fit)
 
 ### CLEAN for intermodal correspondence
 
-Coming soon.
+**Step 1) Obtain new data after leveraging spatial autocorrelation**
+```R
+mod0=model.matrix(~covariates)
+data1.leverage=spLeverage(data1, distMat, mod0)
+data2.leverage=spLeverage(data2, distMat, mod0)
+```
+
+**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist_radius()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
+```R
+NNmatrix=buildNNmatrixDist_radius(distMat, max.radius=20)
+```
+
+
+**Step 3) Fit CLEAN-R**
+```R
+fit=CleanR(data1.leverage$out, data2.leverage$out, NNmatrix, seed=NULL)	
+result=process(fit)
+```
 
 
 ---
