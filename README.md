@@ -7,10 +7,10 @@ R package to apply CLEAN and CLEAN-R to neuroimaging data.
 ### References
 
 **CLEAN**
-> Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. Neuroimage, 255, 119192. [link](https://doi.org/10.1016/j.neuroimage.2022.119192)
+> Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. Neuroimage, 255, 119192. [article link](https://doi.org/10.1016/j.neuroimage.2022.119192)
 
 **CLEAN-R**
-> Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. *Working paper*.
+> Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. [article link](https://www.biorxiv.org/content/10.1101/2022.04.25.489462v1).
 
 ### Update logs
 
@@ -205,6 +205,6 @@ The max.radius determines the degree of spatial domain you're borrowing informat
 ### Miscellaneous
 Please check out the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
 
-> Park JY, Fiecas M (2021) Permutation-based inference for spatially localized signals in longitudinal MRI data. Neuroimage, 239, 118312. [link](https://doi.org/10.1016/j.neuroimage.2021.118312)
+> Park JY, Fiecas M (2021) Permutation-based inference for spatially localized signals in longitudinal MRI data. Neuroimage, 239, 118312. [article link](https://doi.org/10.1016/j.neuroimage.2021.118312)
 
 
