@@ -61,10 +61,18 @@ if (!require("devtools"))
 devtools::install_github("junjypark/CLEAN")
 ```
 
-Then the package can be loaded directly in R.
+Note: If you see an error message, please update your `devtools` package first.
+
+```R
+update.packages("devtools")
+```
+
+After installation, the package can be loaded directly in R.
 ```R
 library(CLEAN)
 ```
+
+If you have 
 
 ---
 
