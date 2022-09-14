@@ -16,6 +16,8 @@ R package to apply CLEAN and CLEAN-R to neuroimaging data.
 
 Note: The current version of the package is a beta version and may contain bugs. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours.
 
+> Sept 14: It's been reported that installation of the package does not work in Windows for some cases. We're currently working on finding out the source of error.
+
 > April 20: CLEAN-R methods implemented in the package.
 
 ## Contents
