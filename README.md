@@ -10,7 +10,7 @@ R package to apply CLEAN and CLEAN-R to neuroimaging data.
 > Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. Neuroimage, 255, 119192. [article link](https://doi.org/10.1016/j.neuroimage.2022.119192)
 
 **CLEAN-R**
-> Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. Neuroimage, 119712 [article link](https://doi.org/10.1016/j.neuroimage.2022.119712)
+> Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. Neuroimage, 264, 119712 [article link](https://doi.org/10.1016/j.neuroimage.2022.119712)
 
 ### Update logs
 
