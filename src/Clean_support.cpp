@@ -297,3 +297,67 @@ Rcpp::List ObtainVarCompsC(double rho, arma::mat& epsilon, arma::mat corMat_base
                             Rcpp::Named("tau2")=tau2);
 }
 
+
+
+// [[Rcpp::export]]
+Rcpp::List CleanVarC(arma::mat& ymat, arma::sp_mat& NNmatrix, arma::sp_mat& Kmatrix, bool decomp, int nperm, int s){
+  int q=NNmatrix.n_rows;
+  int n=ymat.n_cols;
+  int V=ymat.n_rows;
+  arma::vec onevec(n); onevec.fill(1);
+  arma::vec U(q);
+  arma::mat T(V,1);
+  arma::mat ymattemp(V,n);
+  double sd;
+  double mn;
+  arma::mat permU(q, nperm); 
+  
+ 
+  if (decomp == TRUE) {
+    ymattemp = ymat*Kmatrix;
+    T=ymattemp%ymattemp*onevec;
+    U=NNmatrix*T; 
+  } else {
+    T=ymat*Kmatrix%ymat*onevec;
+    U=NNmatrix*T;  
+  }
+  
+  //Rcout << "perm";
+  
+  arma::mat permT(V, nperm);
+  
+  set_seed(s);
+  if (decomp == TRUE) {
+    arma::mat Mmatrix(Kmatrix);
+    for (int i=0; i < nperm; ++i) {
+      ymattemp=ymat*shuffle(Mmatrix);
+      permT.col(i)=ymattemp%ymattemp*onevec;
+    }
+  } else{
+    for (int i=0; i < nperm; ++i) {
+      ymattemp=shuffle(ymat,1);
+      permT.col(i)=ymattemp*Kmatrix%ymattemp*onevec;
+    }
+  }
+  
+  permU=NNmatrix*permT;
+  
+  //Rcout << "stand";
+  for (int k=0; k<q; ++k){
+    mn=mean(permU.row(k));
+    sd=stddev(permU.row(k));
+    permU.row(k)=(permU.row(k)-mn)/sd;
+    U(k)=(U(k)-mn)/sd;
+  }
+  
+  arma::vec permMax(nperm);
+  //Rcout << "max" <<endl;
+  for (int i=0; i<nperm; ++i){
+    permMax(i)=permU.col(i).max();
+  }
+  
+  return Rcpp::List::create(Rcpp::Named("Tstat")=U,
+                            Rcpp::Named("permMax")=permMax,
+                            Rcpp::Named("nperm")=nperm);
+}
+

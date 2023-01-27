@@ -142,6 +142,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CleanVarC
+Rcpp::List CleanVarC(arma::mat& ymat, arma::sp_mat& NNmatrix, arma::sp_mat& Kmatrix, bool decomp, int nperm, int s);
+RcppExport SEXP _CLEAN_CleanVarC(SEXP ymatSEXP, SEXP NNmatrixSEXP, SEXP KmatrixSEXP, SEXP decompSEXP, SEXP npermSEXP, SEXP sSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type ymat(ymatSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat& >::type Kmatrix(KmatrixSEXP);
+    Rcpp::traits::input_parameter< bool >::type decomp(decompSEXP);
+    Rcpp::traits::input_parameter< int >::type nperm(npermSEXP);
+    Rcpp::traits::input_parameter< int >::type s(sSEXP);
+    rcpp_result_gen = Rcpp::wrap(CleanVarC(ymat, NNmatrix, Kmatrix, decomp, nperm, s));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_CLEAN_set_seed", (DL_FUNC) &_CLEAN_set_seed, 1},
@@ -154,6 +170,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_CLEAN_computetraceABA", (DL_FUNC) &_CLEAN_computetraceABA, 2},
     {"_CLEAN_CovRegOptimC", (DL_FUNC) &_CLEAN_CovRegOptimC, 3},
     {"_CLEAN_ObtainVarCompsC", (DL_FUNC) &_CLEAN_ObtainVarCompsC, 3},
+    {"_CLEAN_CleanVarC", (DL_FUNC) &_CLEAN_CleanVarC, 6},
     {NULL, NULL, 0}
 };
 
