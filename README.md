@@ -129,7 +129,7 @@ In GLM where you test with an association with the covariate of interest,
 fit=Clean(data.leverage$out, NNmatrix, group=covariate_of_interest, seed=NULL)	
 result=process(fit)
 ```
-`coviarate\_of\_interest` is a covariate vector of interest.
+`coviarate_of_interest` is a covariate vector of interest.
 
 <div id='id-tips'/>
 
