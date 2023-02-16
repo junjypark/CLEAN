@@ -117,12 +117,19 @@ fit=Clean(data.leverage$out, NNmatrix, seed=NULL)
 result=process(fit)
 ```
 
+In two-sample test where you test for the group differences,
+```R
+fit=Clean(data.leverage$out, NNmatrix, group=group, seed=NULL)	
+result=process(fit)
+```
+ `group` is a binarized vector (e.g. 1 and -1).
+
 In GLM where you test with an association with the covariate of interest, 
 ```R
 fit=Clean(data.leverage$out, NNmatrix, group=covariate_of_interest, seed=NULL)	
 result=process(fit)
 ```
-
+`coviarate_of_interest' is a covariate vector of interest.
 
 <div id='id-tips'/>
 
