@@ -111,11 +111,18 @@ Note: `covariates` above should NOT contain the covariate of interest.
 NNmatrix=buildNNmatrixDist_radius(distMat, max.radius=20)
 ```
 
-**Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use `Clean()` and `process()` functions to obtain the Clean fit and statistically significant vertices.
+**Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use `Clean()` and `process()` functions to obtain the Clean fit and statistically significant vertices. 
 ```R
 fit=Clean(data.leverage$out, NNmatrix, seed=NULL)	
 result=process(fit)
 ```
+
+In GLM where you test with an association with the covariate of interest, 
+```R
+fit=Clean(data.leverage$out, NNmatrix, group=covariate_of_interest, seed=NULL)	
+result=process(fit)
+```
+
 
 <div id='id-tips'/>
 
