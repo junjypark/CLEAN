@@ -11,7 +11,7 @@ get.empirical.variogram=function(epsilon, distMat, qtl=0.5, n.bins=500){
   result=vector(mode="numeric",length=n.bins)
   for (bin in 1:n.bins){
     index=which(distvec>=start[bin] &  distvec<end[bin]) # indices in distvec with distances between "start" and "end" distances for current bin
-    index.sub=distIndex[index,] # row/column indices for those positions
+    index.sub=distIndex[index,,drop=FALSE] # row/column indices for those positions
     result[bin]=mean(apply((epsilon[,index.sub[,1]]-epsilon[,index.sub[,2]])^2,2,mean))
   }
   
