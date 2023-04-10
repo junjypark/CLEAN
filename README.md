@@ -28,14 +28,15 @@ Note: The current version of the package is a beta version and may contain bugs.
 2. [Installation](#id-installation)
 3. [CLEAN for GLM](#id-cleanglm)
 4. [CLEAN-R: CLEAN for intermodal correspondence](#id-cleanr)
-5.  [Visualization](#id-cleanvisualize)
-6. [FAQ](#id-tips)
+5. [CLEAN-V: CLEAN for testing variance components (forthcoming)](#id-cleanv)
+6.  [Visualization](#id-cleanvisualize)
+7. [FAQ](#id-tips)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
     * [How do I obtain a pairwise distance matrix?](#id-q3)
     * [Is it possible to fit CLEAN/CLEAN-R separately for two hemispheres and combine results afterwards?](#id-q4)
     * [What is the recommended value for max.radius?](#id-q5)
-7. [Miscellaneous](#id-misc)
+8. [Miscellaneous](#id-misc)
 
 ---
 
@@ -137,7 +138,7 @@ result=process(fit)
 
 <div id='id-cleanr'/>
 
-### CLEAN for intermodal correspondence
+### CLEAN-R: CLEAN for intermodal correspondence
 
 **Step 1) Obtain new data after leveraging spatial autocorrelation**
 ```R
@@ -158,6 +159,13 @@ fit=CleanR(data1.leverage$out, data2.leverage$out, NNmatrix, seed=NULL)
 result=process(fit)
 ```
 
+---
+
+<div id='id-cleanv'/>
+
+### CLEAN-V: CLEAN for testing variance components (for test-retest reliability or heritability studies)
+
+(Forthcoming)
 
 ---
 
