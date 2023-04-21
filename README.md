@@ -12,7 +12,7 @@ R package to apply CLEAN, CLEAN-R, and CLEAN-V to neuroimaging data.
 **CLEAN-R**
 > Weinstein SM *et al*. (2022) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. NeuroImage, 264, 119712 [article link](https://doi.org/10.1016/j.neuroimage.2022.119712)
 
-**CLEAN-R**
+**CLEAN-V**
 > Pan R *et al*. (2023+) Spatial-extent inference for testing variance components in reliability and heritability studies. BioRxiv [article link](https://doi.org/10.1101/2023.04.19.537270)
 
 
