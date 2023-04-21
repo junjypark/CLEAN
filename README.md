@@ -2,25 +2,31 @@
 
 **Clusterwise inference leveraging spatial autocorrelation in neuroimaging**
 
-R package to apply CLEAN and CLEAN-R to neuroimaging data. 
+R package to apply CLEAN, CLEAN-R, and CLEAN-V to neuroimaging data. 
 
 ### References
 
 **CLEAN**
-> Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. Neuroimage, 255, 119192. [article link](https://doi.org/10.1016/j.neuroimage.2022.119192)
+> Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. NeuroImage, 255, 119192. [article link](https://doi.org/10.1016/j.neuroimage.2022.119192)
 
 **CLEAN-R**
-> Weinstein SM *et al*. (2022+) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. Neuroimage, 264, 119712 [article link](https://doi.org/10.1016/j.neuroimage.2022.119712)
+> Weinstein SM *et al*. (2022) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. NeuroImage, 264, 119712 [article link](https://doi.org/10.1016/j.neuroimage.2022.119712)
+
+**CLEAN-R**
+> Pan R *et al*. (2023+) Spatial-extent inference for testing variance components in reliability and heritability studies. BioRxiv [article link](https://doi.org/10.1101/2023.04.19.537270)
+
 
 ### Update logs
 
 Note: The current version of the package is a beta version and may contain bugs. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours.
 
-> Oct 15: We now support the `get.empirical.variogram' function that computes the group-averaged empirical variogram for exploratory data analyses.
+> April 20, 2023: CLEAN-V method implemented in the package.
 
-> Sept 14: Installation errors for Window users have been fixed.
+> Oct 15, 2022: We now support the `get.empirical.variogram' function that computes the group-averaged empirical variogram for exploratory data analyses.
 
-> April 20: CLEAN-R methods implemented in the package.
+> Sept 14, 2022: Installation errors for Window users have been fixed.
+
+> April 20, 2022: CLEAN-R method implemented in the package.
 
 ## Contents
 
