@@ -225,8 +225,8 @@ We recommend using geodesic distance for mesh surfaces. You may use [Python](htt
 Yes, it is **necessary** to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed (`seed`) and the same number of resamples (`nperm`) for the `Clean()` function. Then you may use the `combine()` function to get a new threshold.
 
 ```R
-Clean.fit.lh=Clean(dataLH, NNmatrixLH, nperm=10000, seed=1)
-Clean.fit.rh=Clean(dataRH, NNmatrixRH, nperm=10000, seed=1)
+Clean.fit.lh=Clean(dataLH, NNmatrixLH, nperm=5000, seed=1)
+Clean.fit.rh=Clean(dataRH, NNmatrixRH, nperm=5000, seed=1)
 Clean.fit.brain=list(Clean.fit.lh, Clean.fit.rh)
 Clean.fit.combine=combine(Clean.fit.brain, alpha=0.05)
 ```
