@@ -22,6 +22,7 @@ CleanMean=function(ymat,
   }
 
   ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=NULL, sacf=sacf, nngp=nngp, nngp.J=nngp.J)
+  NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   if (isTRUE(partition)){
     if (is.null(npartition)){
