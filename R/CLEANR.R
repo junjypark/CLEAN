@@ -55,8 +55,8 @@ CleanR=function(xmat,
     cortex= 1:V
   }
   
-  ymat.leverage = spLeverage(ymat, distmat, mod, sacf, nngp, nngp.J)
-  xmat.leverage = spLeverage(xmat, distmat, mod, sacf, nngp, nngp.J)
+  ymat.leverage = spLeverage(ymat, distmat, mod, sacf, nngp, nngp.J)$out
+  xmat.leverage = spLeverage(xmat, distmat, mod, sacf, nngp, nngp.J)$out
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   xmat=t(apply(xmat,1,scale))/sqrt(ncol(xmat)-1)

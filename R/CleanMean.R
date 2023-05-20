@@ -5,7 +5,7 @@ CleanMean=function(ymat,
                    max.radius,
                    nperm = 5000, 
                    alpha = 0.05, 
-                   alternative = c("two.sided", "less", "greater"), 
+                   alternative = "two.sided", 
                    seed = NULL,
                    nngp = T,
                    nngp.J = 50,
@@ -22,7 +22,7 @@ CleanMean=function(ymat,
     cortex= 1:V
   }
 
-  ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=NULL, sacf=sacf, nngp=nngp, nngp.J=nngp.J)
+  ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=NULL, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   if (isTRUE(partition)){
@@ -44,7 +44,6 @@ CleanMean=function(ymat,
     }
     
     if (isTRUE(parallel)){
-      cat("temp1.\n")
       cl = makeCluster(ncores)
       registerDoParallel(cl)
       result = foreach(i = 1:npartition, .packages=("CLEAN"),.noexport = "CleanC" )%dopar%{
@@ -55,7 +54,6 @@ CleanMean=function(ymat,
       }
       stopCluster(cl)
     } else{
-      cat("temp2.\n")
       result = list()
       for (i in 1:npartition){
         result[[i]] = CleanMeanC(ymat.leverage, NNList[[i]], nperm, seed)

@@ -7,7 +7,7 @@ CleanDiff=function(ymat,
                    max.radius,
                    nperm = 5000, 
                    alpha = 0.05, 
-                   alternative = c("two.sided", "less", "greater"), 
+                   alternative = "two.sided", 
                    seed = NULL, 
                    partition = T, 
                    npartition = 1, 
@@ -21,7 +21,7 @@ CleanDiff=function(ymat,
     cortex= 1:V
   }
   
-  ymat.leverage = spLeverage(ymat, distmat, mod0, nngp, nngp.J)
+  ymat.leverage = spLeverage(ymat, distmat, mod0, nngp, nngp.J)$out
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   if (isTRUE(partition)){

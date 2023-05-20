@@ -49,7 +49,7 @@ CleanV=function(ymat,
     cortex= 1:V
   }
   
-  ymat.leverage = spLeverage(ymat, distmat, mod, sacf, nngp, nngp.J)
+  ymat.leverage = spLeverage(ymat, distmat, mod, sacf, nngp, nngp.J)$out
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   K=Matrix(K, sparse=T)
