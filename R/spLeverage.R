@@ -9,9 +9,9 @@ spLeverage=function(data, distmat=NULL, mod0=NULL, sacf="exp", nngp=T, nngp.J=50
   covreg.fit=CovReg(data, distmat, n.covariates=q, kernel=sacf)
   
   if (nngp & nngp.J<nrow(distmat)){
-    NNGPinfo=constructNNGPinfo(distmat, NN=min(nngp.J)
-                               NNGPprec=buildNNGPmat(distmat, NNGPinfo, covreg.fit)$NNGPprec
-                               data.new=as.matrix(NNGPprec%*%data)
+    NNGPinfo=constructNNGPinfo(distmat, NN=min(nngp.J))
+    NNGPprec=buildNNGPmat(distmat, NNGPinfo, covreg.fit)$NNGPprec
+    data.new=as.matrix(NNGPprec%*%data)
   } else{
     
     phi=covreg.fit$phi
