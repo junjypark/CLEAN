@@ -21,7 +21,7 @@ CleanDiff=function(ymat,
   }
   
   ymat.leverage = spLeverage(ymat, distmat, mod0, nngp, nngp.J)
-  
+  NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   if (isTRUE(partition)){
     if (is.null(npartition)){
