@@ -8,6 +8,7 @@ Clean(
   group = NULL,
   distmat = NULL,
   sacf = "exp"
+  max.radius = 20,
   nperm = 5000,
   alpha = 0.05,
   alternative = c("two.sided", "less", "greater"),
