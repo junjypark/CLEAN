@@ -52,6 +52,8 @@ CleanV=function(ymat,
   
   out$seed = seed
   out$nlocations = ncol(NNmatrix)
+  out$alternative = "greater"
+  out = combine(out, alpha = alpha)
   
   set.seed(NULL)
   
