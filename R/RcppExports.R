@@ -21,14 +21,6 @@ CleanerExpandPermC <- function(U, permU, NNmatrix) {
     .Call('_CLEAN_CleanerExpandPermC', PACKAGE = 'CLEAN', U, permU, NNmatrix)
 }
 
-MassiveMeanC <- function(ymat, nperm, s) {
-    .Call('_CLEAN_MassiveMeanC', PACKAGE = 'CLEAN', ymat, nperm, s)
-}
-
-MassiveDiffC <- function(ymat, group, nperm, s) {
-    .Call('_CLEAN_MassiveDiffC', PACKAGE = 'CLEAN', ymat, group, nperm, s)
-}
-
 computetraceABA <- function(A, B) {
     .Call('_CLEAN_computetraceABA', PACKAGE = 'CLEAN', A, B)
 }
