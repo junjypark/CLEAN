@@ -77,33 +77,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// MassiveMeanC
-Rcpp::List MassiveMeanC(arma::mat ymat, int nperm, int s);
-RcppExport SEXP _CLEAN_MassiveMeanC(SEXP ymatSEXP, SEXP npermSEXP, SEXP sSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type ymat(ymatSEXP);
-    Rcpp::traits::input_parameter< int >::type nperm(npermSEXP);
-    Rcpp::traits::input_parameter< int >::type s(sSEXP);
-    rcpp_result_gen = Rcpp::wrap(MassiveMeanC(ymat, nperm, s));
-    return rcpp_result_gen;
-END_RCPP
-}
-// MassiveDiffC
-Rcpp::List MassiveDiffC(arma::mat ymat, arma::vec group, int nperm, int s);
-RcppExport SEXP _CLEAN_MassiveDiffC(SEXP ymatSEXP, SEXP groupSEXP, SEXP npermSEXP, SEXP sSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat >::type ymat(ymatSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type group(groupSEXP);
-    Rcpp::traits::input_parameter< int >::type nperm(npermSEXP);
-    Rcpp::traits::input_parameter< int >::type s(sSEXP);
-    rcpp_result_gen = Rcpp::wrap(MassiveDiffC(ymat, group, nperm, s));
-    return rcpp_result_gen;
-END_RCPP
-}
 // computetraceABA
 double computetraceABA(arma::mat A, arma::mat B);
 RcppExport SEXP _CLEAN_computetraceABA(SEXP ASEXP, SEXP BSEXP) {
@@ -165,8 +138,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_CLEAN_CleanDiffC", (DL_FUNC) &_CLEAN_CleanDiffC, 5},
     {"_CLEAN_CleanerPermC", (DL_FUNC) &_CLEAN_CleanerPermC, 4},
     {"_CLEAN_CleanerExpandPermC", (DL_FUNC) &_CLEAN_CleanerExpandPermC, 3},
-    {"_CLEAN_MassiveMeanC", (DL_FUNC) &_CLEAN_MassiveMeanC, 3},
-    {"_CLEAN_MassiveDiffC", (DL_FUNC) &_CLEAN_MassiveDiffC, 4},
     {"_CLEAN_computetraceABA", (DL_FUNC) &_CLEAN_computetraceABA, 2},
     {"_CLEAN_CovRegOptimC", (DL_FUNC) &_CLEAN_CovRegOptimC, 3},
     {"_CLEAN_ObtainVarCompsC", (DL_FUNC) &_CLEAN_ObtainVarCompsC, 3},
