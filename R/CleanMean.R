@@ -63,6 +63,7 @@ CleanMean=function(ymat,
     }
     
     out = combine(result, alpha = alpha, collapse = T)
+    out$nlocations = ncol(NNmatrix) 
     result_proc = process(out)
     out$Tstat = rep(0, V)
     out$Tstat[cortex]= result_proc$Tstat
