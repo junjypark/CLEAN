@@ -57,8 +57,8 @@ CleanR=function(xmat,
   xmat.leverage = spLeverage(xmat, distmat, mod, sacf, nngp, nngp.J)
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
-  # xmat=t(apply(xmat,1,scale))/ncol(xmat)
-  # ymat=t(apply(ymat,1,scale))/ncol(ymat)
+  xmat=t(apply(xmat,1,scale))/sqrt(ncol(xmat)-1)
+  ymat=t(apply(ymat,1,scale))/sqrt(ncol(ymat)-1)
   NNList = list()
   len=ceiling(nrow(NNmatrix)/npartition)
   for (i in 1:npartition){
