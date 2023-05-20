@@ -1,9 +1,8 @@
 usethis::use_package("Matrix")
 
-CovReg=function(epsilon,  distmat, kernel="exponential", n.covariates=NULL, sparse=T, qtl=0.5, maxdist=NULL){
+CovReg=function(epsilon,  distmat, kernel="exp", n.covariates=NULL, sparse=T, qtl=0.5, maxdist=NULL){
   if (is.null(n.covariates)){    
     n.covariates=0
-    cat("[CLEAN] Fitting the model assuming no covariate.\n")
   }
   if (!is.null(qtl) & !is.null(maxdist)){ stop("Only one of qtl or maxdist should be specified.")}
   if (sparse & is.null(qtl) & is.null (maxdist)){ stop("One of qtl or maxdist should be specified to enable the sparse option.") }
@@ -13,9 +12,9 @@ CovReg=function(epsilon,  distmat, kernel="exponential", n.covariates=NULL, spar
   if (!is.null(maxdist)){ q=maxdist }
   
   n=ncol(epsilon); p=nrow(epsilon)
-  if (kernel%in%c("exponential", "gaussian")){
-    if (kernel=="exponential"){corMat.base=exp(-distmat)}
-    else if (kernel=="gaussian"){corMat.base=exp(-distmat^2/2)}
+  if (kernel%in%c("exp", "gau")){
+    if (kernel=="exp"){corMat.base=exp(-distmat)}
+    else if (kernel=="gau"){corMat.base=exp(-distmat^2/2)}
     
     if (!is.null(q)){ corMat.base=ifelse(distmat<q, corMat.base, 0) }
     
@@ -27,7 +26,7 @@ CovReg=function(epsilon,  distmat, kernel="exponential", n.covariates=NULL, spar
       phi.hat=optimize(CovRegOptimC,interval=c(10^-5, 10),epsilon=epsilon, corMat_base=corMat.base)$`minimum`
       varcomps=ObtainVarCompsC(phi.hat, epsilon, corMat.base)
     }
-  } else if (kernel=="mixture"){
+  } else if (kernel=="mix"){
     corMat.base1=exp(-distmat)
     corMat.base2=exp(-distmat^2/2)
     
