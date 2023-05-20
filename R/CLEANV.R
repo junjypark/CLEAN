@@ -56,6 +56,6 @@ CleanV=function(ymat,
   
   set.seed(NULL)
   
-  return (fit)
+  return(out)
 }
 
