@@ -38,7 +38,7 @@ Note: The current version of the package is a beta version and may contain bugs.
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
     * [How do I obtain a pairwise distance matrix?](#id-q3)
-    * [Is it possible to fit CLEAN/CLEAN-R separately for two hemispheres and combine results afterwards?](#id-q4)
+    * [Is it possible to fit CLEAN/CLEAN-R/CLEAN-V separately for two hemispheres and combine results afterwards?](#id-q4)
     * [What is the recommended value for max.radius?](#id-q5)
 8. [Miscellaneous](#id-misc)
 
@@ -195,7 +195,7 @@ The last step is to subset the distance matrices with your interest, for example
 
 <div id='id-q4'/>
 
-**Is it possible to fit CLEAN separately for two hemispheres and combine results afterwards?**
+**Is it possible to fit CLEAN/CLEAN-R/CLEAN-V separately for two hemispheres and combine results afterwards?**
 
 Yes, it is **necessary** to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed (`seed`) and the same number of resamples (`nperm`) for the `Clean()` function. Then you may use the `combine()` function to get a new threshold.
 
