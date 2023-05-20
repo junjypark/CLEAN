@@ -33,7 +33,7 @@ ObtainVarCompsC <- function(rho, epsilon, corMat_base) {
     .Call('_CLEAN_ObtainVarCompsC', PACKAGE = 'CLEAN', rho, epsilon, corMat_base)
 }
 
-CleanVarC <- function(ymat, NNmatrix, Kmatrix, decomp, nperm, s) {
-    .Call('_CLEAN_CleanVarC', PACKAGE = 'CLEAN', ymat, NNmatrix, Kmatrix, decomp, nperm, s)
+CleanVarC <- function(ymat, NNmatrix, Kmatrix, nperm, s) {
+    .Call('_CLEAN_CleanVarC', PACKAGE = 'CLEAN', ymat, NNmatrix, Kmatrix, nperm, s)
 }
 

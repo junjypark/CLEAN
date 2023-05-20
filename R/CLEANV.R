@@ -17,7 +17,6 @@
 # parallel    : Whether parallel computing is to be used.
 # cores       : The number of cores when parallel computing is executed.
 
-
 CleanV=function(ymat,
                 distmat, 
                 cortex = NULL,
