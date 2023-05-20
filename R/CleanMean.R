@@ -21,7 +21,7 @@ CleanMean=function(ymat,
     cortex= 1:V
   }
 
-  ymat.leverage = spLeverage(ymat, distmat, sacf, nngp, nngp.J)
+  ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=NULL, sacf=sacf, nngp=nngp, nngp.J=nngp.J)
   
   if (isTRUE(partition)){
     if (is.null(npartition)){
