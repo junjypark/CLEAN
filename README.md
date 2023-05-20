@@ -2,18 +2,11 @@
 
 **Clusterwise inference leveraging spatial autocorrelation in neuroimaging**
 
-R package to apply CLEAN, CLEAN-R, and CLEAN-V to neuroimaging data. 
+R package to apply **CLEAN**, **CLEAN-R**, and **CLEAN-V** to neuroimaging data. 
 
-CLEAN supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Key components of CLEAN include
-
-* an explicit brain-wise spatial covariance modeling of neuroimaging data,
-* resampling approaches (sign-flipping or permutation) to control family-wise error rate, and
-* a general clusterwise inference for the cortical surface.
-
-The current implementation is computationally efficient. Using a laptop without parallel computing, it takes only a few minutes (mostly less than 10 minutes) to analyze 50 subjects' imaging data across 10,000 vertices. The current version also supports parallel computing using the `doParallel` R package.
+CLEAN/CLEAN-R/CLEANV supports fast and powerful group-level clusterwise inference for neuroimaging data registered in the cortical surface. The current implementation is computationally efficient. Using a laptop without parallel computing, it takes only a few minutes (mostly less than 10 minutes) to analyze 50 subjects' imaging data across 10,000 vertices. The current version also supports parallel computing using the `doParallel` R package.
 
 Please visit [R](https://github.com/mandymejia/ciftiTools), [Python](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. This package is written in R and works well with the [ciftiTools](https://github.com/mandymejia/ciftiTools) or [freesurferformats](https://cran.r-project.org/web/packages/freesurferformats/index.html) R package. 
-
 
 ### Update logs
 
@@ -66,18 +59,17 @@ After installation, the package can be loaded directly in R.
 library(CLEAN)
 ```
  
-
 ---
 <div id='id-cleanglm'/>
 
 ### CLEAN: testing activations or group differences via GLM
 
-For one sample test (e.g. testing group-level activation in task-fMRI), use
+For one sample testing (e.g. testing group-level activation in task-fMRI), use
 ```R
 fit = Clean(ymat = data, distmat = distmat)
 ```
 
-For two-sample test (e.g. testing difference in means between two groups), use
+For two-sample testing (e.g. testing difference in means between two groups), use
 ```R
 fit = Clean(ymat = data, group = group, distmat = distmat)
 ```
@@ -129,7 +121,7 @@ help(CleanR)
 
 (Forthcoming)
 
-<div id='faq'/>
+<div id='id-faq'/>
 
 ### Frequently asked questions:
 <div id='id-q1'/>
@@ -139,7 +131,6 @@ Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you in
 
 ```R
 library(ciftiTools)
-library(rgl)
 ciftiTools.setOption("wb_path", "/Applications/workbench")
 xii = read_cifti(fname, surfL, surfR, resamp_res = 10242)  #resamp_res: how many vertices to resample
 ```
@@ -229,7 +220,7 @@ Please use the following to cite CLEAN, CLEAN-R, or CLEAN-V.
 
 
 ### Miscellaneous
-Please check out the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
+Please check out the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups' growth/decay. It currently does not support leveraging spatial autocorrelations.
 
 > Park JY, Fiecas M (2021) Permutation-based inference for spatially localized signals in longitudinal MRI data. Neuroimage, 239, 118312. [article link](https://doi.org/10.1016/j.neuroimage.2021.118312)
 
