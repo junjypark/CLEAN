@@ -4,16 +4,15 @@
 
 R package to apply CLEAN, CLEAN-R, and CLEAN-V to neuroimaging data. 
 
-### References
+CLEAN supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Key components of CLEAN include
 
-**CLEAN**
-> Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. NeuroImage, 255, 119192. [article link](https://doi.org/10.1016/j.neuroimage.2022.119192)
+* an explicit brain-wise spatial covariance modeling of neuroimaging data,
+* resampling approaches (sign-flipping or permutation) to control family-wise error rate, and
+* a general clusterwise inference for the cortical surface.
 
-**CLEAN-R**
-> Weinstein SM *et al*. (2022) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. NeuroImage, 264, 119712 [article link](https://doi.org/10.1016/j.neuroimage.2022.119712)
+The current implementation is computationally efficient. Using a laptop without parallel computing, it takes only a few minutes (mostly less than 10 minutes) to analyze 50 subjects' imaging data across 10,000 vertices. The current version also supports parallel computing using the `doParallel` R package.
 
-**CLEAN-V**
-> Pan R *et al*. (2023+) Spatial-extent inference for testing variance components in reliability and heritability studies. BioRxiv [article link](https://doi.org/10.1101/2023.04.19.537270)
+Please visit [R](https://github.com/mandymejia/ciftiTools), [Python](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. This package is written in R and works well with the [ciftiTools](https://github.com/mandymejia/ciftiTools) or [freesurferformats](https://cran.r-project.org/web/packages/freesurferformats/index.html) R package. 
 
 
 ### Update logs
@@ -28,39 +27,24 @@ Note: The current version of the package is a beta version and may contain bugs.
 
 ## Contents
 
-1. [Background](#id-background)
-2. [Installation](#id-installation)
-3. [Usage](#id-usage)
+1. [Installation](#id-installation)
+2. [Usage](#id-usage)
     * [CLEAN: testing activations or group differences via GLM](#id-cleanglm)
     * [CLEAN-R: testing intermodal associations](#id-cleanr)  
     * [CLEAN-V: testing reliability or heritability (forthcoming)](#id-cleanv)
-4.  [Visualization](#id-cleanvisualize)
-5. [FAQ](#id-tips)
+3.  [Visualization](#id-cleanvisualize)
+4. [FAQ](#id-faq)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
     * [How do I obtain a pairwise distance matrix?](#id-q3)
     * [Is it possible to fit CLEAN/CLEAN-R/CLEAN-V separately for two hemispheres and combine results afterwards?](#id-q4)
     * [What is the recommended value for max.radius?](#id-q5)
+5. [References](#id-ref)
 6. [Miscellaneous](#id-misc)
 
+
 ---
-
-<div id='id-background'/>
-
-### Background
-CLEAN supports group-level clusterwise inference for neuroimaging data registered in the cortical surface. Key components of CLEAN include
-
-* an explicit brain-wise spatial covariance modeling of neuroimaging data,
-* resampling approaches (sign-flipping or permutation) to control family-wise error rate, and
-* a general clusterwise inference for cortical surface.
-
-Compared to classical GLM (or massive-univariate analysis), CLEAN shows superior statistical power. A current implementation is computationally efficient and, using a laptop without parallel computing, takes only a few minutes to analyze 50 subjects' imaging data across 10,000 vertices. The current version also supports parallel computing using the `doParallel` R package.
-
-Please refer [R](https://github.com/mandymejia/ciftiTools), [Python](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. This package is written in R and works well with the [ciftiTools](https://github.com/mandymejia/ciftiTools) R package. More helpful information is provided in the [FAQ](#id-tips) section.
-
 <div id='id-installation'/>
-
----
 
 ### Installation
 To install the latest development builds directly from GitHub, please run the followings:
@@ -84,7 +68,6 @@ library(CLEAN)
  
 
 ---
-
 <div id='id-cleanglm'/>
 
 ### CLEAN: testing activations or group differences via GLM
@@ -111,8 +94,6 @@ Please refer to the manual for more information about the optional arguments.
 ```R
 help(Clean)
 ```
-
-<div id='id-tips'/>
 
 ---
 
@@ -148,6 +129,7 @@ help(CleanR)
 
 (Forthcoming)
 
+<div id='faq'/>
 
 ### Frequently asked questions:
 <div id='id-q1'/>
@@ -224,9 +206,27 @@ Clean.fit.combine = combine(Clean.fit.brain = list(Clean.fit.lh, Clean.fit.rh), 
 
 The `max.radius` determines the degree of the spatial domain you're borrowing information from. Higher sensitivity obtained from a large value of `max.radius`, however, comes with the cost of decreased specificity. It should be determined a priori before obtaining any result. We empirically found values between 10 and 20 useful for interpretation. Please report these values in your article.
   
- <div id='id-misc'>
 
 ---
+<div id='id-ref'>
+
+### References
+
+Please use the following to cite CLEAN, CLEAN-R, or CLEAN-V.
+
+**CLEAN**
+> Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. NeuroImage, 255, 119192. [article link](https://doi.org/10.1016/j.neuroimage.2022.119192)
+
+**CLEAN-R**
+> Weinstein SM *et al*. (2022) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. NeuroImage, 264, 119712 [article link](https://doi.org/10.1016/j.neuroimage.2022.119712)
+
+**CLEAN-V**
+> Pan R *et al*. (2023+) Spatial-extent inference for testing variance components in reliability and heritability studies. BioRxiv [article link](https://doi.org/10.1101/2023.04.19.537270)
+
+
+---
+ <div id='id-misc'>
+
 
 ### Miscellaneous
 Please check out the [SpLoc](https://github.com/junjypark/SpLoc) package, a close family of CLEAN, that conducts clusterwise inference for longitudinal neuroimaging data in comparing two groups's growth/decay. It currently does not support leveraging spatial autocorrelations.
