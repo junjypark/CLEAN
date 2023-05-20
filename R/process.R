@@ -4,7 +4,7 @@ process = function(fit, threshold = NULL){
   n.locations = fit$nlocations
   Tstat=rep(0, n.locations)
 
-  if (alternative ==" two.sided"){
+  if (alternative =="two.sided"){
     Tstat = apply(matrix(fit$Tstat^2, n.locations), 1, max)
     Tstat_thresholded = Tstat
     Tstat_thresholded[Tstat < threshold] = 0
