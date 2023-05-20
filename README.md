@@ -98,45 +98,45 @@ Fitting CLEAN consists of three major steps.
 
 For one sample test, use
 ```R
-data.leverage=spLeverage(data, distMat)
+data.leverage = spLeverage(data, distMat)
 ```
 
 For two sample test, use
 ```R
-mod0=model.matrix(~1)
-data.leverage=spLeverage(data, distMat, mod0)
+mod0 = model.matrix(~1)
+data.leverage = spLeverage(data, distMat, mod0)
 ```
 
 For GLM using potential confounders, use
 ```R
-mod0=model.matrix(~covariates)
-data.leverage=spLeverage(data, distMat, mod0)
+mod0 = model.matrix(~covariates)
+data.leverage = spLeverage(data, distMat, mod0)
 ```
 Note: `covariates` above should NOT contain the covariate of interest.
 
 
 **Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
 ```R
-NNmatrix=buildNNmatrixDist(distMat, max.radius=20)
+NNmatrix = buildNNmatrixDist(distMat, max.radius=20)
 ```
 
 **Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use `Clean()` and `process()` functions to obtain the Clean fit and statistically significant vertices. 
 ```R
-fit=Clean(data.leverage$out, NNmatrix, seed=NULL)	
-result=process(fit)
+fit = Clean(data.leverage$out, NNmatrix, seed = NULL)	
+result = process(fit)
 ```
 
 In two-sample test where you test for the group differences,
 ```R
-fit=Clean(data.leverage$out, NNmatrix, group=group, seed=NULL)	
-result=process(fit)
+fit = Clean(data.leverage$out, NNmatrix, group = group, seed = NULL)	
+result = process(fit)
 ```
  `group` is a binarized vector (e.g. 1 and -1).
 
 In GLM where you test with an association with the covariate of interest, 
 ```R
-fit=Clean(data.leverage$out, NNmatrix, group=covariate_of_interest, seed=NULL)	
-result=process(fit)
+fit = Clean(data.leverage$out, NNmatrix, group = covariate_of_interest, seed = NULL)	
+result = process(fit)
 ```
 `coviarate_of_interest` is a covariate vector of interest.
 
@@ -151,8 +151,8 @@ result=process(fit)
 **Step 1) Obtain new data after leveraging spatial autocorrelation**
 ```R
 mod0=model.matrix(~covariates)
-data1.leverage=spLeverage(data1, distMat, mod0)
-data2.leverage=spLeverage(data2, distMat, mod0)
+data1.leverage = spLeverage(data1, distMat, mod0)
+data2.leverage = spLeverage(data2, distMat, mod0)
 ```
 
 **Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
@@ -163,8 +163,8 @@ NNmatrix=buildNNmatrixDist(distMat, max.radius=20)
 
 **Step 3) Fit CLEAN-R**
 ```R
-fit=CleanR(data1.leverage$out, data2.leverage$out, NNmatrix, seed=NULL)	
-result=process(fit)
+fit = CleanR(data1.leverage$out, data2.leverage$out, NNmatrix, seed = NULL)	
+result = process(fit)
 ```
 
 ---
@@ -181,7 +181,7 @@ result=process(fit)
 
 ### Visualization 
 
-Coming soon.
+(Forthcoming)
 
 
 ### Frequently asked questions:
@@ -225,7 +225,7 @@ It requires the extraction of `vertices` and `faces` matrices. The `vertices` ma
 If you use [ciftiTools](https://github.com/mandymejia/ciftiTools), it can be accessed directly from the surface GIFTI. If you use [freesurferformats](https://cran.r-project.org/web/packages/freesurferformats/index.html), the surface file (e.g. `lh.pial` or `lh.inflated` from FreeSurfer) can be loaded directly using the `read.fs.surface()` function. Once you load `vertices` and `faces', the following manipulation is necessary due to the difference between R and Python.
 
 ```R
-surf$faces=surf$faces-1
+surf$faces = surf$faces-1
 ```
 
 Once you loaded `vertices` and `faces` in Python, the following would provide a pairwise distance matrix.
@@ -248,10 +248,10 @@ The last step is to subset the distance matrices with your interest, for example
 Yes, it is **necessary** to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed (`seed`) and the same number of resamples (`nperm`) for the `Clean()` function. Then you may use the `combine()` function to get a new threshold.
 
 ```R
-Clean.fit.lh=Clean(dataLH, NNmatrixLH, nperm=5000, seed=1)
-Clean.fit.rh=Clean(dataRH, NNmatrixRH, nperm=5000, seed=1)
-Clean.fit.brain=list(Clean.fit.lh, Clean.fit.rh)
-Clean.fit.combine=combine(Clean.fit.brain, alpha=0.05)
+Clean.fit.lh = Clean(dataLH, NNmatrixLH, nperm = 5000, seed = 1)
+Clean.fit.rh = Clean(dataRH, NNmatrixRH, nperm = 5000, seed = 1)
+Clean.fit.brain = list(Clean.fit.lh, Clean.fit.rh)
+Clean.fit.combine = combine(Clean.fit.brain, alpha = 0.05)
 ```
 
 <div id='id-q5'/>
