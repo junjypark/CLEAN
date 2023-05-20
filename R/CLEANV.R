@@ -14,7 +14,6 @@
 # alpha       : A desired FWER. alpha=0.05 is assumed as a default.
 # seed        : A random seed to be used for permutation.
 #             : It is important to use the same seed for integrating results from both hemispheres.
-# parallel    : Whether parallel computing is to be used.
 # cores       : The number of cores when parallel computing is executed.
 
 CleanV=function(ymat,
@@ -29,8 +28,8 @@ CleanV=function(ymat,
                 seed = NULL, 
                 nngp = T,
                 nngp.J = 50,
-                npartition = NULL, 
-                parallel = F, 
+                # npartition = NULL, 
+                # parallel = F, 
                 ncores = 1){
   
   if ( alpha < 0 |alpha > 1){
@@ -43,6 +42,13 @@ CleanV=function(ymat,
     seed = sample(1e6, 1) 
   }
   
+  if (!is.null(cortex)){
+    ymat = ymat[cortex, ]
+    distmat = distmat[cortex, cortex]
+  } else{
+    cortex= 1:V
+  }
+  
   ymat.leverage = spLeverage(ymat, distmat, mod, sacf, nngp, nngp.J)
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
@@ -53,7 +59,13 @@ CleanV=function(ymat,
   out$seed = seed
   out$nlocations = ncol(NNmatrix)
   out$alternative = "greater"
-  out = combine(out, alpha = alpha)
+  out = combine(out, alpha = alpha, collapse = T)
+  
+  result_proc = process(out)
+  out$Tstat = rep(0, V)
+  out$Tstat[cortex]= result_proc$Tstat
+  out$Tstat_thresholded = rep(0, V)
+  out$Tstat_thresholded[cortex] = result_proc$Tstat_thresholded
   
   set.seed(NULL)
   

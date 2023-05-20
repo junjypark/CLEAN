@@ -51,6 +51,8 @@ CleanR=function(xmat,
     ymat = ymat[cortex, ]
     xmat = xmat[cortex, ]
     distmat = distmat[cortex, cortex]
+  } else{
+    cortex= 1:V
   }
   
   ymat.leverage = spLeverage(ymat, distmat, mod, sacf, nngp, nngp.J)
@@ -85,10 +87,16 @@ CleanR=function(xmat,
       result[[i]]$alternative = alternative
       result[[i]]$seed = seed
     }  
-    result = combine(result, alpha = alpha)
-    result$nlocations = ncol(NNmatrix)
   }
   
+  result = combine(result, alpha = alpha, collapse = T)
+  result_proc = process(result)
+  result$Tstat = rep(0, V)
+  result$Tstat[cortex] = result_proc$Tstat
+  result$Tstat_thresholded = rep(0, V)
+  result$Tstat_thresholded[cortex] = result_proc$Tstat_thresholded
+
+  set.seed(NULL)
   
   return(result)
 }

@@ -13,13 +13,15 @@ CleanMean=function(ymat,
                    parallel = F, 
                    ncores = 1){
   
+  V = nrow(ymat)
   if (!is.null(cortex)){
     ymat = ymat[cortex,]
     distmat = distmat[cortex,cortex]
+  } else{
+    cortex= 1:V
   }
 
   ymat.leverage = spLeverage(ymat, distmat, sacf, nngp, nngp.J)
-  
   
   if (isTRUE(partition)){
     if (is.null(npartition)){
@@ -58,26 +60,35 @@ CleanMean=function(ymat,
       }
     }
     
-    out = combine(result, alpha=alpha)
-    out$nlocations = ncol(NNmatrix)
+    out = combine(result, alpha = alpha, collapse = T)
+    result_proc = process(out)
+    out$Tstat = rep(0, V)
+    out$Tstat[cortex]= result_proc$Tstat
+    out$Tstat_thresholded = rep(0, V)
+    out$Tstat_thresholded[cortex] = result_proc$Tstat_thresholded
+    
     return(out)
   } else{
     out=CleanMeanC(ymat.leverage, NNmatrix, nperm, seed)
     if (alternative == "less"){
       out$threshold = quantile(out$permMin,alpha)
-      out$pvalue = (1+sum(c(out$permMin) < min(out$Tstat, na.rm = T)))/(1+nperm[1])
     } else if (alternative == "greater"){
       threshold = quantile(out$permMax, 1-alpha)
-      out$pvalue = (1+sum(c(out$permMax)>max(out$Tstat,na.rm=T)))/(1+nperm[1])
     } else {
-      perm = pmax(abs(out$permMin),abs(out$permMax))
-      out$threshold = quantile(pmax(abs(out$permMin),abs(out$permMax)),1-alpha)
-      out$pvalue = (1+sum(c(perm)>max(abs(out$Tstat),na.rm=T)))/(1+nperm[1])
+      perm = pmax(abs(out$permMin), abs(out$permMax))
+      out$threshold = quantile(pmax(abs(out$permMin), abs(out$permMax)), 1-alpha)
     }
     
     out$seed = seed
     out$alternative = alternative
     out$nlocations = ncol(NNmatrix)
+    
+    result_proc = process(out)
+    out$Tstat = rep(0, V)
+    out$Tstat[cortex]= result_proc$Tstat
+    out$Tstat_thresholded = rep(0, V)
+    out$Tstat_thresholded[cortex] = result_proc$Tstat_thresholded
+    
     return(out)    
   }
 }

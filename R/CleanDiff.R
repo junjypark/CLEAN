@@ -16,6 +16,8 @@ CleanDiff=function(ymat,
   if (!is.null(cortex)){
     ymat = ymat[cortex,]
     distmat = distmat[cortex,cortex]
+  } else {
+    cortex= 1:V
   }
   
   ymat.leverage = spLeverage(ymat, distmat, mod0, nngp, nngp.J)
@@ -58,8 +60,13 @@ CleanDiff=function(ymat,
       }
     }
     
-    out = combine(result, alpha = alpha)
-    out$nlocations = ncol(NNmatrix)
+    out = combine(result, alpha = alpha, collapse = T)
+    result_proc = process(out)
+    out$Tstat = rep(0, V)
+    out$Tstat[cortex]= result_proc$Tstat
+    out$Tstat_thresholded = rep(0, V)
+    out$Tstat_thresholded[cortex] = result_proc$Tstat_thresholded
+    
     return(out)
   } else{
     out = CleanDiffC(ymat.leverage, NNmatrix, cov.interest, nperm, seed)
@@ -78,6 +85,14 @@ CleanDiff=function(ymat,
     out$seed = seed
     out$alternative = alternative
     out$nlocations = ncol(NNmatrix)
+    
+    out = combine(result, alpha = alpha, collapse = T)
+    result_proc = process(out)
+    out$Tstat = rep(0, V)
+    out$Tstat[cortex]= result_proc$Tstat
+    out$Tstat_thresholded = rep(0, V)
+    out$Tstat_thresholded[cortex] = result_proc$Tstat_thresholded
+    
     return(out)    
   }
 }
