@@ -20,6 +20,8 @@ R package to apply CLEAN, CLEAN-R, and CLEAN-V to neuroimaging data.
 
 Note: The current version of the package is a beta version and may contain bugs. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours.
 
+> May 19, 2023: We are currently working on supporting visualizations and preparing manuals. Any big changes will be posted here.
+
 > April 20, 2023: CLEAN-V method implemented in the package.
 
 > Oct 15, 2022: We now support the `get.empirical.variogram' function that computes the group-averaged empirical variogram for exploratory data analyses.
