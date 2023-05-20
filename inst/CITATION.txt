@@ -1,0 +1,60 @@
+citHeader("To cite {CLEAN} in publications use:")
+
+CLEAN_citations <- c(
+	bibentry(
+		bibtype      = "Article",
+		title        = "{CLEAN}: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference",
+		author       = personList(
+			as.person("Jun Young Park"),
+			as.person("Mark Fiecas")		),
+		year		= "2022",
+		journal      = "NeuroImage",
+		volume       = "255",
+		doi     		 = "10.1016/j.neuroimage.2022.119192"
+	)
+)
+
+CLEAN_citations <- c(
+	bibentry(
+		bibtype      = "Article",
+		title        = "Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence",
+		author       = personList(
+			as.person("Sarah M. Weinstein"),
+			as.person("Simon N. Vandekar"),
+			as.person("Erica B. Baller"),
+			as.person("Danni Tu"),
+			as.person("Azeez Adebimpe"),
+			as.person("Tinashe M. Tapera"),
+			as.person("Ruben C. Gur"),
+			as.person("Raquel E. Gur"),
+			as.person("John A. Detre"),
+			as.person("Armin Raznahan"),
+			as.person("Aaron F. Alexander-Bloch"),
+			as.person("Theodore D. Satterthwaite"),
+			as.person("Russell T. Shinohara"),
+			as.person("Jun Young Park")
+		),
+		year		= "2022",
+		journal      = "NeuroImage",
+		volume       = "264",
+		doi     		 = "10.1016/j.neuroimage.2022.119712"
+	)
+)
+
+CLEAN_citations <- c(
+	bibentry(
+		bibtype      = "Article",
+		title        = "Spatial-extent inference for testing variance components in reliability and heritability studies",
+		author       = personList(
+			as.person("Ruyi Pan"),
+			as.person("Erin W. Dickie"),
+			as.person("Colin Hawco"),
+			as.person("Nancy Reid"),
+			as.person("Aristotle N. Voineskos"),
+			as.person("Jun Young Park")
+		),
+		year		= "2023",
+		journal      = "BioRxiv",
+		doi     		 = "10.1101/2023.04.19.537270"
+	)
+)
