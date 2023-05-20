@@ -98,7 +98,7 @@ For two-sample test (e.g. testing difference in means between two groups), use
 fit = Clean(ymat = data, group = group, distmat = distmat)
 ```
 
-For GLM using potential confounders, use
+For GLM using potential confounders (e.g. brain-behavior associations), use
 ```R
 mod0 = model.matrix(~confounders)
 fit = Clean(ymat = data, group = covariate, mod0=mod0, distmat = distmat)
