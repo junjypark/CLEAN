@@ -1,4 +1,4 @@
-buildNNmatrixDist_radius=function(distMat, max.radius=20){
+buildNNmatrixDist=function(distMat, max.radius=20){
   p=nrow(distMat)
   dist_range = sort(c(ceiling(min(distMat, na.rm=T)),ceiling(min(c(max(distMat,na.rm=T),max.radius),na.rm=T))))
   dist_range_sequence = seq(dist_range[1], dist_range[2], by=1) # different radii to consider
