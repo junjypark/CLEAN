@@ -26,10 +26,6 @@ Note: The current version of the package is a beta version and may contain bugs.
 
 > Oct 15, 2022: We now support the `get.empirical.variogram' function that computes the group-averaged empirical variogram for exploratory data analyses.
 
-> Sept 14, 2022: Installation errors for Windows users have been fixed.
-
-> April 20, 2022: CLEAN-R method implemented in the package.
-
 ## Contents
 
 1. [Background](#id-background)
@@ -92,53 +88,23 @@ library(CLEAN)
 
 ### CLEAN for GLM (test for the grand mean, group differences, general linear model)
 
-Fitting CLEAN consists of three major steps.
-
-**Step 1) Obtain new data after leveraging spatial autocorrelation**: This is done by using the `spLeverage()` function with 3 major inputs: (i) a data matrix (ii) a pairwise distance matrix and (iii) covariate information (for two-sample tests or GLM).
-
-For one sample test, use
+For one sample test (e.g. testing group-level activation in task-fMRI), use
 ```R
-data.leverage = spLeverage(data, distMat)
+fit = Clean(ymat = data, distmat = distmat)
 ```
 
-For two sample test, use
+For two-sample test (e.g. testing difference in means between two groups), use
 ```R
-mod0 = model.matrix(~1)
-data.leverage = spLeverage(data, distMat, mod0)
+fit = Clean(ymat = data, group = group, distmat = distmat)
 ```
 
 For GLM using potential confounders, use
 ```R
-mod0 = model.matrix(~covariates)
-data.leverage = spLeverage(data, distMat, mod0)
+mod0 = model.matrix(~confounders)
+fit = Clean(ymat = data, group = covariate, mod0=mod0, distmat = distmat)
 ```
-Note: `covariates` above should NOT contain the covariate of interest.
+Note: `confounders` above should NOT contain the covariate of interest (`covariate`).
 
-
-**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
-```R
-NNmatrix = buildNNmatrixDist(distMat, max.radius=20)
-```
-
-**Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use `Clean()` and `process()` functions to obtain the Clean fit and statistically significant vertices. 
-```R
-fit = Clean(data.leverage$out, NNmatrix, seed = NULL)	
-result = process(fit)
-```
-
-In two-sample test where you test for the group differences,
-```R
-fit = Clean(data.leverage$out, NNmatrix, group = group, seed = NULL)	
-result = process(fit)
-```
- `group` is a binarized vector (e.g. 1 and -1).
-
-In GLM where you test with an association with the covariate of interest, 
-```R
-fit = Clean(data.leverage$out, NNmatrix, group = covariate_of_interest, seed = NULL)	
-result = process(fit)
-```
-`coviarate_of_interest` is a covariate vector of interest.
 
 <div id='id-tips'/>
 
@@ -148,23 +114,9 @@ result = process(fit)
 
 ### CLEAN-R: CLEAN for intermodal correspondence
 
-**Step 1) Obtain new data after leveraging spatial autocorrelation**
 ```R
-mod0=model.matrix(~covariates)
-data1.leverage = spLeverage(data1, distMat, mod0)
-data2.leverage = spLeverage(data2, distMat, mod0)
-```
-
-**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
-```R
-NNmatrix=buildNNmatrixDist(distMat, max.radius=20)
-```
-
-
-**Step 3) Fit CLEAN-R**
-```R
-fit = CleanR(data1.leverage$out, data2.leverage$out, NNmatrix, seed = NULL)	
-result = process(fit)
+mod=model.matrix(~covariates)
+fit = CleanR(ymat = data1, xmat = data2, mod=mod, distmat=distmat)
 ```
 
 ---
@@ -248,8 +200,8 @@ The last step is to subset the distance matrices with your interest, for example
 Yes, it is **necessary** to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed (`seed`) and the same number of resamples (`nperm`) for the `Clean()` function. Then you may use the `combine()` function to get a new threshold.
 
 ```R
-Clean.fit.lh = Clean(dataLH, NNmatrixLH, nperm = 5000, seed = 1)
-Clean.fit.rh = Clean(dataRH, NNmatrixRH, nperm = 5000, seed = 1)
+Clean.fit.lh = Clean(dataLH, distmatLH, nperm = 5000, seed = 1)
+Clean.fit.rh = Clean(dataRH, distmatRH, nperm = 5000, seed = 1)
 Clean.fit.brain = list(Clean.fit.lh, Clean.fit.rh)
 Clean.fit.combine = combine(Clean.fit.brain, alpha = 0.05)
 ```
