@@ -44,8 +44,8 @@ CleanR=function(xmat,
     seed=sample(1e6,1) 
   }
 
-  ymat.leverage = spLeverage(ymat, distmat, mod)
-  xmat.leverage = spLeverage(xmat, distmat, mod)
+  ymat.leverage = spLeverage(ymat, distmat, mod, sacf)
+  xmat.leverage = spLeverage(xmat, distmat, mod, sacf)
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   # xmat=t(apply(xmat,1,scale))/ncol(xmat)
