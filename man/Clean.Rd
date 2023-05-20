@@ -20,7 +20,7 @@ Clean(
 }
 
 \arguments{
-\item{ymat}{A V times N matrix (V: # of vertices, N: # of images}
+\item{ymat}{A V times N matrix (V: # of vertices, N: # of images.}
 
 \item{mod0}{A N times p covariate matrix (p: # of covariates). It can be generated easily by using the \code{model.matrix()} function. Make sure the covariate of interest that will be testedis NOT included in mod0.}
 
