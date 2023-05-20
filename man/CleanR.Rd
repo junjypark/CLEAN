@@ -4,8 +4,10 @@
 \usage{
 CleanR(
   ymat,
-  NNmatrix = NULL,
-  group = NULL,
+  xmat,
+  distmat,
+  sacf = "exp",
+  max.radius = 20,
   nperm = 5000,
   alpha = 0.05,
   alternative = c("two.sided", "less", "greater"),
