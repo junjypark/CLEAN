@@ -1,5 +1,6 @@
 CleanMean=function(ymat, 
                    distmat, 
+                   sacf,
                    nperm = 5000, 
                    alpha = 0.05, 
                    alternative = c("two.sided", "less", "greater"), 
@@ -9,7 +10,7 @@ CleanMean=function(ymat,
                    parallel = F, 
                    ncores = 1){
 
-  ymat.leverage = spLeverage(ymat, distMat)
+  ymat.leverage = spLeverage(ymat, distMat, sacf)
   
   
   if (isTRUE(partition)){
