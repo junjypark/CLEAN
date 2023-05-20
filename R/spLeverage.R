@@ -1,4 +1,4 @@
-spLeverage=function(data, distMat=NULL, mod0=NULL, J=50){
+spLeverage=function(data, distMat=NULL, mod0=NULL, sacf, J=50){
   if (!is.null(mod0)){
     data=t(lm(t(data)~mod0)$residuals)
     q=ncol(mod0)
@@ -8,7 +8,7 @@ spLeverage=function(data, distMat=NULL, mod0=NULL, J=50){
   }
   
   if (!is.null(distMat)){
-    covreg.fit=CovReg(data, distMat, n.covariates=q)
+    covreg.fit=CovReg(data, distMat, n.covariates=q, kernel=sacf)
     NNGPinfo=constructNNGPinfo(distMat, NN=J)
     NNGPprec=buildNNGPmat(distMat, NNGPinfo, covreg.fit)$NNGPprec
     data.new=as.matrix(NNGPprec%*%data)
