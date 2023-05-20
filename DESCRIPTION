@@ -1,7 +1,7 @@
 Package: CLEAN
 Type: Package
 Title: Clusterwise inference leveraging spatial autocorrelation in neuroimaging
-Version: 0.4.1
+Version: 0.4.0
 Author: Jun Young Park, Sarah Weinstein, Ruyi Pan
 Maintainer: Jun Young Park <junjy.park@utoronto.ca>
 Description: CLEAN is an R package for conducting spatial-extent inference for neuroimaging data that improves sensitivity by modelling spatial autocorrelation of the data followed by cluster enhancement. It currently supports CLEAN (for general linear model (GLM)), CLEAN-R (for testing intermodal correspondence), and CLEAN-V (for testing variance components in reliability and heritability studies). 
