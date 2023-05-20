@@ -62,9 +62,7 @@ CleanMean=function(ymat,
       }
     }
     
-    cat("temp3.\n")
     out = combine(result, alpha = alpha, collapse = T)
-    cat("temp4.\n")
     result_proc = process(out)
     out$Tstat = rep(0, V)
     out$Tstat[cortex]= result_proc$Tstat
