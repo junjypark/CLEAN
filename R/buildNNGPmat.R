@@ -2,7 +2,7 @@ usethis::use_package("Matrix")
 
 
 
-buildNNGPmat=function(distMat, NNGPinfo, params, kernel = "exponential"){
+buildNNGPmat=function(distMat, NNGPinfo, params, kernel = "exp"){
   m=nrow(distMat)
   A=matrix(0,m,m)
   D=matrix(0,m,m)
@@ -19,11 +19,11 @@ buildNNGPmat=function(distMat, NNGPinfo, params, kernel = "exponential"){
     lnn=length(nn)
     coordip1=nn[lnn]
     
-    if (kernel=="exponential"){
+    if (kernel=="exp"){
       K=sigma2*f.exp(phi,distMat[nn,nn,drop=F])+tau2*diag(lnn)
-    } else if (kernel=="gaussian"){
+    } else if (kernel=="gau"){
       K=sigma2*f.gau(phi,distMat[nn,nn,drop=F])+tau2*diag(lnn)
-    } else if (kernel=="mixture"){
+    } else if (kernel=="mix"){
       K=sigma2[1]*f.exp(phi[1],distMat[nn,nn,drop=F])+
         sigma2[2]*f.gau(phi[2],distMat[nn,nn,drop=F])+
         tau2*diag(lnn)
