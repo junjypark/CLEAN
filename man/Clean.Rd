@@ -63,7 +63,18 @@ Fitting CLEAN to test activation or brain-behavior associations in GLM.
 }
 
 \examples{
-Forthcoming
+## For one sample testing (e.g. testing group-level activation in task-fMRI)
+fit = Clean(ymat = data, distmat = distmat)
+
+## For two-sample testing (e.g. testing difference in means between two groups)
+fit = Clean(ymat = data, cov.interest = group, distmat = distmat)
+
+## For GLM using potential confounders (e.g. brain-behavior associations), use
+mod0 = model.matrix(~confounders)
+fit = Clean(ymat = data, cov.interest = covariate, mod0 = mod0, distmat = distmat)
+
+#Note: `confounders` above should NOT contain the covariate of interest (`covariate`).
+
 }
 
 \references{

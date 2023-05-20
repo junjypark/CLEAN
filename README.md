@@ -16,26 +16,19 @@ Note: The current version of the package is a beta version and may contain bugs.
 
 > April 20, 2023: CLEAN-V method implemented in the package.
 
-> Oct 15, 2022: We now support the `get.empirical.variogram' function that computes the group-averaged empirical variogram for exploratory data analyses.
-
 ## Contents
 
 1. [Installation](#id-installation)
 2. [Usage](#id-usage)
-    * [CLEAN: testing activations or group differences via GLM](#id-cleanglm)
-    * [CLEAN-R: testing intermodal associations](#id-cleanr)  
-    * [CLEAN-V: testing reliability or heritability (forthcoming)](#id-cleanv)
-3.  [Visualization (forthcoming)](#id-vis)
-    * [cifti](#id-vis-cifti)    
-    * [FreeSurfer](#id-vis-fs)
-4. [FAQ](#id-faq)
+3. [FAQ](#id-faq)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
     * [How do I obtain a pairwise distance matrix?](#id-q3)
     * [Is it possible to fit CLEAN/CLEAN-R/CLEAN-V separately for two hemispheres and combine results afterwards?](#id-q4)
     * [What is the recommended value for max.radius?](#id-q5)
-5. [Citations](#id-ref)
-6. [Miscellaneous](#id-misc)
+    * [How do I visualize the CLEAN/CLEAN-R/CLEAN-V outputs?](#id-q6)
+4. [Citations](#id-ref)
+5. [Miscellaneous](#id-misc)
 
 
 ---
@@ -50,82 +43,12 @@ if (!require("devtools"))
 devtools::install_github("junjypark/CLEAN")
 ```
 
-Note: If you see an error message, please update your `devtools` package first.
-
-```R
-update.packages("devtools")
-```
-
 After installation, the package can be loaded directly in R.
 ```R
 library(CLEAN)
 ```
  
 ---
-<div id='id-cleanglm'/>
-
-### CLEAN: testing activations or group differences via GLM
-
-For one sample testing (e.g. testing group-level activation in task-fMRI), use
-```R
-fit = Clean(ymat = data, distmat = distmat)
-```
-
-For two-sample testing (e.g. testing difference in means between two groups), use
-```R
-fit = Clean(ymat = data, cov.interest = group, distmat = distmat)
-```
-
-For GLM using potential confounders (e.g. brain-behavior associations), use
-```R
-mod0 = model.matrix(~confounders)
-fit = Clean(ymat = data, cov.interest = covariate, mod0 = mod0, distmat = distmat)
-```
-Note: `confounders` above should NOT contain the covariate of interest (`covariate`).
-
-Please refer to the manual for more information about the optional arguments.
-
-```R
-help(Clean)
-```
-
----
-
-<div id='id-cleanr'/>
-
-### CLEAN-R: testing intermodal associations
-
-```R
-mod = model.matrix(~covariates)
-fit = CleanR(ymat = data1, xmat = data2, mod = mod, distmat = distmat)
-```
-
-Please refer to the manual for more information about the optional arguments.
-
-```R
-help(CleanR)
-```
-
-
----
-
-<div id='id-cleanv'/>
-
-### CLEAN-V: testing reliability or heritability (forthcoming)
-
-(Forthcoming)
-
----
-
-<div id='id-vis'/>
-
-### Visualization 
-
-<div id='id-vis-cifti'>
-
-<div id='id-vis-fs>
-
-
 
 <div id='id-faq'/>
 
@@ -203,6 +126,11 @@ Clean.fit.combine = combine(Clean.fit.brain = list(Clean.fit.lh, Clean.fit.rh), 
 
 The `max.radius` determines the degree of the spatial domain you're borrowing information from. Higher sensitivity obtained from a large value of `max.radius`, however, comes with the cost of decreased specificity. It should be determined a priori before obtaining any result. We empirically found values between 10 and 20 useful for interpretation. Please report these values in your article.
   
+<div id='id-q6'/>
+
+**How do I visualize the CLEAN/CLEAN-R/CLEAN-V outputs?**
+
+For these outputs, `Tstat` provides cluster-enhanced test statistics that spatial autocorrelation of imaging data are modeled. `Tstat_thresholded` provides thresholded test statistics where non-significant vertices take the value 0. These vectors can be used for visualizations. For example, the freesurferformats package supports writing and saving FreeSurfer imaging data [link](https://cran.r-project.org/web/packages/freesurferformats/vignettes/freesurferformats_write.html). The ciftiTools package supports writing and saving in cifti format [link](https://cran.r-project.org/web/packages/ciftiTools/ciftiTools.pdf). 
 
 ---
 <div id='id-ref'>
