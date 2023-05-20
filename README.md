@@ -26,7 +26,7 @@ Note: The current version of the package is a beta version and may contain bugs.
 
 > Oct 15, 2022: We now support the `get.empirical.variogram' function that computes the group-averaged empirical variogram for exploratory data analyses.
 
-> Sept 14, 2022: Installation errors for Window users have been fixed.
+> Sept 14, 2022: Installation errors for Windows users have been fixed.
 
 > April 20, 2022: CLEAN-R method implemented in the package.
 
@@ -188,7 +188,7 @@ Coming soon.
 <div id='id-q1'/>
 
 **How do I extract surface data from HCP?**
-Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you installed [Connectome Workbench](https://www.humanconnectome.org/software/connectome-workbench) in your computer and obtained data files in cifti format and surface information in the `surf.gii` format, then 
+Please refer [ciftiTools](https://github.com/mandymejia/ciftiTools). Once you install [Connectome Workbench](https://www.humanconnectome.org/software/connectome-workbench) in your computer and obtain data files in cifti format and surface information in the `surf.gii` format, then 
 
 ```R
 library(ciftiTools)
@@ -197,12 +197,12 @@ ciftiTools.setOption("wb_path", "/Applications/workbench")
 xii = read_cifti(fname, surfL, surfR, resamp_res = 10242)  #resamp_res: how many vertices to resample
 ```
 
-Then you can access the cortical data by the followings.
+Then you can access the cortical data by the following.
 ```R
 xii$data$cortex_left
 xii$data$cortex_right
 ```
-The corresponding mesh information can be assessed by the followings.
+The corresponding mesh information can be assessed by the following.
 ```R
 xii$surf$cortex_left
 xii$surf$cortex_right
@@ -219,6 +219,27 @@ We use spherical surface as a default and use inflated or midthickness surface f
 **How do I obtain a pairwise distance matrix?**
 
 We recommend using geodesic distance for mesh surfaces. You may use [Python](https://pypi.org/project/pygeodesic/) or [C++](https://code.google.com/archive/p/geodesic/wikis/ExactGeodesic.wiki) to obtain a pairwise geodesic distance matrix.
+
+It requires the extraction of `vertices` and `faces` matrices. The `vertices` matrix contains the 3D coordinate for each vertex, and each row of the `faces` matrix contains the indices of three vertices that construct a triangle in the mesh surface.
+
+If you use [ciftiTools](https://github.com/mandymejia/ciftiTools), it can be accessed directly from the surface GIFTI. If you use [freesurferformats](https://cran.r-project.org/web/packages/freesurferformats/index.html), the surface file (e.g. `lh.pial` or `lh.inflated` from FreeSurfer) can be loaded directly using the `read.fs.surface()` function. Once you load `vertices` and `faces', the following manipulation is necessary due to the difference between R and Python.
+
+```R
+surf$faces=surf$faces-1
+```
+
+Once you loaded `vertices` and `faces` in Python, the following would provide a pairwise distance matrix.
+
+```python
+num_vts = len(vertices)
+dismat = np.zeros((num_vts, num_vts))
+target_indices = np.array(range(num_vts))
+for i in range(num_vts):
+    dists, best_source = geoalg.geodesicDistances(np.array([i]), None)
+    dismat[i, :] = dists
+```
+
+The last step is to subset the distance matrices with your interest, for example, by excluding non-cortex vertices (e.g. a medial wall), which should be straightforward. 
 
 <div id='id-q4'/>
 
