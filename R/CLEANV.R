@@ -35,7 +35,7 @@ CleanV=function(ymat,
   if ( alpha < 0 |alpha > 1){
     stop("[CLEAN] alpha should range between 0 and 1.")
   }
-  if ( nrows(distmat) != nrow(ymat) ){
+  if ( nrow(distmat) != nrow(ymat) ){
     stop("[CLEAN] The number of rows of distmat and the number of rows of ymat needs to be the same (# vertices).")
   }
   if (is.null(seed)){ 
