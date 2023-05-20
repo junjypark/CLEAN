@@ -54,27 +54,7 @@ CleanR(
 \item{cores}{The number of cores when parallel computing is executed.}
 }
 
-\value{
-A list of the following is returned.
-
-\item{Tstat}{A length V vector of cluster enhanced test statistics obtained by CLEAN-R. Non-cortex vertices take the value 0.}
-
-\item{Tstat.thresholded}{A cluster enhanced test statistics obtained by CLEAN-R, thresholded by a pre-set FWER level (alpha). Any vertices whose cluster-enhanced test statistics do not pass the threshold will be shurunk to 0. Non-cortex vertices take the value 0 as well. Use this with cautions because it would need to be adjusted for combining results from different hemispheres/regions. See \code{combine()} for details.}
-
-\item{permMax}{A nperm vector that contains the maximum of cluster-enhanced test statistics across all vertices at each permuted sample. Used to compute the FWER-controlling threshold.}
-
-\item{permMin}{A nperm vector that contains the minimum of cluster-enhanced test statistics across all vertices at each permuted sample. Used to compute the FWER-controlling threshold.}
-
-\item{threshold}{A FWER-controlling threshold.  Use this with cautions because it would need to be adjusted for combining results from different hemispheres/regions. See \code{combine()} for details.}
-
-\item{nperm}{The number of permutation used.}
-
-\item{seed}{The seed number used.}
-
-\item{nlocations}{The number of cortical vertices used.}
-
-\item{alternative}{The direction of the alternative hypothesis (\code{two.sided}, \code{greater}, or \code{less})}
-}
+\value{A list of the following is returned. \item{Tstat}{A length V vector of cluster enhanced test statistics obtained by CLEAN-R. Non-cortex vertices take the value 0.} \item{Tstat.thresholded}{A cluster enhanced test statistics obtained by CLEAN-R, thresholded by a pre-set FWER level (alpha). Any vertices whose cluster-enhanced test statistics do not pass the threshold will be shurunk to 0. Non-cortex vertices take the value 0 as well. Use this with cautions because it would need to be adjusted for combining results from different hemispheres/regions. See \code{combine()} for details.} \item{permMax}{A nperm vector that contains the maximum of cluster-enhanced test statistics across all vertices at each permuted sample. Used to compute the FWER-controlling threshold.} \item{permMin}{A nperm vector that contains the minimum of cluster-enhanced test statistics across all vertices at each permuted sample. Used to compute the FWER-controlling threshold.} \item{threshold}{A FWER-controlling threshold.  Use this with cautions because it would need to be adjusted for combining results from different hemispheres/regions. See \code{combine()} for details.} \item{nperm}{The number of permutation used.} \item{seed}{The seed number used.} \item{nlocations}{The number of cortical vertices used.} \item{alternative}{The direction of the alternative hypothesis (\code{two.sided}, \code{greater}, or \code{less})} }
 
 \description{
 Fitting CLEAN-R for testing intermodal associations.
