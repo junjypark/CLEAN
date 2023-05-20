@@ -141,8 +141,8 @@ Rcpp::List CleanerExpandPermC(arma::vec U, arma::mat& permU, arma::sp_mat& NNmat
   for (int k=0; k<q; ++k){
     mn=mean(permNNU.row(k));
     sd=stddev(permNNU.row(k));
-    permNNU.row(k)=pow((permNNU.row(k)-mn)/sd,2.0);
-    NNU(k)=pow((NNU(k)-mn)/sd,2.0);
+    permNNU.row(k)=(permNNU.row(k)-mn)/sd;
+    NNU(k)=(NNU(k)-mn)/sd;
   }
 
   arma::vec permMax(nperm);
@@ -156,91 +156,9 @@ Rcpp::List CleanerExpandPermC(arma::vec U, arma::mat& permU, arma::sp_mat& NNmat
   return Rcpp::List::create(Rcpp::Named("Tstat")=NNU,
                             Rcpp::Named("permMax")=permMax,
                             Rcpp::Named("permMin")=permMin,
-                            Rcpp::Named("nperm")=nperm,
-                            Rcpp::Named("permNNU")=permNNU);
-}
-
-// [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::export]]
-Rcpp::List MassiveMeanC(arma::mat ymat, int nperm,  int s){
-  int q=ymat.n_rows;
-  int n=ymat.n_cols;
-  arma::vec onevec(n); onevec.fill(1);
-  arma::vec U(q);
-  double sd;
-  double mn;  
-
-  arma::mat permU(q, nperm); 
-  
-  U=ymat*onevec;  
-
-  arma::mat flipmat(n,nperm); 
-  set_seed(s);
-  flipmat.randn(); 
-  flipmat=sign(flipmat);
-  permU=ymat*flipmat;
-  
-  for (int k=0; k<q; ++k){
-    mn=mean(permU.row(k));
-    sd=stddev(permU.row(k));
-    permU.row(k)=(permU.row(k)-mn)/sd;
-    U(k)=(U(k)-mn)/sd;
-  }
-  
-  arma::vec permMax(nperm);
-  arma::vec permMin(nperm);
-    
-  for (int i=0; i<nperm; ++i){
-    permMin(i)=permU.col(i).min();
-    permMax(i)=permU.col(i).max();
-  }
-  
-  return Rcpp::List::create(Rcpp::Named("Tstat")=U,
-                            Rcpp::Named("permMax")=permMax,
-                            Rcpp::Named("permMin")=permMin,
                             Rcpp::Named("nperm")=nperm);
 }
 
-
-// [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::export]]
-Rcpp::List MassiveDiffC(arma::mat ymat, arma::vec group, int nperm,  int s){
-  int q=ymat.n_rows;
-  int n=group.size();
-  arma::vec U(q);
-  double sd;
-  double mn;
-  arma::mat permU(q, nperm);
-
-  U=ymat*group;  
-
-  arma::mat permmat(n,nperm);
-  set_seed(s);
-  for (int i=0; i<nperm; ++i){
-    permmat.col(i)=shuffle(group);
-  }
-  permU=ymat*permmat;
-
-  for (int k=0; k<q; ++k){
-    mn=mean(permU.row(k));
-    sd=stddev(permU.row(k));
-    permU.row(k)=(permU.row(k)-mn)/sd;
-    U(k)=(U(k)-mn)/sd;
-  }
-
-  arma::vec permMax(nperm);
-  arma::vec permMin(nperm);
-    
-  for (int i=0; i<nperm; ++i){
-    permMin(i)=permU.col(i).min();
-    permMax(i)=permU.col(i).max();
-  }
-  
-  return Rcpp::List::create(Rcpp::Named("Tstat")=U,
-                            Rcpp::Named("permMax")=permMax,
-                            Rcpp::Named("permMin")=permMin,
-                            Rcpp::Named("nperm")=nperm);
-}
 
 // [[Rcpp::export]]
 double computetraceABA(arma::mat A, arma::mat B){
