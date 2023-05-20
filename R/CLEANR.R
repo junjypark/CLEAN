@@ -85,14 +85,10 @@ CleanR=function(xmat,
       result[[i]]$alternative = alternative
       result[[i]]$seed = seed
     }  
-    # out=combine(result, alpha=alpha)
-    # out$nlocations=ncol(NNmatrix)
     result = combine(result, alpha = alpha)
     result$nlocations = ncol(NNmatrix)
   }
   
   
-  out = list(combine_out = result,#combine2(result, alpha=alpha),
-             perm_null_dist = do.call("rbind",lapply(result, function(x){x$permNNU})))
-  return(out)
+  return(result)
 }
