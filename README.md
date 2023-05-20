@@ -10,25 +10,22 @@ Please visit [R](https://github.com/mandymejia/ciftiTools), [Python](https://git
 
 ### Update logs
 
-Note: The current version of the package is a beta version and may contain bugs. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours.
+As of May 20, 2023, The 0.4.0 version of the R package has major changes. Importantly, a series of work that needed to be handled by researchers are simplified, and it now supports `Clean`, `CleanR` and `CleanV` functions that conduct analysis in one step. Documentations are also available once you load the package. 
 
-> May 19, 2023: We are currently working on supporting visualizations and preparing manuals. Any big changes will be posted here.
-
-> April 20, 2023: CLEAN-V method implemented in the package.
+*Note*: The current version of the package is a beta version and may contain bugs. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours. Thank you!
 
 ## Contents
 
-1. [Installation](#id-installation)
-2. [Usage](#id-usage)
-3. [FAQ](#id-faq)
+1. [Installation and usage](#id-installation)
+2. [FAQ](#id-faq)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
     * [How do I obtain a pairwise distance matrix?](#id-q3)
     * [Is it possible to fit CLEAN/CLEAN-R/CLEAN-V separately for two hemispheres and combine results afterwards?](#id-q4)
     * [What is the recommended value for max.radius?](#id-q5)
     * [How do I visualize the CLEAN/CLEAN-R/CLEAN-V outputs?](#id-q6)
-4. [Citations](#id-ref)
-5. [Miscellaneous](#id-misc)
+3. [Citations](#id-ref)
+4. [Miscellaneous](#id-misc)
 
 
 ---
@@ -48,6 +45,12 @@ After installation, the package can be loaded directly in R.
 library(CLEAN)
 ```
  
+For version 0.4.1 of the package, we support documentation for the key R functions for implementing CLEAN/CLEAN-R/CLEAN-V. 
+
+```R
+help("Clean")
+help("CleanR")
+help("CleanV") 
 ---
 
 <div id='id-faq'/>
