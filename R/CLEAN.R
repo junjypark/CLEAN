@@ -1,11 +1,13 @@
-# ymat        : a V times N matrix (V: # of vertices, N: # of images)
-# distmat     : a V times V distance matrix
-# cortex      :
-# mod0        : a N times p covariate matrix (p: # of covariates)
+# ymat        : A V times N matrix (V: # of vertices, N: # of images)
+# distmat     : A V times V distance matrix
+# cortex      : A vector of vertex indices that will be included. 
+#             : It is needed if your ymat and distmat contained medial walls that should not be included. 
+#             : Default: NULL (all vertices will be used).
+# mod0        : A N times p covariate matrix (p: # of covariates)
 #             : It can be generated easily by using the model.matrix() function.
-#             : Make sure the covariate of interest that will be tested
-#             : is NOT included in mod0
-# group       : 
+#             : Make sure the covariate of interest (cov.interest) that will be tested is NOT included in mod0
+# cov.interest: A length N vector for the covariate of interest.
+#             : It can be a binary character vector for two-sample testing.
 # sacf        : spatial autocorrelation function
 #             : The exponential function is assumed as a default.
 #             : Other choices include "gau" (Gaussian) 
@@ -23,7 +25,7 @@ Clean=function(ymat,
                distmat = NULL, 
                cortex = NULL,
                mod0 = NULL,
-               group = NULL, 
+               cov.interest = NULL, 
                sacf = "exp",
                max.radius = 20,
                nperm = 5000, 
@@ -48,11 +50,11 @@ Clean=function(ymat,
     cat("[CLEAN] Conducting the two-sided test as alternative has not been specified.\n")
   }
   if (is.null(seed)){ 
-    seed = sample(1e6,1) 
+    seed = sample(1e6, 1) 
   }
   
-  if (is.null(group)){
-    cat("[CLEAN] Testing for the mean as group is not specified. \n")
+  if (is.null(cov.interest)){
+    cat("[CLEAN] Testing for the mean as cov.interest is not specified. \n")
     cat("[CLEAN] mod0 will not be used. \n")
     
     fit = CleanMean(ymat = ymat, 
@@ -73,14 +75,18 @@ Clean=function(ymat,
     return(fit)
   }
   else{
-    if (length(group) != ncol(ymat)){
-      stop("[CLEAN] The number of elements in group does not match with the number of columns in ymat.")
+    if (length(table(cov.interest)) == 2){
+      cov.interest = ifelse(cov.interest == cov.interest[1], 1, -1)
+    }
+      
+    if (length(cov.interest) != ncol(ymat)){
+      stop("[CLEAN] The number of elements in cov.interest does not match with the number of columns in ymat.")
     }
     
     fit = CleanDiff(ymat = ymat, 
                     cortex = cortex,
                     mod0 = mod0,
-                    group = group, 
+                    cov.interest = cov.interest, 
                     distmat = distmat, 
                     sacf = sacf,
                     nperm = nperm, 

@@ -4,7 +4,7 @@
 
 R package to apply **CLEAN**, **CLEAN-R**, and **CLEAN-V** to neuroimaging data. 
 
-CLEAN/CLEAN-R/CLEANV supports fast and powerful group-level clusterwise inference for neuroimaging data registered in the cortical surface. The current implementation is computationally efficient. Using a laptop without parallel computing, it takes only a few minutes (mostly less than 10 minutes) to analyze 50 subjects' imaging data across 10,000 vertices. The current version also supports parallel computing using the `doParallel` R package.
+CLEAN/CLEAN-R/CLEANV supports fast and powerful group-level clusterwise inference for neuroimaging data registered in the cortical surface. The current implementation is computationally efficient. Using a laptop without parallel computing, it takes only a few minutes (mostly less than 10 minutes) to analyze 50 subjects' imaging data across 10,000 vertices. Note that the package also supports parallel computing.
 
 Please visit [R](https://github.com/mandymejia/ciftiTools), [Python](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. This package is written in R and works well with the [ciftiTools](https://github.com/mandymejia/ciftiTools) or [freesurferformats](https://cran.r-project.org/web/packages/freesurferformats/index.html) R package. 
 
@@ -25,14 +25,16 @@ Note: The current version of the package is a beta version and may contain bugs.
     * [CLEAN: testing activations or group differences via GLM](#id-cleanglm)
     * [CLEAN-R: testing intermodal associations](#id-cleanr)  
     * [CLEAN-V: testing reliability or heritability (forthcoming)](#id-cleanv)
-3.  [Visualization](#id-cleanvisualize)
+3.  [Visualization (forthcoming)](#id-vis)
+    * [cifti](#id-vis-cifti)    
+    * [FreeSurfer](#id-vis-fs)
 4. [FAQ](#id-faq)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
     * [How do I obtain a pairwise distance matrix?](#id-q3)
     * [Is it possible to fit CLEAN/CLEAN-R/CLEAN-V separately for two hemispheres and combine results afterwards?](#id-q4)
     * [What is the recommended value for max.radius?](#id-q5)
-5. [References](#id-ref)
+5. [Citations](#id-ref)
 6. [Miscellaneous](#id-misc)
 
 
@@ -71,13 +73,13 @@ fit = Clean(ymat = data, distmat = distmat)
 
 For two-sample testing (e.g. testing difference in means between two groups), use
 ```R
-fit = Clean(ymat = data, group = group, distmat = distmat)
+fit = Clean(ymat = data, cov.interest = group, distmat = distmat)
 ```
 
 For GLM using potential confounders (e.g. brain-behavior associations), use
 ```R
 mod0 = model.matrix(~confounders)
-fit = Clean(ymat = data, group = covariate, mod0 = mod0, distmat = distmat)
+fit = Clean(ymat = data, cov.interest = covariate, mod0 = mod0, distmat = distmat)
 ```
 Note: `confounders` above should NOT contain the covariate of interest (`covariate`).
 
@@ -94,7 +96,7 @@ help(Clean)
 ### CLEAN-R: testing intermodal associations
 
 ```R
-mod=model.matrix(~covariates)
+mod = model.matrix(~covariates)
 fit = CleanR(ymat = data1, xmat = data2, mod = mod, distmat = distmat)
 ```
 
@@ -115,15 +117,19 @@ help(CleanR)
 
 ---
 
-<div id='id-cleanvisualize'/>
+<div id='id-vis'/>
 
 ### Visualization 
 
-(Forthcoming)
+<div id='id-vis-cifti'>
+
+<div id='id-vis-fs>
+
+
 
 <div id='id-faq'/>
 
-### Frequently asked questions:
+### Frequently asked questions
 <div id='id-q1'/>
 
 **How do I extract surface data from HCP?**
@@ -150,7 +156,7 @@ xii$surf$cortex_right
 
 **Which surface should we use for registration?**
 
-We use spherical surface as a default and use inflated or midthickness surface for visualization ([reference](https://doi.org/10.1016/j.neuroimage.2016.05.038)). However, please note that there is no definitive answer for this, and there are recent [articles](https://doi.org/10.1016/j.neuroimage.2022.118908) that supported the midthickness surface for registration. Whenever possible, we recommend to conduct an exploratory analysis to make sure the parametric kernel agrees with empirical data. 
+We use a spherical surface as a default and use an inflated or midthickness surface for visualization ([reference](https://doi.org/10.1016/j.neuroimage.2016.05.038)). However, please note that there is no definitive answer for this, and there are recent [articles](https://doi.org/10.1016/j.neuroimage.2022.118908) that supported the midthickness surface for registration. Whenever possible, we recommend conducting an exploratory analysis to make sure the parametric kernel agrees with empirical data. 
 
 <div id='id-q3'/>
 
@@ -201,7 +207,7 @@ The `max.radius` determines the degree of the spatial domain you're borrowing in
 ---
 <div id='id-ref'>
 
-### References
+### Citations
 
 Please use the following to cite CLEAN, CLEAN-R, or CLEAN-V.
 

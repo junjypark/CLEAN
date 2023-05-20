@@ -2,7 +2,7 @@ CleanDiff=function(ymat,
                    distmat, 
                    cortex,
                    mod0,
-                   group, 
+                   cov.interest, 
                    sacf,
                    nperm = 5000, 
                    alpha = 0.05, 
@@ -43,7 +43,7 @@ CleanDiff=function(ymat,
       cl = makeCluster(ncores)
       registerDoParallel(cl)
       result = foreach(i = 1:npartition, .packages=("CLEAN"),.noexport = "CleanC" )%dopar%{
-        fit = CleanDiffC(ymat.leverage, NNList[[i]], group, nperm, seed)
+        fit = CleanDiffC(ymat.leverage, NNList[[i]], cov.interest, nperm, seed)
         fit$alternative = alternative
         fit$seed = seed
         fit
@@ -52,7 +52,7 @@ CleanDiff=function(ymat,
     } else{
       result = list()
       for (i in 1:npartition){
-        result[[i]] = CleanDiffC(ymat.leverage, NNList[[i]], group, nperm, seed)
+        result[[i]] = CleanDiffC(ymat.leverage, NNList[[i]], cov.interest, nperm, seed)
         result[[i]]$alternative = alternative
         result[[i]]$seed = seed
       }
@@ -62,7 +62,7 @@ CleanDiff=function(ymat,
     out$nlocations = ncol(NNmatrix)
     return(out)
   } else{
-    out = CleanDiffC(ymat.leverage, NNmatrix, group, nperm, seed)
+    out = CleanDiffC(ymat.leverage, NNmatrix, cov.interest, nperm, seed)
     if (alternative == "less"){
       out$threshold = quantile(out$permMin,alpha)
       out$pvalue = (1+sum(c(out$permMin)<min(out$Tstat,na.rm=T)))/(1+nperm[1])

@@ -32,13 +32,13 @@ Clean(
 
 \item{mod0}{A N times p covariate matrix (p: # of covariates). It can be generated easily by using the \code{model.matrix()} function. Make sure the covariate of interest that will be testedis NOT included in mod0.}
 
-\item{group}{A binary vector (1 for group 1 and -1 for group 2).}
+\item{cov.interest}{A covariate vector of interest. For two-sample testing, it needs to be 1 for group 1 and -1 for group 2.}
 
 \item{sacf}{A spatial autocorrelation function. The exponential function (\code{exp}) is assumed as a default. Other choices include \code{gau} (Gaussian) or \code{mix} (mixture of exponential and Gaussian).}
 
-\item{max.radius}{The maximum radius for cluster enhancement. 20 is assumed as a default.}
+\item{max.radius}{The maximum radius for cluster enhancement. Default: 20.}
 
-\item{nperm}{The number of permutations to be used. At least 5000 permutation is recommended. Default: 5000}
+\item{nperm}{The number of permutations to be used. At least 5000 permutation is recommended. Default: 5000.}
 
 \item{alpha}{A desired FWER. Default: 0.05.}
 
@@ -52,7 +52,7 @@ Clean(
 
 \item{parallel}{Whether parallel computing is to be used. Default: \code{FALSE}}
 
-\item{cores}{The number of cores when parallel computing is executed.}
+\item{cores}{The number of cores when parallel computing is executed. Default: 1.}
 
 }
 
