@@ -18,7 +18,7 @@
 
 CleanR=function(xmat, 
                 ymat,
-                distmat = NULL, 
+                distmat, 
                 cortex = NULL,
                 mod = NULL,
                 sacf = "exp",

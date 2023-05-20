@@ -218,7 +218,7 @@ Rcpp::List ObtainVarCompsC(double rho, arma::mat& epsilon, arma::mat corMat_base
 
 
 // [[Rcpp::export]]
-Rcpp::List CleanVarC(arma::mat& ymat, arma::sp_mat& NNmatrix, arma::sp_mat& Kmatrix, bool decomp, int nperm, int s){
+Rcpp::List CleanVarC(arma::mat& ymat, arma::sp_mat& NNmatrix, arma::sp_mat& Kmatrix, int nperm, int s){
   int q=NNmatrix.n_rows;
   int n=ymat.n_cols;
   int V=ymat.n_rows;
@@ -231,31 +231,18 @@ Rcpp::List CleanVarC(arma::mat& ymat, arma::sp_mat& NNmatrix, arma::sp_mat& Kmat
   arma::mat permU(q, nperm); 
   
  
-  if (decomp == TRUE) {
-    ymattemp = ymat*Kmatrix;
-    T=ymattemp%ymattemp*onevec;
-    U=NNmatrix*T; 
-  } else {
-    T=ymat*Kmatrix%ymat*onevec;
-    U=NNmatrix*T;  
-  }
+  T=ymat*Kmatrix%ymat*onevec;
+  U=NNmatrix*T;  
   
   //Rcout << "perm";
   
   arma::mat permT(V, nperm);
   
   set_seed(s);
-  if (decomp == TRUE) {
-    arma::mat Mmatrix(Kmatrix);
-    for (int i=0; i < nperm; ++i) {
-      ymattemp=ymat*shuffle(Mmatrix);
-      permT.col(i)=ymattemp%ymattemp*onevec;
-    }
-  } else{
-    for (int i=0; i < nperm; ++i) {
-      ymattemp=shuffle(ymat,1);
-      permT.col(i)=ymattemp*Kmatrix%ymattemp*onevec;
-    }
+
+  for (int i=0; i < nperm; ++i) {
+    ymattemp=shuffle(ymat,1);
+    permT.col(i)=ymattemp*Kmatrix%ymattemp*onevec;
   }
   
   permU=NNmatrix*permT;

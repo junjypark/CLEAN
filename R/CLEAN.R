@@ -22,7 +22,7 @@
 # cores       : The number of cores when parallel computing is executed.
 
 Clean=function(ymat, 
-               distmat = NULL, 
+               distmat, 
                cortex = NULL,
                mod0 = NULL,
                cov.interest = NULL, 
