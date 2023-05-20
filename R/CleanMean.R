@@ -1,16 +1,24 @@
 CleanMean=function(ymat, 
                    distmat, 
+                   cortex,
                    sacf,
                    nperm = 5000, 
                    alpha = 0.05, 
                    alternative = c("two.sided", "less", "greater"), 
-                   seed = NULL, 
+                   seed = NULL,
+                   nngp = T,
+                   nngp.J = 50,
                    partition = T, 
                    npartition = 1, 
                    parallel = F, 
                    ncores = 1){
+  
+  if (!is.null(cortex)){
+    ymat = ymat[cortex,]
+    distmat = distmat[cortex,cortex]
+  }
 
-  ymat.leverage = spLeverage(ymat, distMat, sacf)
+  ymat.leverage = spLeverage(ymat, distmat, sacf, nngp, nngp.J)
   
   
   if (isTRUE(partition)){

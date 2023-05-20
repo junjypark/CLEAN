@@ -1,10 +1,11 @@
 # ymat        : a V times N matrix (V: # of vertices, N: # of images)
+# distmat     : a V times V distance matrix
+# cortex      :
 # mod0        : a N times p covariate matrix (p: # of covariates)
 #             : It can be generated easily by using the model.matrix() function.
 #             : Make sure the covariate of interest that will be tested
 #             : is NOT included in mod0
 # group       : 
-# distmat     : a V times V distance matrix
 # sacf        : spatial autocorrelation function
 #             : The exponential function is assumed as a default.
 #             : Other choices include "gau" (Gaussian) 
@@ -19,15 +20,18 @@
 # cores       : The number of cores when parallel computing is executed.
 
 Clean=function(ymat, 
+               distmat = NULL, 
+               cortex = NULL,
                mod0 = NULL,
                group = NULL, 
-               distmat = NULL, 
                sacf = "exp",
                max.radius = 20,
                nperm = 5000, 
                alpha = 0.05, 
                alternative = c("two.sided", "less", "greater"), 
                seed = NULL, 
+               nngp = T,
+               nngp.J = 50,
                partition = T, 
                npartition = NULL, 
                parallel = F, 
@@ -53,11 +57,14 @@ Clean=function(ymat,
     
     fit = CleanMean(ymat = ymat, 
                     distmat = distmat, 
+                    cortex = cortex,
                     sacf = sacf,
                     nperm = nperm, 
                     alpha = alpha, 
                     alternative = alternative,
                     seed = seed,
+                    nngp = nngp,
+                    nngp.J = nngp.J,
                     partition = partition, 
                     npartition = npartition,
                     parallel = parallel,
@@ -71,6 +78,7 @@ Clean=function(ymat,
     }
     
     fit = CleanDiff(ymat = ymat, 
+                    cortex = cortex,
                     mod0 = mod0,
                     group = group, 
                     distmat = distmat, 

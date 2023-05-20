@@ -1,7 +1,7 @@
-get.empirical.variogram=function(epsilon, distMat, qtl=0.5, n.bins=500){
-  qt.dist=quantile(distMat, qtl)
-  up=upper.tri(distMat,diag=F) * (distMat<qt.dist)
-  distvec=distMat[up==1]
+get.empirical.variogram=function(epsilon, distmat, qtl=0.5, n.bins=500){
+  qt.dist=quantile(distmat, qtl)
+  up=upper.tri(distmat,diag=F) * (distmat<qt.dist)
+  distvec=distmat[up==1]
   distIndex=which(up==1, arr.ind=T) # pairs of locations in upper triangle of distance matrix
   
   bins=seq(min(distvec),qt.dist,length.out=2*n.bins+1)

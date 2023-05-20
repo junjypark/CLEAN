@@ -1,7 +1,8 @@
 CleanDiff=function(ymat, 
+                   distmat, 
+                   cortex,
                    mod0,
                    group, 
-                   distmat, 
                    sacf,
                    nperm = 5000, 
                    alpha = 0.05, 
@@ -12,7 +13,12 @@ CleanDiff=function(ymat,
                    parallel = F, 
                    ncores = 1){
   
-  ymat.leverage = spLeverage(ymat, distMat, mod0)
+  if (!is.null(cortex)){
+    ymat = ymat[cortex,]
+    distmat = distmat[cortex,cortex]
+  }
+  
+  ymat.leverage = spLeverage(ymat, distmat, mod0, nngp, nngp.J)
   
   
   if (isTRUE(partition)){

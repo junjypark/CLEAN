@@ -1,5 +1,5 @@
 # ymat        : a V times N matrix for the first modality (V: # of vertices, N: # of images)
-# ymat        : a V times N matrix for the second modality (V: # of vertices, N: # of images)
+# xmat        : a V times N matrix for the second modality (V: # of vertices, N: # of images)
 # mod         : a N times p covariate matrix (p: # of covariates)
 #             : It can be generated easily by using the model.matrix() function.
 # distmat     : a V times V distance matrix
@@ -18,14 +18,17 @@
 
 CleanR=function(xmat, 
                 ymat,
-                mod = NULL,
                 distmat = NULL, 
+                cortex = NULL,
+                mod = NULL,
                 sacf = "exp",
                 max.radius = 20,
                 nperm = 5000, 
                 alpha = 0.05,
                 alternative = c("two.sided", "less", "greater"),
                 seed = NULL, 
+                nngp = T,
+                nngp.J = 50,
                 npartition = NULL, 
                 parallel = F, 
                 ncores = 1){
@@ -44,8 +47,14 @@ CleanR=function(xmat,
     seed=sample(1e6,1) 
   }
 
-  ymat.leverage = spLeverage(ymat, distmat, mod, sacf)
-  xmat.leverage = spLeverage(xmat, distmat, mod, sacf)
+  if (!is.null(cortex)){
+    ymat = ymat[cortex, ]
+    xmat = xmat[cortex, ]
+    distmat = distmat[cortex, cortex]
+  }
+  
+  ymat.leverage = spLeverage(ymat, distmat, mod, sacf, nngp, nngp.J)
+  xmat.leverage = spLeverage(xmat, distmat, mod, sacf, nngp, nngp.J)
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   # xmat=t(apply(xmat,1,scale))/ncol(xmat)
