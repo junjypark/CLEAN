@@ -44,6 +44,7 @@ CleanMean=function(ymat,
     }
     
     if (isTRUE(parallel)){
+      cat("temp1.\n")
       cl = makeCluster(ncores)
       registerDoParallel(cl)
       result = foreach(i = 1:npartition, .packages=("CLEAN"),.noexport = "CleanC" )%dopar%{
@@ -54,6 +55,7 @@ CleanMean=function(ymat,
       }
       stopCluster(cl)
     } else{
+      cat("temp2.\n")
       result = list()
       for (i in 1:npartition){
         result[[i]] = CleanMeanC(ymat.leverage, NNList[[i]], nperm, seed)
@@ -62,7 +64,9 @@ CleanMean=function(ymat,
       }
     }
     
+    cat("temp3.\n")
     out = combine(result, alpha = alpha, collapse = T)
+    cat("temp4.\n")
     result_proc = process(out)
     out$Tstat = rep(0, V)
     out$Tstat[cortex]= result_proc$Tstat
