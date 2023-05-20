@@ -113,9 +113,9 @@ data.leverage=spLeverage(data, distMat, mod0)
 Note: `covariates` above should NOT contain the covariate of interest.
 
 
-**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist_radius()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
+**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
 ```R
-NNmatrix=buildNNmatrixDist_radius(distMat, max.radius=20)
+NNmatrix=buildNNmatrixDist(distMat, max.radius=20)
 ```
 
 **Step 3) Fit CLEAN**: Once you obtain leveraged data and candidate clusters in Steps 1 and 2, please use `Clean()` and `process()` functions to obtain the Clean fit and statistically significant vertices. 
@@ -153,9 +153,9 @@ data1.leverage=spLeverage(data1, distMat, mod0)
 data2.leverage=spLeverage(data2, distMat, mod0)
 ```
 
-**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist_radius()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
+**Step 2) Specify candidate clusters**: Candidate clusters consist of every vertex and its neighbors defined by vertices within a radii. Please use the optional command `max.radius` from the `buildNNmatrixDist()` function to specify your neighbors. For example, if you use `max.radius=3`, then it will create a neighbor information for a vertex, a vertex and its neighbors within 1mm, 2mm, and 3mm.
 ```R
-NNmatrix=buildNNmatrixDist_radius(distMat, max.radius=20)
+NNmatrix=buildNNmatrixDist(distMat, max.radius=20)
 ```
 
 

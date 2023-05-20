@@ -1,5 +1,5 @@
 
-CleanDiff=function(ymat, NNmatrix, group, nperm=10000, alpha=0.05, alternative=c("two.sided", "less", "greater"), seed=NULL, 
+CleanDiff=function(ymat, NNmatrix, group, nperm=5000, alpha=0.05, alternative=c("two.sided", "less", "greater"), seed=NULL, 
                    partition=T, npartition=1, parallel=F, ncores=1){
   if (length(group)!=ncol(ymat)){
     stop("[CLEAN] The number of elements in group does not match with the number of columns in ymat.")

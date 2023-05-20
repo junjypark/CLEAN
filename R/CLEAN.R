@@ -1,4 +1,4 @@
-Clean=function(ymat, NNmatrix=NULL, group=NULL, nperm=10000, alpha=0.05, alternative=c("two.sided","less", "greater"), seed=NULL, 
+Clean=function(ymat, NNmatrix=NULL, group=NULL, nperm=5000, alpha=0.05, alternative=c("two.sided","less", "greater"), seed=NULL, 
                partition=T, npartition=NULL, parallel=F, ncores=1){
   if (is.null(NNmatrix)){
     cat("[CLEAN] As NNmatrix is not specified, Clean conducts massive univariate analysis.\n")

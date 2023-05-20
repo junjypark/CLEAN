@@ -1,4 +1,4 @@
-CleanMean=function(ymat, NNmatrix, nperm=10000, alpha=0.05, alternative=c("two.sided", "less", "greater"), seed=NULL, 
+CleanMean=function(ymat, NNmatrix, nperm=5000, alpha=0.05, alternative=c("two.sided", "less", "greater"), seed=NULL, 
                    partition=T, npartition=1, parallel=F, ncores=1){
   if (length(which(is(NNmatrix)=="sparseMatrix"))==0){
     stop("[CLEAN] NN is not a sparse matrix. Please refer the Matrix R package to convert it.")

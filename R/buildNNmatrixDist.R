@@ -1,21 +1,17 @@
-buildNNmatrixDist=function(distMat, nnSet=c(1,5,10*1:10,50*3:10,100*6:10)){
-  
+buildNNmatrixDist_radius=function(distMat, max.radius=20){
   p=nrow(distMat)
-  nnSet=unique(pmin(sort(nnSet),p))
-  n.nnSet=length(nnSet)
-  nnMax=nnSet[n.nnSet]
+  dist_range = sort(c(ceiling(min(distMat, na.rm=T)),ceiling(min(c(max(distMat,na.rm=T),max.radius),na.rm=T))))
+  dist_range_sequence = seq(dist_range[1], dist_range[2], by=1) # different radii to consider
   
   out=foreach(i=1:p,.combine="rbind")%do%{
-    dt=distMat[i,]
-    rk=rank(dt)
-    ind=which(rk<=nnMax)
-    cbind(i,ind, rk[ind], dt[ind])
+    dt=unname(distMat[i,])
+    ind = which(dt<= dist_range[2]) 
+    cbind(i,ind, dt[ind])
   }
   
-  NNmatrix=foreach(r=1:n.nnSet, .combine="rbind")%do%{
-    nn=nnSet[r]
-    phi=phiSet[r]
-    ind2=which(out[,3]<=nn)
+  NNmatrix=foreach(r=1:length(dist_range_sequence), .combine="rbind")%do%{
+    dist=dist_range_sequence[r]
+    ind2=which(out[,3]<=dist)
     out2=out[ind2,]
     sp=sparseMatrix(i=out2[,1], j=out2[,2], x=1, dims=c(p,p))
     sp
