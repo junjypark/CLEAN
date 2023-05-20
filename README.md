@@ -30,17 +30,18 @@ Note: The current version of the package is a beta version and may contain bugs.
 
 1. [Background](#id-background)
 2. [Installation](#id-installation)
-3. [CLEAN for GLM](#id-cleanglm)
-4. [CLEAN-R: CLEAN for intermodal correspondence](#id-cleanr)
-5. [CLEAN-V: CLEAN for testing variance components (forthcoming)](#id-cleanv)
-6.  [Visualization](#id-cleanvisualize)
-7. [FAQ](#id-tips)
+3. [Usage](#id-usage)
+    * [CLEAN: testing activations or group differences via GLM](#id-cleanglm)
+    * [CLEAN-R: testing intermodal associations](#id-cleanr)  
+    * [CLEAN-V: testing reliability or heritability (forthcoming)](#id-cleanv)
+4.  [Visualization](#id-cleanvisualize)
+5. [FAQ](#id-tips)
     * [How do I extract surface data from HCP?](#id-q1)    
     * [Which surface should we use for registration?](#id-q2)
     * [How do I obtain a pairwise distance matrix?](#id-q3)
     * [Is it possible to fit CLEAN/CLEAN-R/CLEAN-V separately for two hemispheres and combine results afterwards?](#id-q4)
     * [What is the recommended value for max.radius?](#id-q5)
-8. [Miscellaneous](#id-misc)
+6. [Miscellaneous](#id-misc)
 
 ---
 
@@ -86,7 +87,7 @@ library(CLEAN)
 
 <div id='id-cleanglm'/>
 
-### CLEAN for GLM (test for the grand mean, group differences, general linear model)
+### CLEAN: testing activations or group differences via GLM
 
 For one sample test (e.g. testing group-level activation in task-fMRI), use
 ```R
@@ -101,10 +102,15 @@ fit = Clean(ymat = data, group = group, distmat = distmat)
 For GLM using potential confounders (e.g. brain-behavior associations), use
 ```R
 mod0 = model.matrix(~confounders)
-fit = Clean(ymat = data, group = covariate, mod0=mod0, distmat = distmat)
+fit = Clean(ymat = data, group = covariate, mod0 = mod0, distmat = distmat)
 ```
 Note: `confounders` above should NOT contain the covariate of interest (`covariate`).
 
+Please refer to the manual for more information about the optional arguments.
+
+```R
+help(Clean)
+```
 
 <div id='id-tips'/>
 
@@ -112,18 +118,25 @@ Note: `confounders` above should NOT contain the covariate of interest (`covaria
 
 <div id='id-cleanr'/>
 
-### CLEAN-R: CLEAN for intermodal correspondence
+### CLEAN-R: testing intermodal associations
 
 ```R
 mod=model.matrix(~covariates)
-fit = CleanR(ymat = data1, xmat = data2, mod=mod, distmat=distmat)
+fit = CleanR(ymat = data1, xmat = data2, mod = mod, distmat = distmat)
 ```
+
+Please refer to the manual for more information about the optional arguments.
+
+```R
+help(CleanR)
+```
+
 
 ---
 
 <div id='id-cleanv'/>
 
-### CLEAN-V: CLEAN for testing variance components (for test-retest reliability or heritability studies)
+### CLEAN-V: testing reliability or heritability (forthcoming)
 
 (Forthcoming)
 
@@ -184,11 +197,11 @@ Once you loaded `vertices` and `faces` in Python, the following would provide a 
 
 ```python
 num_vts = len(vertices)
-dismat = np.zeros((num_vts, num_vts))
+distmat = np.zeros((num_vts, num_vts))
 target_indices = np.array(range(num_vts))
 for i in range(num_vts):
     dists, best_source = geoalg.geodesicDistances(np.array([i]), None)
-    dismat[i, :] = dists
+    distmat[i, :] = dists
 ```
 
 The last step is to subset the distance matrices with your interest, for example, by excluding non-cortex vertices (e.g. a medial wall), which should be straightforward. 
@@ -202,15 +215,14 @@ Yes, it is **necessary** to set a brain-wise threshold that controls FWER at the
 ```R
 Clean.fit.lh = Clean(dataLH, distmatLH, nperm = 5000, seed = 1)
 Clean.fit.rh = Clean(dataRH, distmatRH, nperm = 5000, seed = 1)
-Clean.fit.brain = list(Clean.fit.lh, Clean.fit.rh)
-Clean.fit.combine = combine(Clean.fit.brain, alpha = 0.05)
+Clean.fit.combine = combine(Clean.fit.brain = list(Clean.fit.lh, Clean.fit.rh), alpha = 0.05)
 ```
 
 <div id='id-q5'/>
 
 **What is the recommended value for** `max.radius`**?**
 
-The max.radius determines the degree of spatial domain you're borrowing information from. Higher sensitivity obtained from a large value of max.radius, however, comes with the cost of decreased specificity. It should be determined a priori prior to obtaining any result. We empirically found values between 10 and 20 useful for interpretation. Please report these values in your article.
+The `max.radius` determines the degree of the spatial domain you're borrowing information from. Higher sensitivity obtained from a large value of `max.radius`, however, comes with the cost of decreased specificity. It should be determined a priori before obtaining any result. We empirically found values between 10 and 20 useful for interpretation. Please report these values in your article.
   
  <div id='id-misc'>
 
