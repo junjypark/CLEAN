@@ -51,6 +51,8 @@ For version 0.4.1 of the package, we support documentation for the key R functio
 help("Clean")
 help("CleanR")
 help("CleanV") 
+```
+
 ---
 
 <div id='id-faq'/>
