@@ -53,8 +53,14 @@ CleanV(ymat,
 \item{cores}{The number of cores when parallel computing is executed.}
 }
 
-\value{A list of the following is returned. \item{Tstat}{A length V vector of cluster enhanced test statistics obtained by CLEAN-V. Non-cortex vertices take the value 0.} \item{Tstat.thresholded}{A cluster enhanced test statistics obtained by CLEAN-V, thresholded by a pre-set FWER level (alpha). Any vertices whose cluster-enhanced test statistics do not pass the threshold will be shurunk to 0. Non-cortex vertices take the value 0 as well. Use this with cautions because it would need to be adjusted for combining results from different hemispheres/regions. See \code{combine()} for details.} \item{permMax}{A nperm vector that contains the maximum of cluster-enhanced test statistics across all vertices at each permuted sample. Used to compute the FWER-controlling threshold.} \item{threshold}{A FWER-controlling threshold.  Use this with cautions because it would need to be adjusted for combining results from different hemispheres/regions. See \code{combine()} for details.} \item{nperm}{The number of permutation used.} \item{seed}{The seed number used.} \item{nlocations}{The number of cortical vertices used.} \item{alternative}{The direction of the alternative hypothesis (\code{two.sided} for CLEAN-V)}}
+\value{A list of the following is returned. \item{Tstat}{A length V vector of cluster enhanced test statistics obtained by CLEAN-V. Non-cortex vertices take the value 0.} \item{Tstat_thresholded}{A cluster enhanced test statistics obtained by CLEAN-V, thresholded by a pre-set FWER level (alpha). Any vertices whose cluster-enhanced test statistics do not pass the threshold will be shurunk to 0. Non-cortex vertices take the value 0 as well. Use this with cautions because it would need to be adjusted for combining results from different hemispheres/regions. See \code{combine()} for details.} \item{permMax}{A nperm vector that contains the maximum of cluster-enhanced test statistics across all vertices at each permuted sample. Used to compute the FWER-controlling threshold.} \item{threshold}{A FWER-controlling threshold.  Use this with cautions because it would need to be adjusted for combining results from different hemispheres/regions. See \code{combine()} for details.} \item{nperm}{The number of permutation used.} \item{seed}{The seed number used.} \item{nlocations}{The number of cortical vertices used.} \item{alternative}{The direction of the alternative hypothesis (\code{two.sided} for CLEAN-V)}}
 
 \description{
 Fitting CLEAN-V for testing reliability or heritability.
 }
+
+\references{
+Pan, R., Dickie, E. W., Hawco, C., Reid, N., Voineskos, A. N., and Park, J. Y. (2023). Spatial-extent inference for testing variance components in reliability and heritability studies. bioRxiv, 2023-04. \doi{10.1101/2023.04.19.537270}.\cr
+Park, J. Y., Fiecas, M. (2022). CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. Neuroimage, 255, 119192. \doi{10.1016/j.neuroimage.2022.119192}.
+}
+
