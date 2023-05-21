@@ -7,7 +7,7 @@ process = function(fit, threshold = NULL){
   if (alternative =="two.sided"){
     Tstat = apply(matrix(fit$Tstat^2, n.locations), 1, max)
     Tstat_thresholded = Tstat
-    Tstat_thresholded[Tstat < threshold] = 0
+    Tstat_thresholded[Tstat < threshold^2] = 0
   } else if (alternative == "greater"){
     Tstat = apply(matrix(fit$Tstat, n.locations), 1, max)
     Tstat_thresholded = Tstat
