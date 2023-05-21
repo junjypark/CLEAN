@@ -96,8 +96,10 @@ CleanR=function(xmat,
       result[[i]]$seed = seed
     }  
   }
+  cat("temp1 \n")
   
   result = combine(result, alpha = alpha, collapse = T)
+  cat("temp1 \n")
   result_proc = process(result)
   result$Tstat = rep(0, V)
   result$Tstat[cortex] = result_proc$Tstat

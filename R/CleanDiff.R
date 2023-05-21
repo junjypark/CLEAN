@@ -78,14 +78,11 @@ CleanDiff=function(ymat,
     out = CleanDiffC(ymat.leverage, NNmatrix, cov.interest, nperm, seed)
     if (alternative == "less"){
       out$threshold = quantile(out$permMin,alpha)
-      out$pvalue = (1+sum(c(out$permMin)<min(out$Tstat,na.rm=T)))/(1+nperm[1])
     } else if (alternative == "greater"){
       threshold = quantile(out$permMax,1-alpha)
-      out$pvalue = (1+sum(c(out$permMax)>max(out$Tstat,na.rm = T)))/(1+nperm[1])
     } else {
       perm = pmax(abs(out$permMin),abs(out$permMax))
       out$threshold = quantile(perm,1-alpha)
-      out$pvalue = (1+sum(c(perm)>max(abs(out$Tstat),na.rm = T)))/(1+nperm[1])
     }
     
     out$seed = seed

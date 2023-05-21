@@ -58,21 +58,15 @@ CleanV=function(ymat,
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   K=Matrix(K, sparse=T)
-  cat("temp1.\n")
-  
+
   out = CleanVarC(ymat.leverage, NNmatrix, K, nperm, seed)
-  cat("temp2.\n")
-  
   out$seed = seed
   out$nlocations = ncol(NNmatrix)
   out$alternative = "greater"
-  out = combine(out, alpha = alpha, collapse = T)
-  
-  cat("temp3.\n")
+  out = combine(list(out), alpha = alpha, collapse = T)
   
   result_proc = process(out)
-  cat("temp4.\n")
-  
+
   out$Tstat = rep(0, V)
   out$Tstat[cortex]= result_proc$Tstat
   out$Tstat_thresholded = rep(0, V)
