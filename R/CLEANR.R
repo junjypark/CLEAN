@@ -32,10 +32,7 @@ CleanR=function(xmat,
                 npartition = NULL, 
                 parallel = F, 
                 ncores = 1){
-  
-  if ( nrow(NNmatrix) != nrow(ymat) ){
-    stop("The number of rows of NN and the number of rows of ymat needs to be the same (# voxels).")
-  }
+
   if ( alpha<0 | alpha>1){
     stop("alpha should range between 0 and 1.")
   }
@@ -47,12 +44,17 @@ CleanR=function(xmat,
     seed=sample(1e6,1) 
   }
 
+  V = nrow(ymat)
   if (!is.null(cortex)){
     ymat = ymat[cortex, ]
     xmat = xmat[cortex, ]
     distmat = distmat[cortex, cortex]
   } else{
     cortex= 1:V
+  }
+  
+  if (is.null(mod)){
+    mod=rep(1, ncol(ymat))
   }
   
   ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=mod, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out

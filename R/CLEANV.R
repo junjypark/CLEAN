@@ -42,6 +42,7 @@ CleanV=function(ymat,
     seed = sample(1e6, 1) 
   }
   
+  V = nrow(ymat)
   if (!is.null(cortex)){
     ymat = ymat[cortex, ]
     distmat = distmat[cortex, cortex]
@@ -49,6 +50,9 @@ CleanV=function(ymat,
     cortex= 1:V
   }
   
+  if (is.null(mod)){
+    mod=rep(1, ncol(ymat))
+  }
 
   ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=mod, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
