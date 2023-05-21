@@ -22,7 +22,7 @@ CleanDiff=function(ymat,
     cortex= 1:V
   }
   
-  ymat.leverage = spLeverage(ymat, distmat, mod0, nngp, nngp.J)$out
+  ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=mod0, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   if (isTRUE(partition)){
