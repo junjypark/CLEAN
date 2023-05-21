@@ -44,6 +44,7 @@ CleanR=function(xmat,
     seed=sample(1e6,1) 
   }
 
+
   V = nrow(ymat)
   if (!is.null(cortex)){
     ymat = ymat[cortex, ]
@@ -61,8 +62,12 @@ CleanR=function(xmat,
   xmat.leverage = spLeverage(data=xmat, distmat=distmat, mod0=mod, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
-  xmat=t(apply(xmat,1,scale))/sqrt(ncol(xmat)-1)
-  ymat=t(apply(ymat,1,scale))/sqrt(ncol(ymat)-1)
+  if (is.null(npartition)){
+    npartition = nrow(NNmatrix)%/%10000+1
+  }
+  
+  xmat.leverage=t(apply(xmat.leverage,1,scale))/sqrt(ncol(xmat.leverage)-1)
+  ymat.leverage=t(apply(ymat.leverage,1,scale))/sqrt(ncol(ymat.leverage)-1)
   NNList = list()
   len=ceiling(nrow(NNmatrix)/npartition)
   for (i in 1:npartition){
