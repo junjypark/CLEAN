@@ -38,7 +38,7 @@ CleanR=function(xmat,
   }
   if (length(alternative) > 1){
     alternative = "two.sided"
-    cat("Conducting the two-sided test as alternative has not been specified...\n")
+    cat("[CLEAN] Conducting the two-sided test as alternative has not been specified\n")
   }
   if (is.null(seed)){ 
     seed=sample(1e6,1) 
@@ -96,10 +96,9 @@ CleanR=function(xmat,
       result[[i]]$seed = seed
     }  
   }
-  cat("temp1 \n")
   
   result = combine(result, alpha = alpha, collapse = T)
-  cat("temp1 \n")
+  result$nlocations = ncol(NNmatrix)
   result_proc = process(result)
   result$Tstat = rep(0, V)
   result$Tstat[cortex] = result_proc$Tstat
