@@ -26,9 +26,11 @@ combine=function(lst, alpha = 0.05, collapse = F){
   Tstat=do.call("c",lapply(lst, function(x){x$Tstat}))
 
   if (alternative=="less"){
+    permMax=NULL
     permMin=apply(do.call("cbind",lapply(lst, function(x){x$permMin})),1,min)
     threshold=quantile(permMin,alpha)
   } else if (alternative=="greater"){
+    permMin=NULL
     permMax=apply(do.call("cbind",lapply(lst, function(x){x$permMax})),1,max)
     threshold=quantile(permMax,1-alpha)
   } else {
