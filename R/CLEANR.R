@@ -60,14 +60,15 @@ CleanR=function(xmat,
   
   ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=mod, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out
   xmat.leverage = spLeverage(data=xmat, distmat=distmat, mod0=mod, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out
+  xmat.leverage=t(apply(xmat.leverage,1,scale))/sqrt(ncol(xmat.leverage)-1)
+  ymat.leverage=t(apply(ymat.leverage,1,scale))/sqrt(ncol(ymat.leverage)-1)
+  
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   if (is.null(npartition)){
     npartition = nrow(NNmatrix)%/%10000+1
   }
   
-  xmat.leverage=t(apply(xmat.leverage,1,scale))/sqrt(ncol(xmat.leverage)-1)
-  ymat.leverage=t(apply(ymat.leverage,1,scale))/sqrt(ncol(ymat.leverage)-1)
   NNList = list()
   len=ceiling(nrow(NNmatrix)/npartition)
   for (i in 1:npartition){
