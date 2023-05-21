@@ -7,7 +7,7 @@ Clean(
   distmat = NULL,
   cortex = NULL,
   mod0 = NULL,
-  group = NULL,
+  cov.interest = NULL,
   sacf = "exp"
   max.radius = 20,
   nperm = 5000,

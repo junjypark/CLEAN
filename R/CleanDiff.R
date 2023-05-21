@@ -14,6 +14,7 @@ CleanDiff=function(ymat,
                    parallel = F, 
                    ncores = 1){
   
+  V = nrow(ymat)
   if (!is.null(cortex)){
     ymat = ymat[cortex,]
     distmat = distmat[cortex,cortex]
