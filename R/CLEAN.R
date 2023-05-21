@@ -76,14 +76,18 @@ Clean=function(ymat,
     return(fit)
   }
   else{
-    if (length(table(cov.interest)) == 2){
-      cov.interest = ifelse(cov.interest == cov.interest[1], 1, -1)
-    }
-      
     if (length(cov.interest) != ncol(ymat)){
       stop("[CLEAN] The number of elements in cov.interest does not match with the number of columns in ymat.")
     }
     
+    if (is.null(mod0)){
+      mod0=rep(1, ncol(ymat))
+    }
+    
+    if (length(table(cov.interest)) == 2){
+      cov.interest = ifelse(cov.interest == cov.interest[1], 1, -1)
+    }
+      
     fit = CleanDiff(ymat = ymat, 
                     cortex = cortex,
                     mod0 = mod0,

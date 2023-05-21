@@ -37,7 +37,7 @@ combine=function(lst, alpha = 0.05, collapse = F){
     permMin=apply(do.call("cbind",lapply(lst, function(x){x$permMin})),1,min)
     permMax=apply(do.call("cbind",lapply(lst, function(x){x$permMax})),1,max)
     perm=pmax(abs(permMin),abs(permMax))
-    threshold=c(-quantile(perm,1-alpha),quantile(perm,1-alpha))
+    threshold=quantile(perm,1-alpha)^2
   }
   
   if (collapse){
