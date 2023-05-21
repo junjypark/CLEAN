@@ -12,8 +12,6 @@ Please visit [R](https://github.com/mandymejia/ciftiTools), [Python](https://git
 
 As of May 20, 2023, The 0.4.0 version of the R package has major changes. Importantly, a series of work that needed to be handled by researchers are simplified, and it now supports `Clean`, `CleanR` and `CleanV` functions that conduct analysis in one step. Documentations are also available once you load the package. 
 
-*Note*: The current version of the package is a beta version and may contain bugs. Please forward your inquiries to `junjy.park [[at]] utoronto [[dot]] ca` and we will respond in 48 hours. Thank you!
-
 ## Contents
 
 1. [Installation and usage](#id-installation)
