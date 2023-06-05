@@ -33,7 +33,9 @@ CleanR(
 
 \item{mod}{A N times p covariate matrix (p: # of covariates). It can be generated easily by using the \code{model.matrix()} function.}
 
-\item{sacf}{A spatial autocorrelation function. The exponential function (\code{exp}) is assumed as a default. Other choices include \code{gau} (Gaussian) or \code{mix} (mixture of exponential and Gaussian).}
+\item{sacfY}{A spatial autocorrelation function for modality Y. The exponential function (\code{exp}) is assumed as a default. Other choices include \code{gau} (Gaussian) or \code{mix} (mixture of exponential and Gaussian).}
+
+\item{sacfX}{A spatial autocorrelation function for modality X. The exponential function (\code{exp}) is assumed as a default. Other choices include \code{gau} (Gaussian) or \code{mix} (mixture of exponential and Gaussian).}
 
 \item{max.radius}{The maximum radius for cluster enhancement. 20 is assumed as a default.}
 

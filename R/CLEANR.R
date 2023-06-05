@@ -3,7 +3,7 @@
 # mod         : a N times p covariate matrix (p: # of covariates)
 #             : It can be generated easily by using the model.matrix() function.
 # distmat     : a V times V distance matrix
-# sacf        : spatial autocorrelation function
+# sacfX,sacfY : spatial autocorrelation function
 #             : The exponential function is assumed as a default.
 #             : Other choices include "gau" (Gaussian) 
 #             : and "mix" (mixture of exponential and Gaussian)
@@ -21,7 +21,8 @@ CleanR=function(xmat,
                 distmat, 
                 cortex = NULL,
                 mod = NULL,
-                sacf = "exp",
+                sacfY = "exp",
+                sacfX = "exp",
                 max.radius = 20,
                 nperm = 5000, 
                 alpha = 0.05,
@@ -58,8 +59,8 @@ CleanR=function(xmat,
     mod=rep(1, ncol(ymat))
   }
   
-  ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=mod, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out
-  xmat.leverage = spLeverage(data=xmat, distmat=distmat, mod0=mod, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out
+  ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=mod, sacf=sacfY, nngp=nngp, nngp.J=nngp.J)$out
+  xmat.leverage = spLeverage(data=xmat, distmat=distmat, mod0=mod, sacf=sacfX, nngp=nngp, nngp.J=nngp.J)$out
   xmat.leverage=t(apply(xmat.leverage,1,scale))/sqrt(ncol(xmat.leverage)-1)
   ymat.leverage=t(apply(ymat.leverage,1,scale))/sqrt(ncol(ymat.leverage)-1)
   
