@@ -20,16 +20,16 @@ spLeverage=function(data, distmat=NULL, mod0=NULL, sacf="exp", nngp=T, nngp.J=50
     
     if (sacf=="exp"){
       f.exp=exp(-phi*distmat)
-      Sigma=sigma2*f.exp(phi,distmat)+tau2*diag(nrow(distmat))
+      Sigma=sigma2*f.exp+tau2*diag(nrow(distmat))
     } else if (sacf=="gau"){
       f.gau=exp(-phi*distmat^2/2)
-      Sigma=sigma2*f.gau(phi,distmat)+tau2*diag(distmat)
+      Sigma=sigma2*f.gau+tau2*diag(nrow(distmat))
     } else if (sacf=="mix"){
       f.exp=exp(-phi*distmat)
       f.gau=exp(-phi*distmat^2/2)
       
-      Sigma=sigma2[1]*f.exp(phi[1],distmat)+
-        sigma2[2]*f.gau(phi[2],distmat)+
+      Sigma=sigma2[1]*f.exp+
+        sigma2[2]*f.gau+
         tau2*diag(nrow(distmat))
     }
     
