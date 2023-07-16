@@ -25,20 +25,20 @@ combine=function(lst, alpha = 0.05, collapse = F){
   
   Tstat=do.call("c",lapply(lst, function(x){x$Tstat}))
 
-  if (alternative=="less"){
-    permMax=NULL
+  if (alternative=="two.sided"){
     permMin=apply(do.call("cbind",lapply(lst, function(x){x$permMin})),1,min)
-    threshold=quantile(permMin,alpha)
+    permMax=apply(do.call("cbind",lapply(lst, function(x){x$permMax})),1,max)
+    perm=pmax(abs(permMin), abs(permMax))
+    threshold=quantile(perm, 1-alpha)
   } else if (alternative=="greater"){
     permMin=NULL
     permMax=apply(do.call("cbind",lapply(lst, function(x){x$permMax})),1,max)
     threshold=quantile(permMax,1-alpha)
-  } else {
+  } else if (alternative=="less"){
+    permMax=NULL
     permMin=apply(do.call("cbind",lapply(lst, function(x){x$permMin})),1,min)
-    permMax=apply(do.call("cbind",lapply(lst, function(x){x$permMax})),1,max)
-    perm=pmax(abs(permMin),abs(permMax))
-    threshold=quantile(perm,1-alpha)^2
-  }
+    threshold=quantile(permMin,alpha)
+  } 
   
   if (collapse){
     lst=list(
