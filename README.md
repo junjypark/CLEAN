@@ -120,7 +120,7 @@ Yes, it is **necessary** to set a brain-wise threshold that controls FWER at the
 ```R
 Clean.fit.lh = Clean(dataLH, distmatLH, nperm = 5000, seed = 1)
 Clean.fit.rh = Clean(dataRH, distmatRH, nperm = 5000, seed = 1)
-Clean.fit.combine = combine(Clean.fit.brain = list(Clean.fit.lh, Clean.fit.rh), alpha = 0.05)
+Clean.fit.combine = combine(lst = list(Clean.fit.lh, Clean.fit.rh), alpha = 0.05, collapse = TRUE)
 ```
 
 <div id='id-q5'/>
