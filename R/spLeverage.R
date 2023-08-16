@@ -10,7 +10,7 @@ spLeverage=function(data, distmat=NULL, mod0=NULL, sacf="exp", nngp=T, nngp.J=50
   
   if (nngp & nngp.J<nrow(distmat)){
     NNGPinfo=constructNNGPinfo(distmat, NN=min(nngp.J))
-    NNGPprec=buildNNGPmat(distmat, NNGPinfo, covreg.fit)$NNGPprec
+    NNGPprec=buildNNGPmat(distmat, NNGPinfo, covreg.fit, sacf)$NNGPprec
     data.new=as.matrix(NNGPprec%*%data)
   } else{
     
