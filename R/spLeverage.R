@@ -25,8 +25,8 @@ spLeverage=function(data, distmat=NULL, mod0=NULL, sacf="exp", nngp=T, nngp.J=50
       f.gau=exp(-phi*distmat^2/2)
       Sigma=sigma2*f.gau+tau2*diag(nrow(distmat))
     } else if (sacf=="mix"){
-      f.exp=exp(-phi*distmat)
-      f.gau=exp(-phi*distmat^2/2)
+      f.exp=exp(-phi[1]*distmat)
+      f.gau=exp(-phi[2]*distmat^2/2)
       
       Sigma=sigma2[1]*f.exp+
         sigma2[2]*f.gau+
