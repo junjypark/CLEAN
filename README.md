@@ -127,7 +127,7 @@ Clean.fit.combine = combine(lst = list(Clean.fit.lh, Clean.fit.rh), alpha = 0.05
 
 **What is the recommended value for** `max.radius`**?**
 
-The `max.radius` determines the degree of the spatial domain you're borrowing information from. Higher sensitivity obtained from a large value of `max.radius`, however, comes with the cost of decreased specificity. It should be determined a priori before obtaining any result. We empirically found values between 10 and 20 useful for interpretation. Please report these values in your article.
+The `max.radius` determines the degree of the spatial domain you're borrowing information from. Similar to the optimal smoothing levels in imaging preprocessing, the optimal `max.radius` must be determined a priori based on the purpose of research. For example, higher sensitivity obtained from a large value of `max.radius` comes with the cost of decreased specificity. Therefore, if increasing specificity is an important issue, then using the default value (20mm) is not recommended and one should consider reducing it. We empirically found values between 10 and 20 useful for interpretation. Please report these values in your article.
   
 <div id='id-q6'/>
 
