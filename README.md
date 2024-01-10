@@ -149,7 +149,7 @@ Please use the following to cite CLEAN, CLEAN-R, or CLEAN-V.
 > Weinstein SM *et al*. (2022) Spatially-enhanced clusterwise inference for testing and localizing intermodal correspondence. NeuroImage, 264, 119712 [article link](https://doi.org/10.1016/j.neuroimage.2022.119712)
 
 **CLEAN-V**
-> Pan R *et al*. (2023) Spatial-extent inference for testing variance components in reliability and heritability studies. Imaging Neuroscience (in press) [article link](https://doi.org/10.1162/imag_a_00058)
+> Pan R *et al*. (2024) Spatial-extent inference for testing variance components in reliability and heritability studies. Imaging Neuroscience [article link](https://doi.org/10.1162/imag_a_00058)
 
 
 ---
