@@ -7,7 +7,8 @@ process = function(fit, threshold = NULL){
     Tstat_max = apply(matrix(fit$Tstat, n.locations), 1, max)
     Tstat_min = apply(matrix(fit$Tstat, n.locations), 1, min)
     Tstat = ifelse(abs(Tstat_max) > abs(Tstat_min), Tstat_max, Tstat_min)
-    Tstat[abs(Tstat) < threshold] = 0    
+    Tstat_thresholded = Tstat
+    Tstat_thresholded[abs(Tstat) < threshold] = 0    
   } else if (alternative == "greater"){
     Tstat = apply(matrix(fit$Tstat, n.locations), 1, max)
     Tstat_thresholded = Tstat
