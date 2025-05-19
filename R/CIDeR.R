@@ -1,25 +1,3 @@
-library(Rcpp)
-library(RcppArmadillo)
-source("CovReg.R")
-source("CovRegOptim.R")
-Rcpp::sourceCpp("CovRegOptim2C.cpp")
-source("CovRegOptim2.R")
-source("ObtainVarComps.R")
-source("ObtainVarComps2.R")
-source("combine.R")
-source("process.R")
-source("spLeverage.R")
-source("spLeverage_safe.R")
-source("buildNNmatrixDist.R")
-source("buildNNGPmat.R")
-source("ConstructNNGPinfo.R")
-source("adjustMeanVar.R")
-Rcpp::sourceCpp("MeanVarWithin.cpp")
-Rcpp::sourceCpp("CIDeR_perm.cpp")
-Rcpp::sourceCpp("adjust_local_variance.cpp")
-#We provide two methods for mean and varaince modelling in the stage I
-#Using between subjects methods, e.g., mean_var_mod =list(method="between", mod_mean=NULL, var_formula=NULL)
-#or within subjects as IMCo, e.g., mean_var_mod =list(method="within", radius=15)
 CIDeR=function(m1, m2, cov_df, distmat,
                cortex,
                cov.nuisance = NULL,
