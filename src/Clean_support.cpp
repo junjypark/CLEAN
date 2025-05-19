@@ -270,8 +270,6 @@ Rcpp::List CleanVarC(arma::mat& ymat, arma::sp_mat& NNmatrix, arma::sp_mat& Kmat
 
 
 // [[Rcpp::export]]
-// ymat is V*N
-// xmat is N*p
 Rcpp::List Ciderperm(arma::mat& ymat,  arma::mat& xmat, arma::sp_mat& NNmatrix, int nperm, int s){
   int q=NNmatrix.n_rows;
   int n=ymat.n_cols;
