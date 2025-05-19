@@ -21,31 +21,6 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
-// Ciderperm
-// ymat is V*N // xmat is N*p Rcpp::List Ciderperm(arma::mat& ymat, arma::mat& xmat, arma::sp_mat& NNmatrix, int nperm, int s);
-RcppExport SEXP _CLEAN_Ciderperm(SEXP ymatSEXP, SEXP xmatSEXP, SEXP NNmatrixSEXP, SEXP npermSEXP, SEXP sSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::mat& >::type ymat(ymatSEXP);
-    Rcpp::traits::input_parameter< arma::mat& >::type xmat(xmatSEXP);
-    Rcpp::traits::input_parameter< arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
-    Rcpp::traits::input_parameter< int >::type nperm(npermSEXP);
-    Rcpp::traits::input_parameter< int >::type s(sSEXP);
-    rcpp_result_gen = Rcpp::wrap(Ciderperm(ymat, xmat, NNmatrix, nperm, s));
-    return rcpp_result_gen;
-END_RCPP
-}
-// set_seed
-void set_seed(unsigned int seed);
-RcppExport SEXP _CLEAN_set_seed(SEXP seedSEXP) {
-BEGIN_RCPP
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< unsigned int >::type seed(seedSEXP);
-    set_seed(seed);
-    return R_NilValue;
-END_RCPP
-}
 // CleanMeanC
 Rcpp::List CleanMeanC(arma::mat& ymat, arma::sp_mat& NNmatrix, int nperm, int s);
 RcppExport SEXP _CLEAN_CleanMeanC(SEXP ymatSEXP, SEXP NNmatrixSEXP, SEXP npermSEXP, SEXP sSEXP) {
@@ -155,6 +130,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Ciderperm
+// ymat is V*N // xmat is N*p Rcpp::List Ciderperm(arma::mat& ymat, arma::mat& xmat, arma::sp_mat& NNmatrix, int nperm, int s);
+RcppExport SEXP _CLEAN_Ciderperm(SEXP ymatSEXP, SEXP xmatSEXP, SEXP NNmatrixSEXP, SEXP npermSEXP, SEXP sSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type ymat(ymatSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type xmat(xmatSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
+    Rcpp::traits::input_parameter< int >::type nperm(npermSEXP);
+    Rcpp::traits::input_parameter< int >::type s(sSEXP);
+    rcpp_result_gen = Rcpp::wrap(Ciderperm(ymat, xmat, NNmatrix, nperm, s));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CovRegOptim2C
 double CovRegOptim2C(NumericVector phi, const arma::mat& epsilon, const arma::sp_mat& corMat_base1, const arma::sp_mat& corMat_base2);
 RcppExport SEXP _CLEAN_CovRegOptim2C(SEXP phiSEXP, SEXP epsilonSEXP, SEXP corMat_base1SEXP, SEXP corMat_base2SEXP) {
@@ -221,8 +211,6 @@ END_RCPP
 
 static const R_CallMethodDef CallEntries[] = {
     {"_CLEAN_set_seed", (DL_FUNC) &_CLEAN_set_seed, 1},
-    {"_CLEAN_Ciderperm", (DL_FUNC) &_CLEAN_Ciderperm, 5},
-    {"_CLEAN_set_seed", (DL_FUNC) &_CLEAN_set_seed, 1},
     {"_CLEAN_CleanMeanC", (DL_FUNC) &_CLEAN_CleanMeanC, 4},
     {"_CLEAN_CleanDiffC", (DL_FUNC) &_CLEAN_CleanDiffC, 5},
     {"_CLEAN_CleanerPermC", (DL_FUNC) &_CLEAN_CleanerPermC, 4},
@@ -231,6 +219,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_CLEAN_CovRegOptimC", (DL_FUNC) &_CLEAN_CovRegOptimC, 3},
     {"_CLEAN_ObtainVarCompsC", (DL_FUNC) &_CLEAN_ObtainVarCompsC, 3},
     {"_CLEAN_CleanVarC", (DL_FUNC) &_CLEAN_CleanVarC, 5},
+    {"_CLEAN_Ciderperm", (DL_FUNC) &_CLEAN_Ciderperm, 5},
     {"_CLEAN_CovRegOptim2C", (DL_FUNC) &_CLEAN_CovRegOptim2C, 4},
     {"_CLEAN_MeanVarWithin", (DL_FUNC) &_CLEAN_MeanVarWithin, 2},
     {"_CLEAN_adjust_local_variance", (DL_FUNC) &_CLEAN_adjust_local_variance, 3},

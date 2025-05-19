@@ -5,14 +5,6 @@ set_seed <- function(seed) {
     invisible(.Call('_CLEAN_set_seed', PACKAGE = 'CLEAN', seed))
 }
 
-Ciderperm <- function(ymat, xmat, NNmatrix, nperm, s) {
-    .Call('_CLEAN_Ciderperm', PACKAGE = 'CLEAN', ymat, xmat, NNmatrix, nperm, s)
-}
-
-set_seed <- function(seed) {
-    invisible(.Call('_CLEAN_set_seed', PACKAGE = 'CLEAN', seed))
-}
-
 CleanMeanC <- function(ymat, NNmatrix, nperm, s) {
     .Call('_CLEAN_CleanMeanC', PACKAGE = 'CLEAN', ymat, NNmatrix, nperm, s)
 }
@@ -43,6 +35,10 @@ ObtainVarCompsC <- function(rho, epsilon, corMat_base) {
 
 CleanVarC <- function(ymat, NNmatrix, Kmatrix, nperm, s) {
     .Call('_CLEAN_CleanVarC', PACKAGE = 'CLEAN', ymat, NNmatrix, Kmatrix, nperm, s)
+}
+
+Ciderperm <- function(ymat, xmat, NNmatrix, nperm, s) {
+    .Call('_CLEAN_Ciderperm', PACKAGE = 'CLEAN', ymat, xmat, NNmatrix, nperm, s)
 }
 
 CovRegOptim2C <- function(phi, epsilon, corMat_base1, corMat_base2) {
