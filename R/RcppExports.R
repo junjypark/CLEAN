@@ -5,6 +5,14 @@ set_seed <- function(seed) {
     invisible(.Call('_CLEAN_set_seed', PACKAGE = 'CLEAN', seed))
 }
 
+Ciderperm <- function(ymat, xmat, NNmatrix, nperm, s) {
+    .Call('_CLEAN_Ciderperm', PACKAGE = 'CLEAN', ymat, xmat, NNmatrix, nperm, s)
+}
+
+set_seed <- function(seed) {
+    invisible(.Call('_CLEAN_set_seed', PACKAGE = 'CLEAN', seed))
+}
+
 CleanMeanC <- function(ymat, NNmatrix, nperm, s) {
     .Call('_CLEAN_CleanMeanC', PACKAGE = 'CLEAN', ymat, NNmatrix, nperm, s)
 }
@@ -35,5 +43,25 @@ ObtainVarCompsC <- function(rho, epsilon, corMat_base) {
 
 CleanVarC <- function(ymat, NNmatrix, Kmatrix, nperm, s) {
     .Call('_CLEAN_CleanVarC', PACKAGE = 'CLEAN', ymat, NNmatrix, Kmatrix, nperm, s)
+}
+
+CovRegOptim2C <- function(phi, epsilon, corMat_base1, corMat_base2) {
+    .Call('_CLEAN_CovRegOptim2C', PACKAGE = 'CLEAN', phi, epsilon, corMat_base1, corMat_base2)
+}
+
+MeanVarWithin <- function(m, NNmatrix) {
+    .Call('_CLEAN_MeanVarWithin', PACKAGE = 'CLEAN', m, NNmatrix)
+}
+
+adjust_local_variance <- function(m1, m2, NNmatrix) {
+    .Call('_CLEAN_adjust_local_variance', PACKAGE = 'CLEAN', m1, m2, NNmatrix)
+}
+
+adjust_data_local_sd <- function(m1, NNmatrix) {
+    .Call('_CLEAN_adjust_data_local_sd', PACKAGE = 'CLEAN', m1, NNmatrix)
+}
+
+adjust_data_local_sd_both <- function(m1, NNmatrix) {
+    .Call('_CLEAN_adjust_data_local_sd_both', PACKAGE = 'CLEAN', m1, NNmatrix)
 }
 

@@ -21,6 +21,31 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// Ciderperm
+// ymat is V*N // xmat is N*p Rcpp::List Ciderperm(arma::mat& ymat, arma::mat& xmat, arma::sp_mat& NNmatrix, int nperm, int s);
+RcppExport SEXP _CLEAN_Ciderperm(SEXP ymatSEXP, SEXP xmatSEXP, SEXP NNmatrixSEXP, SEXP npermSEXP, SEXP sSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type ymat(ymatSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type xmat(xmatSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
+    Rcpp::traits::input_parameter< int >::type nperm(npermSEXP);
+    Rcpp::traits::input_parameter< int >::type s(sSEXP);
+    rcpp_result_gen = Rcpp::wrap(Ciderperm(ymat, xmat, NNmatrix, nperm, s));
+    return rcpp_result_gen;
+END_RCPP
+}
+// set_seed
+void set_seed(unsigned int seed);
+RcppExport SEXP _CLEAN_set_seed(SEXP seedSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< unsigned int >::type seed(seedSEXP);
+    set_seed(seed);
+    return R_NilValue;
+END_RCPP
+}
 // CleanMeanC
 Rcpp::List CleanMeanC(arma::mat& ymat, arma::sp_mat& NNmatrix, int nperm, int s);
 RcppExport SEXP _CLEAN_CleanMeanC(SEXP ymatSEXP, SEXP NNmatrixSEXP, SEXP npermSEXP, SEXP sSEXP) {
@@ -130,8 +155,73 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// CovRegOptim2C
+double CovRegOptim2C(NumericVector phi, const arma::mat& epsilon, const arma::sp_mat& corMat_base1, const arma::sp_mat& corMat_base2);
+RcppExport SEXP _CLEAN_CovRegOptim2C(SEXP phiSEXP, SEXP epsilonSEXP, SEXP corMat_base1SEXP, SEXP corMat_base2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type phi(phiSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type epsilon(epsilonSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type corMat_base1(corMat_base1SEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type corMat_base2(corMat_base2SEXP);
+    rcpp_result_gen = Rcpp::wrap(CovRegOptim2C(phi, epsilon, corMat_base1, corMat_base2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// MeanVarWithin
+arma::mat MeanVarWithin(const arma::mat& m, const arma::sp_mat& NNmatrix);
+RcppExport SEXP _CLEAN_MeanVarWithin(SEXP mSEXP, SEXP NNmatrixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type m(mSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
+    rcpp_result_gen = Rcpp::wrap(MeanVarWithin(m, NNmatrix));
+    return rcpp_result_gen;
+END_RCPP
+}
+// adjust_local_variance
+arma::mat adjust_local_variance(const arma::mat& m1, const arma::mat& m2, const arma::sp_mat& NNmatrix);
+RcppExport SEXP _CLEAN_adjust_local_variance(SEXP m1SEXP, SEXP m2SEXP, SEXP NNmatrixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type m1(m1SEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type m2(m2SEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
+    rcpp_result_gen = Rcpp::wrap(adjust_local_variance(m1, m2, NNmatrix));
+    return rcpp_result_gen;
+END_RCPP
+}
+// adjust_data_local_sd
+arma::mat adjust_data_local_sd(const arma::mat& m1, const arma::sp_mat& NNmatrix);
+RcppExport SEXP _CLEAN_adjust_data_local_sd(SEXP m1SEXP, SEXP NNmatrixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type m1(m1SEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
+    rcpp_result_gen = Rcpp::wrap(adjust_data_local_sd(m1, NNmatrix));
+    return rcpp_result_gen;
+END_RCPP
+}
+// adjust_data_local_sd_both
+arma::mat adjust_data_local_sd_both(const arma::mat& m1, const arma::sp_mat& NNmatrix);
+RcppExport SEXP _CLEAN_adjust_data_local_sd_both(SEXP m1SEXP, SEXP NNmatrixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type m1(m1SEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
+    rcpp_result_gen = Rcpp::wrap(adjust_data_local_sd_both(m1, NNmatrix));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_CLEAN_set_seed", (DL_FUNC) &_CLEAN_set_seed, 1},
+    {"_CLEAN_Ciderperm", (DL_FUNC) &_CLEAN_Ciderperm, 5},
     {"_CLEAN_set_seed", (DL_FUNC) &_CLEAN_set_seed, 1},
     {"_CLEAN_CleanMeanC", (DL_FUNC) &_CLEAN_CleanMeanC, 4},
     {"_CLEAN_CleanDiffC", (DL_FUNC) &_CLEAN_CleanDiffC, 5},
@@ -141,6 +231,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_CLEAN_CovRegOptimC", (DL_FUNC) &_CLEAN_CovRegOptimC, 3},
     {"_CLEAN_ObtainVarCompsC", (DL_FUNC) &_CLEAN_ObtainVarCompsC, 3},
     {"_CLEAN_CleanVarC", (DL_FUNC) &_CLEAN_CleanVarC, 5},
+    {"_CLEAN_CovRegOptim2C", (DL_FUNC) &_CLEAN_CovRegOptim2C, 4},
+    {"_CLEAN_MeanVarWithin", (DL_FUNC) &_CLEAN_MeanVarWithin, 2},
+    {"_CLEAN_adjust_local_variance", (DL_FUNC) &_CLEAN_adjust_local_variance, 3},
+    {"_CLEAN_adjust_data_local_sd", (DL_FUNC) &_CLEAN_adjust_data_local_sd, 2},
+    {"_CLEAN_adjust_data_local_sd_both", (DL_FUNC) &_CLEAN_adjust_data_local_sd_both, 2},
     {NULL, NULL, 0}
 };
 
