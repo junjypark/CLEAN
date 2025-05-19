@@ -131,7 +131,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // Ciderperm
-// ymat is V*N // xmat is N*p Rcpp::List Ciderperm(arma::mat& ymat, arma::mat& xmat, arma::sp_mat& NNmatrix, int nperm, int s);
+Rcpp::List Ciderperm(arma::mat& ymat, arma::mat& xmat, arma::sp_mat& NNmatrix, int nperm, int s);
 RcppExport SEXP _CLEAN_Ciderperm(SEXP ymatSEXP, SEXP xmatSEXP, SEXP NNmatrixSEXP, SEXP npermSEXP, SEXP sSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
