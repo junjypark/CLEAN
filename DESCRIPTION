@@ -9,4 +9,4 @@ License: GPL-3
 Imports: Rcpp (>= 1.0.8)
 LinkingTo: Rcpp, RcppArmadillo, Matrix, foreach, doParallel
 Encoding: UTF-8
-Depends: Rcpp, Matrix, foreach, doParallel
+Depends: Rcpp, Matrix, foreach, doParallel, nlme
