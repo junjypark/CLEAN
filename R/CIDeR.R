@@ -1,12 +1,15 @@
+#We provide two methods for mean and varaince modelling in the stage I
+#Using between subjects methods, e.g., mean_var_mod =list(method="between", mod_mean=NULL, var_formula=NULL)
+#or within subjects as IMCo, e.g., mean_var_mod =list(method="within", radius=15)
 CIDeR=function(m1, m2, cov_df, distmat,
-               cortex,
+               cortex=NULL,
                cov.nuisance = NULL,
                cov.interest = NULL,
                mean_var_mod =list(method="between", mod_mean=NULL, var_formula=NULL, local_variance=T), #for mean and varaince modelling,
                #mean_var_mod =list(method="within", radius=15), # second approach
                #mean_var_mod =list(method="both", radius=15, mod_mean=NULL, var_formula=NULL), #combine two approaches
                spatial = T, #for spatial autocorrelation modelling
-               sp.radius=0, #if scale the residual before spatial modelling
+               sp.radius=0, #if local pooling after spatial modelling
                sacf = "mix",
                nngp = T,
                nngp.J = 50,
@@ -28,10 +31,10 @@ CIDeR=function(m1, m2, cov_df, distmat,
   #StageI-step1, adjust the individual mean and variance
   if (mean_var_mod$method=="between") {
     res = MeanVarBetween(m1,m2,cov_df,
-                          mean_var_mod$mod_mean,
-                          mean_var_mod$var_formula,
-                          parallel=parallel,
-                          ncores=ncores)
+                         mean_var_mod$mod_mean,
+                         mean_var_mod$var_formula,
+                         parallel=parallel,
+                         ncores=ncores)
     res1 = res$res1
     res2 = res$res2
     #StageI-step2, adjust the spatial autocorrelation
@@ -47,38 +50,38 @@ CIDeR=function(m1, m2, cov_df, distmat,
   } else if (mean_var_mod$method=="both") {
     LNNmatrix = buildLNNmatrix(distmat, max.radius = mean_var_mod$radius)
     res1 = MeanVarboth(m1, LNNmatrix,
-                        cov_df,
-                        mean_var_mod$mod_mean,
-                        mean_var_mod$var_formula,
-                        parallel=parallel,
-                        ncores=ncores)
+                       cov_df,
+                       mean_var_mod$mod_mean,
+                       mean_var_mod$var_formula,
+                       parallel=parallel,
+                       ncores=ncores)
     res2 = MeanVarboth(m2, LNNmatrix,
-                        cov_df,
-                        mean_var_mod$mod_mean,
-                        mean_var_mod$var_formula,
-                        parallel=parallel,
-                        ncores=ncores)
+                       cov_df,
+                       mean_var_mod$mod_mean,
+                       mean_var_mod$var_formula,
+                       parallel=parallel,
+                       ncores=ncores)
   }
-    
   
- 
+  
+  
   
   if (spatial) {
     res1_sp_out = safe_spLeverage(res1, distmat, sacf=sacf, nngp, nngp.J)
     res2_sp_out = safe_spLeverage(res2, distmat, sacf=sacf, nngp, nngp.J)
-
+    
     res1 = t(res1_sp_out$result$out)
     res2 = t(res2_sp_out$result$out)
   } 
- 
+  
   
   if (sp.radius > 0) {
-      LNNmatrix = buildLNNmatrix(distmat, max.radius = sp.radius)
-      res1 = adjust_data_local_sd(res1, LNNmatrix)
-      res2 = adjust_data_local_sd(res2, LNNmatrix)
+    LNNmatrix = buildLNNmatrix(distmat, max.radius = sp.radius)
+    res1 = adjust_data_local_sd(res1, LNNmatrix)
+    res2 = adjust_data_local_sd(res2, LNNmatrix)
   }
   
-
+  
   
   rho = res1*res2
   
