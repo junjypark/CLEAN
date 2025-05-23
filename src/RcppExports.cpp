@@ -196,18 +196,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// adjust_data_local_sd_both
-arma::mat adjust_data_local_sd_both(const arma::mat& m1, const arma::sp_mat& NNmatrix);
-RcppExport SEXP _CLEAN_adjust_data_local_sd_both(SEXP m1SEXP, SEXP NNmatrixSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const arma::mat& >::type m1(m1SEXP);
-    Rcpp::traits::input_parameter< const arma::sp_mat& >::type NNmatrix(NNmatrixSEXP);
-    rcpp_result_gen = Rcpp::wrap(adjust_data_local_sd_both(m1, NNmatrix));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_CLEAN_set_seed", (DL_FUNC) &_CLEAN_set_seed, 1},
@@ -224,7 +212,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_CLEAN_MeanVarWithin", (DL_FUNC) &_CLEAN_MeanVarWithin, 2},
     {"_CLEAN_adjust_local_variance", (DL_FUNC) &_CLEAN_adjust_local_variance, 3},
     {"_CLEAN_adjust_data_local_sd", (DL_FUNC) &_CLEAN_adjust_data_local_sd, 2},
-    {"_CLEAN_adjust_data_local_sd_both", (DL_FUNC) &_CLEAN_adjust_data_local_sd_both, 2},
     {NULL, NULL, 0}
 };
 

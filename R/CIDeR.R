@@ -1,20 +1,16 @@
-#We provide two methods for mean and varaince modelling in the stage I
-#Using between subjects methods, e.g., mean_var_mod =list(method="between", mod_mean=NULL, var_formula=NULL)
-#or within subjects as IMCo, e.g., mean_var_mod =list(method="within", radius=15)
+
 CIDeR=function(m1, m2, cov_df, distmat,
                cortex=NULL,
                cov.nuisance = NULL,
                cov.interest = NULL,
-               mean_var_mod =list(method="between", mod_mean=NULL, var_formula=NULL, local_variance=T), #for mean and varaince modelling,
-               #mean_var_mod =list(method="within", radius=15), # second approach
-               #mean_var_mod =list(method="both", radius=15, mod_mean=NULL, var_formula=NULL), #combine two approaches
+               mean_var_mod =list(method="between", mod_mean=NULL, var_formula=NULL), #for mean and varaince modelling,
                spatial = T, #for spatial autocorrelation modelling
-               sp.radius=0, #if local pooling after spatial modelling
+               sp.radius=5, #if local pooling after spatial modelling
                sacf = "mix",
-               nngp = T,
+               nngp = F,
                nngp.J = 50,
-               parallel=T,
-               ncores=3,
+               parallel=F,
+               ncores=1,
                max.radius = 15, #for cluster enhancement
                nperm = 5000, #for permutation
                alpha = 0.05,
@@ -29,73 +25,59 @@ CIDeR=function(m1, m2, cov_df, distmat,
   }
   
   #StageI-step1, adjust the individual mean and variance
+  print("stageI-step1")
   if (mean_var_mod$method=="between") {
-    res = MeanVarBetween(m1,m2,cov_df,
-                         mean_var_mod$mod_mean,
-                         mean_var_mod$var_formula,
-                         parallel=parallel,
-                         ncores=ncores)
-    res1 = res$res1
-    res2 = res$res2
-    #StageI-step2, adjust the spatial autocorrelation
-    if (mean_var_mod$local_variance==T) {
-      LNNmatrix = buildLNNmatrix(distmat, max.radius = max.radius)
-      res1 = adjust_data_local_sd(res1, LNNmatrix)
-      res2 = adjust_data_local_sd(res2, LNNmatrix)
-    }
-  } else if (mean_var_mod$method=="within") {
-    LNNmatrix = buildLNNmatrix(distmat, max.radius = mean_var_mod$radius)
-    res1 = MeanVarWithin(m1, LNNmatrix)
-    res2 = MeanVarWithin(m2, LNNmatrix)
-  } else if (mean_var_mod$method=="both") {
-    LNNmatrix = buildLNNmatrix(distmat, max.radius = mean_var_mod$radius)
-    res1 = MeanVarboth(m1, LNNmatrix,
-                       cov_df,
-                       mean_var_mod$mod_mean,
-                       mean_var_mod$var_formula,
-                       parallel=parallel,
-                       ncores=ncores)
-    res2 = MeanVarboth(m2, LNNmatrix,
-                       cov_df,
-                       mean_var_mod$mod_mean,
-                       mean_var_mod$var_formula,
-                       parallel=parallel,
-                       ncores=ncores)
-  }
-  
-  
-  
-  
-  if (spatial) {
-    res1_sp_out = safe_spLeverage(res1, distmat, sacf=sacf, nngp, nngp.J)
-    res2_sp_out = safe_spLeverage(res2, distmat, sacf=sacf, nngp, nngp.J)
-    
-    res1 = t(res1_sp_out$result$out)
-    res2 = t(res2_sp_out$result$out)
+    res <- MeanVarBetween(m1,m2,cov_df,
+                          mean_var_mod$mod_mean,
+                          mean_var_mod$var_formula,
+                          parallel=parallel,
+                          ncores=ncores)
+    res1 <- res$res1
+    res2 <- res$res2
+    print("between")
   } 
   
+ 
   
-  if (sp.radius > 0) {
-    LNNmatrix = buildLNNmatrix(distmat, max.radius = sp.radius)
-    res1 = adjust_data_local_sd(res1, LNNmatrix)
-    res2 = adjust_data_local_sd(res2, LNNmatrix)
+  if (spatial) {
+    print("stageI-step2_spatial")
+   
+    res1_sp_out <- safe_spLeverage(res1, distmat, sacf=sacf, nngp, nngp.J)
+    res2_sp_out <- safe_spLeverage(res2, distmat, sacf=sacf, nngp, nngp.J)
+    print("spatial autocorrelation finished")
+    
+    
+    res1 <- t(res1_sp_out$result$out)
+    res2 <- t(res2_sp_out$result$out)
+  } else {
+    print("skipping stageI-step2_spatial")
+  }
+ 
+  
+  if (sp.radius > 0 ) {
+      print("pooling local varaince")
+      LNNmatrix <- buildLNNmatrix(distmat, max.radius = sp.radius)
+      res1 <- adjust_data_local_sd(res1, LNNmatrix)
+      res2 <- adjust_data_local_sd(res2, LNNmatrix)
   }
   
+  print("stageII")
   
   
-  rho = res1*res2
-  
+  rho <- res1*res2
   #StageIII regression under the null
   if (is.null(cov.nuisance)) {
-    rho_res = t(lm(rho~1)$residuals)
+    rho_res <- t(lm(rho~1)$residuals)
+    print("stageIII")
   } else {
-    rho_res = t(lm(rho~as.matrix(cov_df[,cov.nuisance,drop = FALSE]))$residuals)
+    rho_res <- t(lm(rho~as.matrix(cov_df[,cov.nuisance,drop = FALSE]))$residuals)
+    print("stageIII")
   }
   
   
   
   #StageIV and V obtain test statistics and permutation 
-  NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
+  NNmatrix <- buildNNmatrixDist(distmat, max.radius = max.radius)
   out = Ciderperm(rho_res, as.matrix(cov_df[,cov.interest,drop = FALSE]), NNmatrix, nperm, seed) #V*N, N*p
   out$seed = seed
   out$nlocations = ncol(NNmatrix)
@@ -110,6 +92,7 @@ CIDeR=function(m1, m2, cov_df, distmat,
   out$Tstat_thresholded[cortex] = result_proc$Tstat_thresholded
   
   set.seed(NULL)
+  print("stageIV")
   if (spatial) {
     return(list(out=out, rho=rho, sp=list(res1_sp=res1_sp_out,res2_sp=res2_sp_out)))  
   } else {

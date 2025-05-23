@@ -57,7 +57,3 @@ adjust_data_local_sd <- function(m1, NNmatrix) {
     .Call('_CLEAN_adjust_data_local_sd', PACKAGE = 'CLEAN', m1, NNmatrix)
 }
 
-adjust_data_local_sd_both <- function(m1, NNmatrix) {
-    .Call('_CLEAN_adjust_data_local_sd_both', PACKAGE = 'CLEAN', m1, NNmatrix)
-}
-
