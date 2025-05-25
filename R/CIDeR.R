@@ -3,7 +3,8 @@ CIDeR=function(m1, m2, cov_df, distmat,
                cortex=NULL,
                cov.nuisance = NULL,
                cov.interest = NULL,
-               mean_var_mod =list(method="between", mod_mean=NULL, var_formula=NULL), #for mean and varaince modelling,
+               mean_var_mod =list(formula1=~1, sigma.formula1=~1, family1=NO(),
+                                  formula2=~1, sigma.formula2=~1, family2=NO()), #for mean and varaince modelling,
                spatial = T, #for spatial autocorrelation modelling
                sp.radius=5, #if local pooling after spatial modelling
                sacf = "mix",
@@ -12,7 +13,7 @@ CIDeR=function(m1, m2, cov_df, distmat,
                parallel=F,
                ncores=1,
                max.radius = 15, #for cluster enhancement
-               nperm = 5000, #for permutation
+               nperm = 2000, #for permutation
                alpha = 0.05,
                seed=1) {
   V = ncol(m1)
@@ -26,16 +27,14 @@ CIDeR=function(m1, m2, cov_df, distmat,
   
   #StageI-step1, adjust the individual mean and variance
   print("stageI-step1")
-  if (mean_var_mod$method=="between") {
-    res <- MeanVarBetween(m1,m2,cov_df,
-                          mean_var_mod$mod_mean,
-                          mean_var_mod$var_formula,
-                          parallel=parallel,
-                          ncores=ncores)
-    res1 <- res$res1
-    res2 <- res$res2
-    print("between")
-  } 
+  res1 <- MeanVarBetween(m1,cov_df,
+                          mean_var_mod$formula1,
+                          mean_var_mod$sigma.formula1,
+                          mean_var_mod$family1)
+  res2 <- MeanVarBetween(m2,cov_df,
+                           mean_var_mod$formula2,
+                           mean_var_mod$sigma.formula2,
+                           mean_var_mod$family2)
   
  
   
