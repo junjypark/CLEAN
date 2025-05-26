@@ -1,5 +1,3 @@
-library(gamlss)
-
 AdjustMeanVar=function(m, cov, formula, sigma.formula, family) {
   df <-  data.frame(y = m, cov)
   fit <- gamlss(formula=formula, sigma.formula = sigma.formula, data = df,
