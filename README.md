@@ -113,7 +113,7 @@ The last step is to subset the distance matrices with your interest, for example
 
 <div id='id-q4'/>
 
-**Is it possible to fit CLEAN/CLEAN-R/CLEAN-V separately for two hemispheres and combine results afterwards?**
+**Is it possible to fit CLEAN/CLEAN-R/CLEAN-V/CIDeR separately for two hemispheres and combine results afterwards?**
 
 Yes, it is **necessary** to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed (`seed`) and the same number of resamples (`nperm`) for the `Clean()` function. Then you may use the `combine()` function to get a new threshold.
 
@@ -131,7 +131,7 @@ The `max.radius` determines the degree of the spatial domain you're borrowing in
   
 <div id='id-q6'/>
 
-**How do I visualize the CLEAN/CLEAN-R/CLEAN-V outputs?**
+**How do I visualize the CLEAN/CLEAN-R/CLEAN-V/CIDeR outputs?**
 
 For these outputs, `Tstat` provides cluster-enhanced test statistics that spatial autocorrelation of imaging data are modeled. `Tstat_thresholded` provides thresholded test statistics where non-significant vertices take the value 0. These vectors can be used for visualizations. For example, the freesurferformats package supports writing and saving FreeSurfer imaging data [link](https://cran.r-project.org/web/packages/freesurferformats/vignettes/freesurferformats_write.html). The ciftiTools package supports writing and saving in cifti format [link](https://cran.r-project.org/web/packages/ciftiTools/ciftiTools.pdf). 
 
