@@ -1,9 +1,12 @@
+library(gamlss)
+
 AdjustMeanVar=function(m, cov, formula, sigma.formula, family) {
   df <-  data.frame(y = m, cov)
   fit <- gamlss(formula=formula, sigma.formula = sigma.formula, data = df,
                 family = family)
   
-  return(list(res_adjust= resid(fit, type = "weighted"),
+  return(list(res_adjust= (fit$y - fitted(fit, what = "mu")) / fitted(fit, what = "sigma"),
+              mu_hat = fitted(fit, what = "mu"),
               s=fitted(fit, what = "sigma"),
               coef=coef(fit,what="sigma")))
 }
