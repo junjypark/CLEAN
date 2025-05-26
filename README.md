@@ -152,7 +152,7 @@ Please use the following to cite CLEAN, CLEAN-R, CLEAN-V or CIDeR.
 > Pan R *et al*. (2024) Spatial-extent inference for testing variance components in reliability and heritability studies. Imaging Neuroscience [article link](https://doi.org/10.1162/imag_a_00058)
 
 **CIDeR**
-Weinstein SM *et al*. (2024). Mapping individual differences in intermodal coupling in neurodevelopment. bioRxiv. [preprint](https://doi.org/10.1101/2024.06.26.600817)
+> Weinstein SM *et al*. (2024). Mapping individual differences in intermodal coupling in neurodevelopment. bioRxiv. [preprint](https://doi.org/10.1101/2024.06.26.600817)
 
 ---
  <div id='id-misc'>
