@@ -24,7 +24,20 @@ CleanDiff=function(ymat,
     cortex= 1:V
   }
   
-  ymat.leverage = spLeverage(data=ymat, distmat=distmat, mod0=mod0, sacf=sacf, nngp=nngp, nngp.J=nngp.J)$out
+  if (is.null(sacf)) {
+    sp.out <- NULL
+    if (!is.null(mod0)){
+      ymat.leverage=t(lm(t(ymat)~mod0)$residuals)
+      q=ncol(mod0)
+    } else{
+      ymat.leverage = ymat
+    }
+    
+  } else {
+    sp.out <- spLeverage(data=ymat, distmat=distmat, mod0=mod0, sacf=sacf, nngp=nngp, nngp.J=nngp.J)
+    ymat.leverage = sp.out$out
+  }
+ 
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)
   
   if (isTRUE(partition)){
@@ -63,7 +76,6 @@ CleanDiff=function(ymat,
         result[[i]]$seed = seed
       }
     }
-    
     out = combine(result, alpha = alpha, collapse = T)
     out$nlocations = ncol(NNmatrix)
     
@@ -72,7 +84,7 @@ CleanDiff=function(ymat,
     out$Tstat[cortex]= result_proc$Tstat
     out$Tstat_thresholded = rep(0, V)
     out$Tstat_thresholded[cortex] = result_proc$Tstat_thresholded
-    
+    out$sp.out = sp.out
     return(out)
   } else{
     out = CleanDiffC(ymat.leverage, NNmatrix, cov.interest, nperm, seed)
@@ -89,13 +101,13 @@ CleanDiff=function(ymat,
     out$alternative = alternative
     out$nlocations = ncol(NNmatrix)
     
-    out = combine(result, alpha = alpha, collapse = T)
+    out = combine(list(out), alpha = alpha, collapse = T)
     result_proc = process(out)
     out$Tstat = rep(0, V)
     out$Tstat[cortex]= result_proc$Tstat
     out$Tstat_thresholded = rep(0, V)
     out$Tstat_thresholded[cortex] = result_proc$Tstat_thresholded
-    
+    out$sp.out = sp.out
     return(out)    
   }
 }
