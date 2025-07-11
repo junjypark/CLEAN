@@ -5,6 +5,7 @@ CleanDiff=function(ymat,
                    cov.interest, 
                    sacf,
                    max.radius,
+                   perm = "Draper–Stoneman", 
                    nperm = 5000, 
                    alpha = 0.05, 
                    alternative = "two.sided", 
@@ -29,6 +30,11 @@ CleanDiff=function(ymat,
     if (!is.null(mod0)){
       ymat.leverage=t(lm(t(ymat)~mod0)$residuals)
       q=ncol(mod0)
+      if (perm == 'Draper–Stoneman') {
+       
+      } else if (perm == "Manly") {
+        cov.interest=t(lm(cov.interest~mod0)$residuals)
+      }
     } else{
       ymat.leverage = ymat
     }
@@ -36,6 +42,11 @@ CleanDiff=function(ymat,
   } else {
     sp.out <- spLeverage(data=ymat, distmat=distmat, mod0=mod0, sacf=sacf, nngp=nngp, nngp.J=nngp.J)
     ymat.leverage = sp.out$out
+    if (perm == 'Draper–Stoneman') {
+      
+    } else if (perm == "Manly") {
+      cov.interest=t(lm(cov.interest~mod0)$residuals)
+    }
   }
  
   NNmatrix = buildNNmatrixDist(distmat, max.radius = max.radius)

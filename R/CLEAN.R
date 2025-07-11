@@ -13,6 +13,7 @@
 #             : Other choices include "gau" (Gaussian) 
 #             : and "mix" (mixture of exponential and Gaussian)
 # max.radius  : The maximum radius for cluster enhancement. 20 is assumed as a default.
+# perm        : Type of permutation. Currently supports "Draper–Stoneman" (permute cov.interesst) or "Manly" (permute (cov.interesst, cov.nuisance)).
 # nperm       : number of permutations to be used. At least 5000 permutation is recommended.
 # alpha       : A desired FWER. alpha=0.05 is assumed as a default.
 # alternative : A direction of the alternative hypothesis. A two-sided testing is assumed as a default.
@@ -28,6 +29,7 @@ Clean=function(ymat,
                cov.interest = NULL, 
                sacf = "exp",
                max.radius = 20,
+               perm = "Draper–Stoneman",
                nperm = 5000, 
                alpha = 0.05, 
                alternative = c("two.sided", "less", "greater"), 
@@ -94,7 +96,8 @@ Clean=function(ymat,
                     cov.interest = cov.interest, 
                     distmat = distmat, 
                     sacf = sacf,
-                    max.radius =max.radius,
+                    max.radius = max.radius,
+                    perm = perm,
                     nperm = nperm, 
                     alpha = alpha, 
                     alternative = alternative,
