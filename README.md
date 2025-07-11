@@ -2,9 +2,9 @@
 
 **Clusterwise inference leveraging spatial autocorrelation in neuroimaging**
 
-R package to apply **CLEAN**, **CLEAN-R**, **CLEAN-V**, and **CIDeR** to neuroimaging data. 
+R package to apply **CLEAN**, **CLEAN-R** and **CLEAN-V** to neuroimaging data. 
 
-CLEAN/CLEAN-R/CLEAN-V/CIDeR supports fast and powerful group-level clusterwise inference for neuroimaging data registered in the cortical surface. The current implementation is computationally efficient. Using a laptop without parallel computing, it takes only a few minutes (mostly less than 10 minutes) to analyze 50 subjects' imaging data across 10,000 vertices. Note that the package also supports parallel computing.
+CLEAN/CLEAN-R/CLEAN-V supports fast and powerful group-level clusterwise inference for neuroimaging data registered in the cortical surface. The current implementation is computationally efficient. Using a laptop without parallel computing, it takes only a few minutes (mostly less than 10 minutes) to analyze 50 subjects' imaging data across 10,000 vertices. Note that the package also supports parallel computing.
 
 Please visit [R](https://github.com/mandymejia/ciftiTools), [Python](https://github.com/edickie/ciftify), or [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) for processing cortical surface data. This package is written in R and works well with the [ciftiTools](https://github.com/mandymejia/ciftiTools) or [freesurferformats](https://cran.r-project.org/web/packages/freesurferformats/index.html) R package. 
 
@@ -113,7 +113,7 @@ The last step is to subset the distance matrices with your interest, for example
 
 <div id='id-q4'/>
 
-**Is it possible to fit CLEAN/CLEAN-R/CLEAN-V/CIDeR separately for two hemispheres and combine results afterwards?**
+**Is it possible to fit CLEAN/CLEAN-R/CLEAN-V separately for two hemispheres and combine results afterwards?**
 
 Yes, it is **necessary** to set a brain-wise threshold that controls FWER at the nominal level. Please make sure you specify the same seed (`seed`) and the same number of resamples (`nperm`) for the `Clean()` function. Then you may use the `combine()` function to get a new threshold.
 
@@ -131,7 +131,7 @@ The `max.radius` determines the degree of the spatial domain you're borrowing in
   
 <div id='id-q6'/>
 
-**How do I visualize the CLEAN/CLEAN-R/CLEAN-V/CIDeR outputs?**
+**How do I visualize the CLEAN/CLEAN-R/CLEAN-V outputs?**
 
 For these outputs, `Tstat` provides cluster-enhanced test statistics that spatial autocorrelation of imaging data are modeled. `Tstat_thresholded` provides thresholded test statistics where non-significant vertices take the value 0. These vectors can be used for visualizations. For example, the freesurferformats package supports writing and saving FreeSurfer imaging data [link](https://cran.r-project.org/web/packages/freesurferformats/vignettes/freesurferformats_write.html). The ciftiTools package supports writing and saving in cifti format [link](https://cran.r-project.org/web/packages/ciftiTools/ciftiTools.pdf). 
 
@@ -140,7 +140,7 @@ For these outputs, `Tstat` provides cluster-enhanced test statistics that spatia
 
 ### Citations
 
-Please use the following to cite CLEAN, CLEAN-R, CLEAN-V or CIDeR.
+Please use the following to cite CLEAN, CLEAN-R, or CLEAN-V.
 
 **CLEAN**
 > Park JY, Fiecas M. (2022) CLEAN: Leveraging spatial autocorrelation in neuroimaging data in clusterwise inference. NeuroImage, 255, 119192. [article link](https://doi.org/10.1016/j.neuroimage.2022.119192)
@@ -150,9 +150,6 @@ Please use the following to cite CLEAN, CLEAN-R, CLEAN-V or CIDeR.
 
 **CLEAN-V**
 > Pan R *et al*. (2024) Spatial-extent inference for testing variance components in reliability and heritability studies. Imaging Neuroscience [article link](https://doi.org/10.1162/imag_a_00058)
-
-**CIDeR**
-> Weinstein SM *et al*. (2024). Mapping individual differences in intermodal coupling in neurodevelopment. bioRxiv. [preprint](https://doi.org/10.1101/2024.06.26.600817)
 
 ---
  <div id='id-misc'>
